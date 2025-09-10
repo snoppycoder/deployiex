@@ -22,7 +22,7 @@ export default function ExpenseCard({
       ? "text-green-500"
       : "text-black";
   return (
-    <div className="w-64 px-4 py-6 flex flex-col border border-gray-300 rounded-lg hover:shadow-lg gap-y-4">
+    <div className="w-48 lg:w-64 xl:w-72 md:56 px-4 py-6 flex flex-col border border-gray-300 rounded-lg hover:shadow-lg gap-y-4">
       <div className="w-full py-2 flex justify-between items-start">
         {title}
         <div className={`${isLogo} ? "block" : "hidden" `}>{Logo}</div>
