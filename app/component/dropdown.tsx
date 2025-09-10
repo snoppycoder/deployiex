@@ -37,7 +37,8 @@ export default function Dropdown() {
               }}
               className="px-3 py-2 hover:bg-gray-100 cursor-pointer flex justify-between text-sm"
             >
-              {option} <Check className="w-4 h-4" />
+              {option}
+              {option == selected ? <Check className="w-4 h-4" /> : <></>}
             </div>
           ))}
         </div>
