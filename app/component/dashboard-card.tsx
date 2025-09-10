@@ -1,6 +1,6 @@
 type DashboardCardProps = {
   title: string;
-  amount: string;
+  amount: number;
   insight: string;
   icon: React.ReactNode;
   isBudget?: boolean;
@@ -13,7 +13,7 @@ export default function DashboardCard(Prop: DashboardCardProps) {
         <h2 className="text-sm font-medium">{Prop.title}</h2>
         {Prop.icon}
       </div>
-      <div className="text-xl font-medium mt-3">{Prop.amount}</div>
+      <div className="text-xl font-medium mt-3">{Prop.amount} Birr</div>
       {Prop.isBudget && (
         <div
           role="progressbar"

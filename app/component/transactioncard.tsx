@@ -34,7 +34,7 @@ export default function TransactionCard({
 
       {/* Right side */}
       <div className="flex items-end gap-x-4">
-        <span className="font-semibold text-gray-800">${amount}</span>
+        <span className="font-semibold text-gray-800">{amount} Birr</span>
         <span
           className={`text-sm font-medium px-2 py-1 rounded-md  ${
             status == "Pending"

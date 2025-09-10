@@ -1,5 +1,6 @@
 import { Camera, Filter, Plus, Receipt, Search } from "lucide-react";
 import Dropdown from "../component/dropdown";
+import TabSwitcher from "../component/ToggleTab";
 
 export default function Expenses() {
   return (
@@ -40,6 +41,9 @@ export default function Expenses() {
         <div className="w-full md:w-48">
           <Dropdown />
         </div>
+      </div>
+      <div className="w-full">
+        <TabSwitcher />
       </div>
     </div>
   );

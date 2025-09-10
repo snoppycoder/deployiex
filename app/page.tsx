@@ -39,26 +39,26 @@ export default function Dashboard() {
       <div className=" w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">
         <DashboardCard
           title={"Total Expense"}
-          amount={"$1,245.67"}
+          amount={1_245.67}
           insight={"+12% more than last month"}
           icon={<ArrowDownRight className="text-red-500" />}
         />
         <DashboardCard
           title={"Total Income"}
-          amount={"$8,753.67"}
+          amount={8_753.67}
           insight={"+8% more than last month"}
           icon={<ArrowUpRight className="text-green-500" />}
         />
         <DashboardCard
           title={"Pending"}
-          amount={"7"}
+          amount={7}
           insight={"3 requests require your action"}
           icon={<Clock className="text-orange-300" />}
         />
         <DashboardCard
           title={"Budget Remaining"}
           isBudget={true}
-          amount={"$1,245.67"}
+          amount={1_245.67}
           insight={"+12% more than last month"}
           icon={<ArrowDownRight className="text-red-500" />}
         />
