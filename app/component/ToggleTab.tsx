@@ -30,7 +30,12 @@ export default function TabSwitcher() {
 
       <div className="mt-4 p-4 border border-gray-300 rounded-lg">
         {activeTab === "live-view" && (
-          <div className="w-full">Here are your List view...</div>
+          <div className="w-full">
+            <h1 className="font-semibold text-lg">Expense List</h1>
+            <span className="text-gray-600 font-medium">
+              All your submitted expenses and their current status
+            </span>
+          </div>
         )}
         {activeTab === "summary" && (
           <div className="w-full">Here are your Summary...</div>
