@@ -38,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen w-full flex flex-col md:flex-row">
-        <aside className="w-full md:w-64 min-h-screen border-r border-gray-300">
+        <aside className="w-full md:w-64 md:min-h-screen border-r border-gray-300">
           <Navbar />
         </aside>
         <main className="flex-1">{children}</main>

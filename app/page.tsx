@@ -13,7 +13,7 @@ import PieChartComponent from "./component/pie-chart";
 import TransactionCard from "./component/transactioncard";
 export default function Dashboard() {
   return (
-    <div className="h-full w-full flex flex-col p-6 pb-2 pt-20 md:pt-6 gap-4">
+    <div className="h-full w-full flex flex-col p-6 pb-2 pt-6 gap-4">
       <div className="w-full flex items-center justify-between">
         <div>
           <h1 className="text-2xl sm:text-3xl">Dashboard</h1>
