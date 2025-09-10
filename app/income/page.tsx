@@ -104,7 +104,7 @@ export default function Income() {
           detail={"4 expenses"}
           type={"Total"}
           isLogo={true}
-          Logo={<DollarSign size={18} />}
+          Logo={<DollarSign size={18} className="text-green-400" />}
         />
         <ExpenseCard
           title={"Recieved"}
@@ -112,7 +112,7 @@ export default function Income() {
           detail={"Payments completed"}
           type={"Approved"}
           isLogo={true}
-          Logo={<ArrowUpRight size={18} />}
+          Logo={<ArrowUpRight size={18} className="text-green-400" />}
         />
         <ExpenseCard
           title={"Total Submitted"}

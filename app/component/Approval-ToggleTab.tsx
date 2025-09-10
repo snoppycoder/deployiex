@@ -5,7 +5,7 @@ import DataTable from "./table";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, SquarePen, Trash } from "lucide-react";
 import ExpenseCard from "./expense-card";
-export default function TabSwitcher() {
+export default function ApprovalTabSwitcher() {
   const [activeTab, setActiveTab] = useState("live-view");
 
   const columns: ColumnDef<(typeof data)[0]>[] = [
