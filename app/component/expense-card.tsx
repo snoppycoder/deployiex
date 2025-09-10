@@ -1,3 +1,5 @@
+import { isCurrency } from "validator";
+
 type ExpenseCardProps = {
   title: string;
   amount: number;
@@ -5,6 +7,7 @@ type ExpenseCardProps = {
   type: "Pending" | "Approved" | "Total";
   isLogo?: boolean;
   Logo?: React.ReactNode;
+  isNotCurrency?: boolean;
 };
 
 export default function ExpenseCard({
@@ -14,6 +17,7 @@ export default function ExpenseCard({
   type,
   Logo,
   isLogo,
+  isNotCurrency,
 }: ExpenseCardProps) {
   const amountColor =
     type === "Pending"
@@ -22,15 +26,18 @@ export default function ExpenseCard({
       ? "text-green-500"
       : "text-black";
   return (
-    <div className="w-48 lg:w-64 xl:w-72 md:56 px-4 py-6 flex flex-col border border-gray-300 rounded-lg hover:shadow-lg gap-y-4">
+    <div className="w-48 xl:w-56 px-4 py-6 flex flex-col border border-gray-300 rounded-lg hover:shadow-lg gap-y-4">
       <div className="w-full py-2 flex justify-between items-start">
         {title}
         <div className={`${isLogo} ? "block" : "hidden" `}>{Logo}</div>
       </div>
       <div className="gap-y-2">
         <div className={`w-full font-semibold text-xl ${amountColor}`}>
-          {amount} Birr
+          <span className="text-xl">
+            {isNotCurrency ? amount : `${amount} Birr`}
+          </span>
         </div>
+
         <div className="w-full text-md">{detail}</div>
       </div>
     </div>
