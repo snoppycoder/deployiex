@@ -6,7 +6,6 @@ import {
   Plus,
   Receipt,
 } from "lucide-react";
-import Image from "next/image";
 import DashboardCard from "./component/dashboard-card";
 import BarChartComponent from "./component/bar-chart";
 import PieChartComponent from "./component/pie-chart";

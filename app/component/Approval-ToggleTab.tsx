@@ -6,6 +6,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Eye, SquarePen, Trash } from "lucide-react";
 import ExpenseCard from "./expense-card";
 import PendingApprovalCard from "./Pending-Approval-Card";
+import IncomeTable from "./income-table";
 export default function ApprovalTabSwitcher() {
   const [activeTab, setActiveTab] = useState("pending");
 
@@ -82,25 +83,8 @@ export default function ApprovalTabSwitcher() {
           </div>
         )}
         {activeTab === "approval" && (
-          <div className="w-full flex justify-between">
-            <ExpenseCard
-              title={"Total Submitted"}
-              amount={550.49}
-              detail={"4 expenses"}
-              type={"Total"}
-            />
-            <ExpenseCard
-              title={"Approved Amount"}
-              amount={205.5}
-              detail={"2 expenses"}
-              type={"Approved"}
-            />
-            <ExpenseCard
-              title={"Total Submitted"}
-              amount={45}
-              detail={"1 expense"}
-              type={"Pending"}
-            />
+          <div className="w-full">
+            <IncomeTable></IncomeTable>
           </div>
         )}
       </div>
