@@ -15,6 +15,7 @@ import DropDown from "../component/dropdown";
 import DashboardCard from "../component/dashboard-card";
 import AnalyticsCard from "../component/Analytics-Card";
 import { tree } from "next/dist/build/templates/app-page";
+import AnalyticsTabSwitcher from "../component/Analytics-Toggle";
 
 export default function Analytics() {
   return (
@@ -84,6 +85,7 @@ export default function Analytics() {
           isPercent={false}
         />
       </div>
+      <AnalyticsTabSwitcher />
     </div>
   );
 }

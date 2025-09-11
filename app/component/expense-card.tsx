@@ -1,5 +1,3 @@
-import { isCurrency } from "validator";
-
 type ExpenseCardProps = {
   title: string;
   amount: number;
