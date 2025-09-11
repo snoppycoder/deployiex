@@ -1,24 +1,24 @@
 import { isCurrency } from "validator";
 
-type DashboardCardProp = {
+type AnalyticsCardProp = {
   title: string;
   amount: number;
   detail: string;
   type: "Pending" | "Approved" | "Total";
   isLogo?: boolean;
   Logo?: React.ReactNode;
-  isNotCurrency?: boolean;
+  isPercent?: boolean;
 };
 
-export default function DashboardCard({
+export default function AnalyticsCard({
   title,
   detail,
   amount,
   type,
   Logo,
   isLogo,
-  isNotCurrency,
-}: DashboardCardProp) {
+  isPercent,
+}: AnalyticsCardProp) {
   const amountColor =
     type === "Pending"
       ? "text-yellow-500"
@@ -34,7 +34,7 @@ export default function DashboardCard({
       <div className="gap-y-1">
         <div className={`w-full text-xl ${amountColor}`}>
           <span className="text-2xl font-medium">
-            {isNotCurrency ? `${amount}` : `${amount} Birr`}
+            {isPercent ? `${amount} %` : `${amount} days`}
           </span>
         </div>
 
