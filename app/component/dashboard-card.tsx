@@ -1,5 +1,3 @@
-import { isCurrency } from "validator";
-
 type DashboardCardProp = {
   title: string;
   amount: number;

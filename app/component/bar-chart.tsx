@@ -10,8 +10,6 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-
-// register Chart.js components
 ChartJS.register(
   CategoryScale,
   LinearScale,

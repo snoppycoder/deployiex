@@ -1,10 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import DataTable from "./table";
-import { ColumnDef } from "@tanstack/react-table";
-import { Eye, SquarePen, Trash } from "lucide-react";
-import ExpenseCard from "./expense-card";
 import PendingApprovalCard from "./Pending-Approval-Card";
 import IncomeTable from "./income-table";
 export default function ApprovalTabSwitcher() {
