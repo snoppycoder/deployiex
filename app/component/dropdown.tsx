@@ -1,12 +1,15 @@
 "use client";
 import { useState } from "react";
 import { Check, ChevronDown, Filter } from "lucide-react";
+type DropDownProp = {
+  options: string[];
+  default?: number;
+};
 
-export default function Dropdown() {
+export default function DropDown(Prop: DropDownProp) {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState("All Status");
-
-  const options = ["All Status", "Approved", "Pending", "Rejected"];
+  const options = Prop.options;
+  const [selected, setSelected] = useState(options[Prop.default ?? 0]);
 
   return (
     <div className="relative w-full md:w-48 ">

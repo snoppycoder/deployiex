@@ -10,6 +10,7 @@ import DashboardCard from "./component/dashboard-card";
 import BarChartComponent from "./component/bar-chart";
 import PieChartComponent from "./component/pie-chart";
 import TransactionCard from "./component/transactioncard";
+import ExpenseCard from "./component/expense-card";
 export default function Dashboard() {
   return (
     <div className="h-full w-full flex flex-col p-6 pb-2 pt-6 gap-4">
@@ -39,27 +40,38 @@ export default function Dashboard() {
         <DashboardCard
           title={"Total Expense"}
           amount={1_245.67}
-          insight={"+12% more than last month"}
-          icon={<ArrowDownRight className="text-red-500" />}
+          detail={"+12% more than last month"}
+          Logo={<ArrowDownRight size={18} className="text-red-500" />}
+          isLogo={true}
+          type="Total"
+          isNotCurrency={false}
         />
         <DashboardCard
           title={"Total Income"}
-          amount={8_753.67}
-          insight={"+8% more than last month"}
-          icon={<ArrowUpRight className="text-green-500" />}
+          amount={8753.67}
+          detail={"+8% more than last month"}
+          Logo={<ArrowUpRight size={18} className="text-green-500" />}
+          isLogo={true}
+          type={"Total"}
+          isNotCurrency={false}
         />
         <DashboardCard
           title={"Pending"}
           amount={7}
-          insight={"3 requests require your action"}
-          icon={<Clock className="text-orange-300" />}
+          detail={"3 requests require your action"}
+          Logo={<Clock size={18} className="text-orange-300" />}
+          isLogo={true}
+          isNotCurrency={true}
+          type={"Pending"}
         />
         <DashboardCard
           title={"Budget Remaining"}
-          isBudget={true}
-          amount={1_245.67}
-          insight={"+12% more than last month"}
-          icon={<ArrowDownRight className="text-red-500" />}
+          isNotCurrency={false}
+          amount={1245.67}
+          detail={"+12% more than last month"}
+          isLogo={true}
+          Logo={<ArrowDownRight size={18} className="text-red-500" />}
+          type={"Total"}
         />
       </div>
       <div className=" w-full flex flex-col xl:grid xl:grid-cols-2 gap-x-4">

@@ -32,9 +32,9 @@ export default function ExpenseCard({
         <div className={`${isLogo} ? "block" : "hidden" `}>{Logo}</div>
       </div>
       <div className="gap-y-2">
-        <div className={`w-full font-semibold text-xl ${amountColor}`}>
-          <span className="text-xl">
-            {isNotCurrency ? amount : `${amount} Birr`}
+        <div className={`w-full text-xl ${amountColor}`}>
+          <span className="text-2xl font-medium">
+            {isNotCurrency ? `${amount} %` : `${amount} days`}
           </span>
         </div>
 
