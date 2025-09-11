@@ -6,6 +6,8 @@ import PieChartComponent from "./pie-chart";
 import BarChartComponent from "./bar-chart";
 import { Progress } from "@/components/ui/progress";
 import EmployeeCard from "./EmployeeCard";
+import PolicyCard from "./Policy-Card";
+import PolicyComplianceCard from "./PolicyCompliance-Card";
 export default function AnalyticsTabSwitcher() {
   const [activeTab, setActiveTab] = useState("overview");
   const employees = [
@@ -90,7 +92,6 @@ export default function AnalyticsTabSwitcher() {
       <div className="mt-4 p-4 border border-gray-300 rounded-lg">
         {activeTab === "overview" && (
           <div className="w-full">
-            <h1 className="font-semibold text-lg">Overview</h1>
             <div className=" w-full flex flex-col xl:grid xl:grid-cols-2 gap-x-4">
               <div className="w-full px-2  border border-gray-300 rounded-lg">
                 <div className="m-3 font-medium">
@@ -152,7 +153,6 @@ export default function AnalyticsTabSwitcher() {
         )}
         {activeTab === "trends" && (
           <div className="w-full">
-            <h1 className="font-semibold text-lg">Trends</h1>
             <div className="w-full flex justify-center items-center">
               <div className="w-full ">
                 <BarChartComponent />
@@ -162,7 +162,6 @@ export default function AnalyticsTabSwitcher() {
         )}
         {activeTab === "departments" && (
           <div className="w-full">
-            <h1 className="font-semibold text-lg">Departments</h1>
             <div className="flex flex-col w-full p-4 mt-2.5 gap-y-4">
               <div className="flex flex-col gap-y-2.5">
                 <div className="flex justify-between">
@@ -239,7 +238,28 @@ export default function AnalyticsTabSwitcher() {
         )}
         {activeTab === "compliance" && (
           <div className="w-full">
-            <h1 className="font-semibold text-lg">Compliance</h1>
+            <div className="w-full flex justify-between mb-10">
+              <PolicyCard title={"Policy Violation"} amount={3}></PolicyCard>
+              <PolicyCard title={" Missing Receipts"} amount={1}></PolicyCard>
+              <PolicyCard title={"Late Submissions"} amount={5}></PolicyCard>
+              <PolicyCard
+                title={"Approval Time (days)"}
+                amount={2}
+              ></PolicyCard>
+            </div>
+            <div className="w-full p-4 border border-gray-300 rounded-lg">
+              <div className="mb-2.5">
+                <h1 className="font-semibold text-lg">
+                  Policy Compliance Overview
+                </h1>
+                <span className="text-gray-600 font-light">
+                  Track compliance with company expense policies
+                </span>
+              </div>
+              <PolicyComplianceCard order={0} value={98} status={"Excellent"} />
+              <PolicyComplianceCard order={1} value={98} status={"Excellent"} />
+              <PolicyComplianceCard order={2} value={98} status={"Excellent"} />
+            </div>
           </div>
         )}
       </div>

@@ -1,0 +1,12 @@
+type PolicyCardProp = {
+  title: string;
+  amount: number;
+};
+export default function PolicyCard(Props: PolicyCardProp) {
+  return (
+    <div className="w-48 xl:w-52 px-4 py-6 flex flex-col border border-gray-300 rounded-lg hover:shadow-md gap-y-4">
+      <div>{Props.title}</div>
+      <div className="text-lg font-semibold">{Props.amount}</div>
+    </div>
+  );
+}
