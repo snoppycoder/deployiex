@@ -1,5 +1,4 @@
 import {
-  ArrowBigRightDash,
   ArrowDownRight,
   ArrowUpRight,
   Clock,
@@ -10,7 +9,7 @@ import DashboardCard from "./component/dashboard-card";
 import BarChartComponent from "./component/bar-chart";
 import PieChartComponent from "./component/pie-chart";
 import TransactionCard from "./component/transactioncard";
-import ExpenseCard from "./component/expense-card";
+
 export default function Dashboard() {
   return (
     <div className="h-full w-full flex flex-col p-6 pb-2 pt-6 gap-4">
