@@ -38,7 +38,7 @@ export default function AnalyticsCard({
           </span>
         </div>
 
-        <div className="w-full text-sm  text-gray-400">{detail}</div>
+        <div className="w-full text-sm text-gray-400">{detail}</div>
       </div>
     </div>
   );
