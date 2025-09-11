@@ -1,23 +1,30 @@
+"use client";
 import {
-  ArrowDownRight,
-  Camera,
   ChartColumnIncreasing,
   Download,
-  Plus,
   Target,
   TrendingDown,
   TrendingUp,
-  Upload,
-  Users,
+  Check,
+  ChevronDown,
+  Filter,
 } from "lucide-react";
 
-import DropDown from "../component/dropdown";
 import DashboardCard from "../component/dashboard-card";
 import AnalyticsCard from "../component/Analytics-Card";
-import { tree } from "next/dist/build/templates/app-page";
+
 import AnalyticsTabSwitcher from "../component/Analytics-Toggle";
+import { useState } from "react";
 
 export default function Analytics() {
+  const [open, setOpen] = useState(false);
+  const options = [
+    "Last month",
+    "Last three month",
+    "Last six month",
+    "Last Year",
+  ];
+  const [selected, setSelected] = useState(options[2]);
   return (
     <div className="h-full w-full flex flex-col p-6 pb-2 md:pt-6 gap-4">
       <div className="w-full grid grid-rows-2 md:flex items-center justify-between">
@@ -29,15 +36,41 @@ export default function Analytics() {
           </span>
         </div>
         <div className="flex gap-x-2.5">
-          <DropDown
-            options={[
-              "Last month",
-              "Last three month",
-              "Last six month",
-              "Last Year",
-            ]}
-            default={2}
-          ></DropDown>
+          <div className="relative w-full md:w-48 ">
+            <button
+              onClick={() => setOpen(!open)}
+              className="w-full flex items-center justify-between px-4 py-2 bg-gray-200 rounded-md"
+            >
+              <div className="flex items-center gap-2">
+                <Filter className="w-4 h-4 text-gray-600 " />
+                <span className="text-sm">{selected}</span>
+              </div>
+
+              <ChevronDown
+                className={`w-4 h-4 transition-transform ${
+                  open ? "rotate-180" : "rotate-0"
+                }`}
+              />
+            </button>
+
+            {open && (
+              <div className="absolute left-0 mt-2 w-full bg-white border border-gray-200 rounded-md shadow-md z-10">
+                {options.map((option) => (
+                  <div
+                    key={option}
+                    onClick={() => {
+                      setSelected(option);
+                      setOpen(false);
+                    }}
+                    className="px-3 py-2 hover:bg-gray-100 cursor-pointer flex justify-between text-sm"
+                  >
+                    {option}
+                    {option == selected ? <Check className="w-4 h-4" /> : <></>}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
           <button
             data-slot="button"
             className="inline-flex items-center gap-2 justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-black hover:bg-black/90 h-9 px-4 py-2   text-white"
