@@ -26,7 +26,7 @@ export default function PolicyManagementCard({
       </div>
       <div className="gap-y-2.5">
         <div className={`w-full text-xl ${color}`}>
-          <span className="text-xl font-medium">{amount}</span>
+          <span className="text-2xl font-medium">{amount}</span>
         </div>
 
         <div className="w-full text-sm text-gray-400">{detail}</div>

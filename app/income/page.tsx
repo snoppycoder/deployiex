@@ -7,7 +7,7 @@ import {
   SquarePen,
   Trash,
 } from "lucide-react";
-import ExpenseCard from "../component/expense-card";
+import ExpenseCard from "../component/Expense-card";
 import PieChartComponent from "../component/pie-chart";
 import BarChartComponent, { data } from "../component/bar-chart";
 import DataTable from "../component/table";

@@ -8,7 +8,7 @@ import {
   SquarePen,
   Trash,
 } from "lucide-react";
-import ExpenseCard from "../component/expense-card";
+import ExpenseCard from "./Expense-card";
 import { Table } from "@/components/ui/table";
 import DataTable from "../component/table";
 import { ColumnDef } from "@tanstack/react-table";
