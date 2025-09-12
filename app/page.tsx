@@ -1,16 +1,17 @@
 import {
-  ArrowBigRightDash,
   ArrowDownRight,
   ArrowUpRight,
   Clock,
   Plus,
   Receipt,
 } from "lucide-react";
-import DashboardCard from "./component/dashboard-card";
+
 import BarChartComponent from "./component/bar-chart";
 import PieChartComponent from "./component/pie-chart";
 import TransactionCard from "./component/transactioncard";
-import ExpenseCard from "./component/expense-card";
+import { Progress } from "@/components/ui/progress";
+import DashboardCard from "./component/Dashboard-Card";
+
 export default function Dashboard() {
   return (
     <div className="h-full w-full flex flex-col p-6 pb-2 pt-6 gap-4">
@@ -39,40 +40,47 @@ export default function Dashboard() {
       <div className=" w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">
         <DashboardCard
           title={"Total Expense"}
-          amount={1_245.67}
+          amount={"4,235.50 Birr "}
           detail={"+12% more than last month"}
           Logo={<ArrowDownRight size={18} className="text-red-500" />}
           isLogo={true}
-          type="Total"
-          isNotCurrency={false}
         />
         <DashboardCard
           title={"Total Income"}
-          amount={8753.67}
+          amount={"8753.67 Birr"}
           detail={"+8% more than last month"}
           Logo={<ArrowUpRight size={18} className="text-green-500" />}
           isLogo={true}
-          type={"Total"}
-          isNotCurrency={false}
         />
         <DashboardCard
           title={"Pending"}
-          amount={7}
+          amount={"7"}
           detail={"3 requests require your action"}
           Logo={<Clock size={18} className="text-orange-300" />}
           isLogo={true}
-          isNotCurrency={true}
-          type={"Pending"}
+          color={"text-orange-500"}
         />
-        <DashboardCard
-          title={"Budget Remaining"}
-          isNotCurrency={false}
-          amount={1245.67}
-          detail={"+12% more than last month"}
-          isLogo={true}
-          Logo={<ArrowDownRight size={18} className="text-red-500" />}
-          type={"Total"}
-        />
+        {/** we don't need to make a custom card for this we will just do some refactoring
+         */}
+
+        <div className="w-48 xl:w-56 px-4 py-6 flex flex-col border border-gray-300 rounded-lg hover:shadow-lg gap-y-4">
+          <div className="w-full py-2 flex justify-between items-start">
+            Budget Remaining
+            <div>
+              <ArrowDownRight size={18} className="text-red-500" />
+            </div>
+          </div>
+          <div className="gap-y-1">
+            <div className="w-full flex flex-col gap-y-2 text-xl">
+              <span className="text-2xl font-medium">1,764.50 Birr</span>
+              <Progress value={70}></Progress>
+            </div>
+
+            <div className="w-full text-sm  text-gray-400">
+              72% of monthly budget used
+            </div>
+          </div>
+        </div>
       </div>
       <div className=" w-full flex flex-col xl:grid xl:grid-cols-2 gap-x-4">
         <div className="w-full px-2  border border-gray-300 rounded-lg">

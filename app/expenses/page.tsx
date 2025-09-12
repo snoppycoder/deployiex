@@ -3,7 +3,6 @@ import ExpenseTabSwitcher from "../component/Expense-ToggleTab";
 import DropDown from "../component/dropdown";
 
 export default function Expenses() {
-  const options = ["All Status", "Approved", "Pending", "Rejected"];
   return (
     <div className="h-full w-full flex flex-col p-6 pb-2 md:pt-6 gap-4">
       <div className="w-full grid grid-rows-2 md:flex items-center justify-between">

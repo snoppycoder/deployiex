@@ -9,8 +9,7 @@ import {
   ChevronDown,
   Filter,
 } from "lucide-react";
-
-import DashboardCard from "../component/dashboard-card";
+import DashboardCard from "../component/Dashboard-Card";
 import AnalyticsCard from "../component/Analytics-Card";
 
 import AnalyticsTabSwitcher from "../component/Analytics-Toggle";
@@ -79,43 +78,36 @@ export default function Analytics() {
           </button>
         </div>
       </div>
-      <div className=" w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 gap-2.5">
         <DashboardCard
           title={"Total Expense"}
-          amount={1_245.67}
+          amount={"1,245.67 Birr"}
           detail={"+12% more than last month"}
           Logo={<TrendingDown size={18} className="text-red-500" />}
           isLogo={true}
-          type="Total"
-          isNotCurrency={false}
+          color="text-black"
         />
         <AnalyticsCard
           title={"Budget Utilization"}
-          amount={84.7}
+          amount={"84.7%"}
           isLogo={true}
-          isPercent={true}
           Logo={<Target size={18} className="text-blue-500" />}
           detail={"Expense approval time"}
-          type={"Total"}
         />
         <DashboardCard
           title={"Net Income"}
-          amount={4_515}
+          amount={"4,515 Birr"}
           detail={"Income minus expenses"}
           Logo={<TrendingUp size={18} className="text-green-500" />}
           isLogo={true}
-          type="Total"
-          isNotCurrency={false}
         />
 
         <AnalyticsCard
           title={"Avg Processing Time"}
-          amount={2.5}
+          amount={"2.5"}
           detail={"Expense approval time"}
           Logo={<ChartColumnIncreasing size={18} className="text-indigo-500" />}
           isLogo={true}
-          type="Total"
-          isPercent={false}
         />
       </div>
       <AnalyticsTabSwitcher />

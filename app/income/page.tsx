@@ -100,15 +100,15 @@ export default function Income() {
       <div className="w-full flex flex-col md:flex-row gap-y-2.5 justify-between mb-2.5">
         <ExpenseCard
           title={"Total Income"}
-          amount={550.49}
-          detail={"4 expenses"}
+          amount={"550.49 Birr"}
+          detail={"All time total"}
           type={"Total"}
           isLogo={true}
           Logo={<DollarSign size={18} className="text-green-400" />}
         />
         <ExpenseCard
           title={"Recieved"}
-          amount={205.5}
+          amount={"205.5 Birr"}
           detail={"Payments completed"}
           type={"Approved"}
           isLogo={true}
@@ -116,7 +116,7 @@ export default function Income() {
         />
         <ExpenseCard
           title={"Total Submitted"}
-          amount={1800}
+          amount={"1800 Birr"}
           detail={"1 expense"}
           type={"Pending"}
         />
