@@ -3,9 +3,10 @@ import { useState } from "react";
 import PieChartComponent from "./pie-chart";
 import BarChartComponent from "./bar-chart";
 import { Progress } from "@/components/ui/progress";
-import EmployeeCard from "./EmployeeCard";
-import PolicyCard from "./Policy-Card";
+import EmployeeCard from "./Employee-Card";
+
 import PolicyComplianceCard from "./PolicyCompliance-Card";
+import PolicyStatCard from "./PolicyStat-Card";
 export default function AnalyticsTabSwitcher() {
   const [activeTab, setActiveTab] = useState("overview");
   const employees = [
@@ -237,10 +238,10 @@ export default function AnalyticsTabSwitcher() {
         {activeTab === "compliance" && (
           <div className="w-full">
             <div className="w-full grid grid-cols-1 gap-2.5 md:grid-cols-2 lg:grid-cols-4">
-              <PolicyCard title="Policy Violation" amount={3} />
-              <PolicyCard title="Missing Receipts" amount={1} />
-              <PolicyCard title="Late Submissions" amount={5} />
-              <PolicyCard title="Approval Time (days)" amount={2} />
+              <PolicyStatCard title="Policy Violation" amount={3} />
+              <PolicyStatCard title="Missing Receipts" amount={1} />
+              <PolicyStatCard title="Late Submissions" amount={5} />
+              <PolicyStatCard title="Approval Time (days)" amount={2} />
             </div>
 
             <div className="w-full mt-2.5 p-4 border border-gray-300 rounded-lg">

@@ -4,7 +4,7 @@ import { useState } from "react";
 import DataTable from "./table";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, SquarePen, Trash } from "lucide-react";
-import ExpenseCard from "./expense-card";
+import ExpenseCard from "./Expense-card";
 export default function ExpenseTabSwitcher() {
   const [activeTab, setActiveTab] = useState("live-view");
 
