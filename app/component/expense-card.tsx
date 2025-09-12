@@ -1,11 +1,10 @@
 type ExpenseCardProps = {
   title: string;
-  amount: number;
+  amount: string;
   detail: string;
   type: "Pending" | "Approved" | "Total";
   isLogo?: boolean;
   Logo?: React.ReactNode;
-  isNotCurrency?: boolean;
 };
 
 export default function ExpenseCard({
@@ -15,7 +14,6 @@ export default function ExpenseCard({
   type,
   Logo,
   isLogo,
-  isNotCurrency,
 }: ExpenseCardProps) {
   const amountColor =
     type === "Pending"
@@ -31,9 +29,7 @@ export default function ExpenseCard({
       </div>
       <div className="gap-y-2">
         <div className={`w-full text-xl ${amountColor}`}>
-          <span className="text-2xl font-medium">
-            {isNotCurrency ? `${amount} %` : `${amount} days`}
-          </span>
+          <span className="text-2xl font-medium">{amount}</span>
         </div>
 
         <div className="w-full text-md">{detail}</div>

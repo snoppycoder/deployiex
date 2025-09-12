@@ -1,7 +1,5 @@
 "use client";
 import { useState } from "react";
-import PendingApprovalCard from "./Pending-Approval-Card";
-import IncomeTable from "./income-table";
 import PieChartComponent from "./pie-chart";
 import BarChartComponent from "./bar-chart";
 import { Progress } from "@/components/ui/progress";
@@ -103,7 +101,7 @@ export default function AnalyticsTabSwitcher() {
                   </span>
                 </div>
                 <div className="w-full flex justify-center items-center">
-                  <div className="w-[430px] h-[300px]">
+                  <div className="w-[290px] h-[220px] lg:w-[430px] lg:h-[300px]">
                     <BarChartComponent />
                   </div>
                 </div>
@@ -170,7 +168,7 @@ export default function AnalyticsTabSwitcher() {
                     <div className="text-gray-500 py-0.5">
                       1850 Birr / 2000 Birr
                     </div>
-                    <div className="px-1 py-0.5 text-sm bg-black text-white rounded-md">
+                    <div className="hidden md:block px-1 py-0.5 text-sm bg-black text-white rounded-md">
                       150 Birr under
                     </div>
                   </div>
@@ -184,7 +182,7 @@ export default function AnalyticsTabSwitcher() {
                     <div className="text-gray-500 py-0.5">
                       1850 Birr / 2000 Birr
                     </div>
-                    <div className="px-1 py-0.5 text-sm bg-black text-white rounded-md">
+                    <div className="hidden md:block px-1 py-0.5 text-sm bg-black text-white rounded-md">
                       150 Birr under
                     </div>
                   </div>
@@ -198,7 +196,7 @@ export default function AnalyticsTabSwitcher() {
                     <div className="text-gray-500 py-0.5">
                       1850 Birr / 2000 Birr
                     </div>
-                    <div className="px-1 py-0.5 text-sm bg-black text-white rounded-md">
+                    <div className="hidden md:block px-1 py-0.5 text-sm bg-black text-white rounded-md">
                       150 Birr under
                     </div>
                   </div>
@@ -212,7 +210,7 @@ export default function AnalyticsTabSwitcher() {
                     <div className="text-gray-500 py-0.5">
                       1850 Birr / 2000 Birr
                     </div>
-                    <div className="px-1 py-0.5 text-sm bg-black text-white rounded-md">
+                    <div className="hidden md:block px-1 py-0.5 text-sm bg-black text-white rounded-md">
                       150 Birr under
                     </div>
                   </div>
@@ -226,7 +224,7 @@ export default function AnalyticsTabSwitcher() {
                     <div className="text-gray-500 py-0.5">
                       1850 Birr / 2000 Birr
                     </div>
-                    <div className="px-1 py-0.5 text-sm bg-black text-white rounded-md">
+                    <div className="hidden md:block px-1 py-0.5 text-sm bg-black text-white rounded-md">
                       150 Birr under
                     </div>
                   </div>
@@ -238,16 +236,14 @@ export default function AnalyticsTabSwitcher() {
         )}
         {activeTab === "compliance" && (
           <div className="w-full">
-            <div className="w-full flex justify-between mb-10">
-              <PolicyCard title={"Policy Violation"} amount={3}></PolicyCard>
-              <PolicyCard title={" Missing Receipts"} amount={1}></PolicyCard>
-              <PolicyCard title={"Late Submissions"} amount={5}></PolicyCard>
-              <PolicyCard
-                title={"Approval Time (days)"}
-                amount={2}
-              ></PolicyCard>
+            <div className="w-full grid grid-cols-1 gap-2.5 md:grid-cols-2 lg:grid-cols-4">
+              <PolicyCard title="Policy Violation" amount={3} />
+              <PolicyCard title="Missing Receipts" amount={1} />
+              <PolicyCard title="Late Submissions" amount={5} />
+              <PolicyCard title="Approval Time (days)" amount={2} />
             </div>
-            <div className="w-full p-4 border border-gray-300 rounded-lg">
+
+            <div className="w-full mt-2.5 p-4 border border-gray-300 rounded-lg">
               <div className="mb-2.5">
                 <h1 className="font-semibold text-lg">
                   Policy Compliance Overview

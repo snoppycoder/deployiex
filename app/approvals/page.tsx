@@ -31,35 +31,31 @@ export default function Approval() {
       <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">
         <ExpenseCard
           title={"Pending Approvals"}
-          amount={3}
-          isNotCurrency={true}
+          amount={"3"}
+          type={"Total"}
           isLogo={true}
           Logo={<Clock className="text-orange-300" size={18} />}
           detail={"Awaiting your review"}
-          type={"Total"}
         ></ExpenseCard>
         <ExpenseCard
           title={"High Priority"}
-          amount={3}
-          isNotCurrency={true}
+          amount={"3"}
+          type={"Total"}
           isLogo={true}
           Logo={<ShieldAlert className="text-red-300" size={18} />}
           detail={"Urgent review needed"}
-          type={"Total"}
         ></ExpenseCard>
         <ExpenseCard
           title={"Total Amount"}
-          amount={857.89}
-          isNotCurrency={false}
+          amount={"857.89 Birr"}
+          type={"Total"}
           isLogo={true}
           Logo={<Users className="text-blue-300" size={18} />}
           detail={"Pending Approval"}
-          type={"Total"}
         ></ExpenseCard>
         <ExpenseCard
           title={"Approved Today"}
-          amount={12}
-          isNotCurrency={true}
+          amount={"12"}
           isLogo={true}
           Logo={<CircleCheckBig className="text-green-300" size={18} />}
           detail={"Processed successfully"}

@@ -33,13 +33,13 @@ export default function PolicyComplianceCard(Props: PolicyComplianceCardProp) {
   };
   return (
     <div
-      className={`w-full mb-2.5 p-4 flex justify-between ${
+      className={`w-full mb-2.5 md:p-4 p-2 flex justify-between ${
         styleMap[Props.order][1]
       } border ${styleMap[Props.order][0]}   rounded-sm `}
     >
-      <div className="flex gap-x-4 items-center">
+      <div className="flex gap-x-6 md:gap-x-4 items-center">
         <div
-          className={`h-8 w-8 rounded-full flex justify-center items-center text-white ${
+          className={`h-6 w-6 md:h-8 md:w-8 rounded-full flex justify-center items-center text-white ${
             styleMap[Props.order][5]
           }  `}
         >

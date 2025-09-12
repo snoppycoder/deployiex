@@ -5,10 +5,11 @@ import {
   Plus,
   Receipt,
 } from "lucide-react";
-import DashboardCard from "../component/dashboard-card";
+import DashboardCard from "../component/Dashboard-Card";
 import BarChartComponent from "../component/bar-chart";
 import PieChartComponent from "../component/pie-chart";
 import TransactionCard from "../component/transactioncard";
+import PolicyManagementCard from "../component/PolicyManagement-Card";
 
 export default function Polices() {
   return (
@@ -31,41 +32,29 @@ export default function Polices() {
         </div>
       </div>
       <div className=" w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">
-        <DashboardCard
+        <PolicyManagementCard
           title={"Travel"}
-          amount={1_245.67}
+          amount={"1_245.67"}
           detail={"+12% more than last month"}
-          Logo={<ArrowDownRight size={18} className="text-red-500" />}
-          isLogo={false}
-          type="Total"
-          isNotCurrency={false}
+          status={"Stable"}
         />
-        <DashboardCard
-          title={"Total Income"}
-          amount={8753.67}
-          detail={"+8% more than last month"}
-          Logo={<ArrowUpRight size={18} className="text-green-500" />}
-          isLogo={true}
-          type={"Total"}
-          isNotCurrency={false}
-        />
-        <DashboardCard
-          title={"Pending"}
-          amount={7}
-          detail={"3 requests require your action"}
-          Logo={<Clock size={18} className="text-orange-300" />}
-          isLogo={true}
-          isNotCurrency={true}
-          type={"Pending"}
-        />
-        <DashboardCard
-          title={"Budget Remaining"}
-          isNotCurrency={false}
-          amount={1245.67}
+        <PolicyManagementCard
+          title={"Travel"}
+          amount={"1_245.67"}
           detail={"+12% more than last month"}
-          isLogo={true}
-          Logo={<ArrowDownRight size={18} className="text-red-500" />}
-          type={"Total"}
+          status={"Stable"}
+        />
+        <PolicyManagementCard
+          title={"Travel"}
+          amount={"1_245.67"}
+          detail={"+12% more than last month"}
+          status={"Improving"}
+        />
+        <PolicyManagementCard
+          title={"Travel"}
+          amount={"1_245.67"}
+          detail={"+12% more than last month"}
+          status={"Stable"}
         />
       </div>
       <div className=" w-full flex flex-col xl:grid xl:grid-cols-2 gap-x-4">

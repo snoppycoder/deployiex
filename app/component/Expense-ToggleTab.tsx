@@ -113,19 +113,19 @@ export default function ExpenseTabSwitcher() {
           <div className="w-full flex justify-between">
             <ExpenseCard
               title={"Total Submitted"}
-              amount={550.49}
+              amount={"550.49 Birr"}
               detail={"4 expenses"}
               type={"Total"}
             />
             <ExpenseCard
               title={"Approved Amount"}
-              amount={205.5}
+              amount={"205.5 Birr"}
               detail={"2 expenses"}
               type={"Approved"}
             />
             <ExpenseCard
               title={"Total Submitted"}
-              amount={45}
+              amount={"45.00 Birr"}
               detail={"1 expense"}
               type={"Pending"}
             />
