@@ -132,9 +132,10 @@ export default function AnalyticsTabSwitcher() {
                   Employees with highest expense submissions this month
                 </span>
               </div>
+               <ul>
               {employees.map((val, index) => {
                 return (
-                  <ul>
+                 
                     <li key={index}>
                       <EmployeeCard
                         fullName={val.fullName}
@@ -144,9 +145,10 @@ export default function AnalyticsTabSwitcher() {
                         numberOfExpenses={val.numberOfExpenses}
                       />
                     </li>
-                  </ul>
+                 
                 );
               })}
+              </ul>
             </div>
           </div>
         )}
