@@ -28,7 +28,7 @@ export default function Approval() {
           </button>
         </div>
       </div>
-      <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">
+      <div className=" w-full grid grid-cols-2 gap-y-2.5 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">
         <ExpenseCard
           title={"Pending Approvals"}
           amount={"3"}

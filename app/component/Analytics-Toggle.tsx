@@ -45,9 +45,9 @@ export default function AnalyticsTabSwitcher() {
 
   return (
     <div className="w-full p-4">
-      <div className="w-96 flex border border-gray-300 rounded-lg overflow-hidden">
+      <div className="w-80 lg:w-84 flex border border-gray-300 rounded-lg overflow-hidden">
         <button
-          className={`w-24 flex-1  p-2 text-sm font-medium transition-all ${
+          className={`w-20 lg:w-24  flex-1  py-1 lg:p-2 text-xs md:text-sm font-medium transition-all ${
             activeTab === "overview"
               ? "bg-black text-white"
               : "bg-white text-gray-700 hover:bg-gray-100"
@@ -57,7 +57,7 @@ export default function AnalyticsTabSwitcher() {
           Overview
         </button>
         <button
-          className={`w-24 flex-1 p-2 text-sm font-medium transition-all ${
+          className={`w-20 lg:w-24 flex-1 py-1 lg:p-2 text-xs md:text-sm font-medium transition-all ${
             activeTab === "trends"
               ? "bg-black text-white"
               : "bg-white text-gray-700 hover:bg-gray-100"
@@ -67,7 +67,7 @@ export default function AnalyticsTabSwitcher() {
           Trends
         </button>
         <button
-          className={`w-24 flex-1 p-2 text-sm font-medium transition-all ${
+          className={`w-20 lg:w-24 flex-1 py-1 lg:p-2 text-xs md:text-sm font-medium transition-all ${
             activeTab === "departments"
               ? "bg-black text-white"
               : "bg-white text-gray-700 hover:bg-gray-100"
@@ -77,7 +77,7 @@ export default function AnalyticsTabSwitcher() {
           Departments
         </button>
         <button
-          className={`w-24 flex-1 p-2 text-sm font-medium transition-all ${
+          className={`w-20 lg:w-24 flex-1 py-1 lg:p-2 text-xs md:text-sm font-medium transition-all ${
             activeTab === "compliance"
               ? "bg-black text-white"
               : "bg-white text-gray-700 hover:bg-gray-100"
@@ -132,10 +132,9 @@ export default function AnalyticsTabSwitcher() {
                   Employees with highest expense submissions this month
                 </span>
               </div>
-               <ul>
-              {employees.map((val, index) => {
-                return (
-                 
+              <ul>
+                {employees.map((val, index) => {
+                  return (
                     <li key={index}>
                       <EmployeeCard
                         fullName={val.fullName}
@@ -145,9 +144,8 @@ export default function AnalyticsTabSwitcher() {
                         numberOfExpenses={val.numberOfExpenses}
                       />
                     </li>
-                 
-                );
-              })}
+                  );
+                })}
               </ul>
             </div>
           </div>
@@ -239,7 +237,7 @@ export default function AnalyticsTabSwitcher() {
         )}
         {activeTab === "compliance" && (
           <div className="w-full">
-            <div className="w-full grid grid-cols-1 gap-2.5 md:grid-cols-2 lg:grid-cols-4">
+            <div className=" w-full grid grid-cols-2 gap-y-2.5 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">
               <PolicyStatCard title="Policy Violation" amount={3} />
               <PolicyStatCard title="Missing Receipts" amount={1} />
               <PolicyStatCard title="Late Submissions" amount={5} />

@@ -11,7 +11,7 @@ export default function PolicyTabSwitcher() {
 
   return (
     <div className="w-full p-4">
-      <div className="w-96 flex border border-gray-300 rounded-lg overflow-hidden">
+      <div className="w-72 lg:w-96 flex  rounded-lg overflow-hidden">
         <button
           className={`w-24 flex-1  p-2 text-sm font-medium transition-all ${
             activeTab === "policies"
@@ -145,48 +145,53 @@ export default function PolicyTabSwitcher() {
                 percent={96}
               />
             </div>
-            <div className="mt-10 w-full flex flex-col lg:flex-row gap-x-4  ">
-              <div className="w-[48%] flex flex-col gap-y-2.5 border border-gray-300 rounded-md p-3">
+            <div className="mt-10 w-full flex flex-col lg:flex-row gap-x-4 gap-y-2.5 ">
+              <div className="w-full lg:w-[48%] flex flex-col gap-y-2.5 border border-gray-300 rounded-md p-3">
                 <h1 className="mb-1.5 text-md font-semibold">
                   Policy Enforcement
                 </h1>
                 <div className="flex justify-between">
-                  <div>Automatic policy checks</div>
+                  <div className="text-sm md:text-md">
+                    Automatic policy checks
+                  </div>
                   <Switch />
                 </div>
                 <div className="flex justify-between">
-                  <div>Real-time violation alerts</div>
+                  <div className="text-sm md:text-md">
+                    Real-time violation alerts
+                  </div>
                   <Switch />
                 </div>
                 <div className="flex justify-between">
-                  <div>Email notifications</div>
+                  <div className="text-sm md:text-md">Email notifications</div>
                   <Switch />
                 </div>
                 <div className="flex justify-between">
-                  <div>Require approval for violations</div>
+                  <div className="text-sm md:text-md">
+                    Require approval for violations
+                  </div>
                   <Switch />
                 </div>
               </div>
-              <div className="w-[48%] flex flex-col gap-y-2.5 border border-gray-300 rounded-md p-3">
+              <div className="w-full lg:w-[48%] flex flex-col gap-y-2.5 border border-gray-300 rounded-md p-3">
                 <h1 className="mb-1.5 text-md font-semibold">
                   Compliance Reports
                 </h1>
                 <div className="flex gap-x-2.5 p-2 items-center border border-gray-300 rounded-md">
                   <FileText size={16} />
-                  <div className="text-sm font-semibold">
-                    {" "}
+                  <div className="text-sm md:text-md font-semibold">
                     Monthly Compliance Report
                   </div>
                 </div>
                 <div className="flex gap-x-2.5 p-2 items-center border border-gray-300 rounded-md">
                   <FileText size={16} />
-                  <div className="text-sm font-semibold">
+                  <div className="text-sm md:text-md font-semibold">
                     Policy Violation Summary
                   </div>
                 </div>
                 <div className="flex gap-x-2.5 p-2 items-center border border-gray-300 rounded-md">
                   <FileText size={16} />
-                  <div className="text-sm font-semibold">
+                  <div className="text-sm md:text-md font-semibold">
                     Department Compliance Analysis
                   </div>
                 </div>

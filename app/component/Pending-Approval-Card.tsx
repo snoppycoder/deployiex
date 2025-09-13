@@ -49,21 +49,21 @@ export default function PendingApprovalCard(Props: ApprovalCardProps) {
       <div className="flex gap-x-1">
         <button
           data-slot="button"
-          className="inline-flex items-center justify-center gap-x-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-white hover:bg-gray-200 h-6 md:h-8 px-2 py-1 md:px-4 md:py-2  text-black border border-gray-200"
+          className="inline-flex items-center justify-center gap-x-1 md:gap-x-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-white hover:bg-gray-200 h-6 md:h-8 px-2 py-1 md:px-4 md:py-2  text-black border border-gray-200"
         >
-          <Eye size={16}></Eye> View
+          <Eye size={15}></Eye> View
         </button>
         <button
           data-slot="button"
-          className="inline-flex items-center justify-center gap-x-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-white hover:bg-gray-200 h-6 md:h-8 px-2 py-2 md:px-4 md:py-2   text-black border border-gray-200"
+          className="inline-flex items-center justify-center gap-x-1 md:gap-x-2 whitespace-nowrap rounded-md text-xs md:text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-white hover:bg-gray-200 h-6 md:h-8 px-2 py-2 md:px-4 md:py-2   text-black border border-gray-200"
         >
-          <CircleX size={16} /> Reject
+          <CircleX size={15} /> Reject
         </button>
         <button
           data-slot="button"
-          className="inline-flex items-center justify-center gap-x-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-black hover:bg-black/90 h-6 md:h-8 px-2 py-2 md:px-4 md:py-2 text-white"
+          className="inline-flex items-center justify-center gap-x-1 md:gap-x-2 whitespace-nowrap rounded-md text-xs md:text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-black hover:bg-black/90 h-6 md:h-8 px-2 py-2 md:px-4 md:py-2 text-white"
         >
-          <CircleCheckBig size={16} /> Approve
+          <CircleCheckBig size={15} /> Approve
         </button>
       </div>
     </div>
