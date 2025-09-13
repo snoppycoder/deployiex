@@ -35,10 +35,10 @@ export default function PendingApprovalCard(Props: ApprovalCardProps) {
           </div>
 
           <div className="font-medium text-gray-600 text-sm px-2">
-            Submitted by {Props.fullName} &#11825; {Props.date}
+            Submitted by {Props.fullName} | {Props.date}
           </div>
           <div className="font-medium text-gray-600 text-sm px-2">
-            Catagory: {Props.catagory} &#11825; Amount: {Props.amount} Birr
+            Catagory: {Props.catagory} | Amount: {Props.amount} Birr
           </div>
           <div className="mt-2.5 rounded-md py-2 px-2 bg-gray-200 text-sm">
             {Props.detail}
