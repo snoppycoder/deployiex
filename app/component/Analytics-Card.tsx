@@ -1,5 +1,3 @@
-import { isCurrency } from "validator";
-
 type AnalyticsCardProp = {
   title: string;
   amount: string;
