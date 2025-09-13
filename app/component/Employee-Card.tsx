@@ -15,7 +15,7 @@ export default function EmployeeCard(Props: EmployeeCardProp) {
         <div className="flex flex-col gap-y-1">
           <div>{Props.fullName}</div>
           <div>
-            {Props.department} &#11825; {Props.numberOfExpenses} Expenses
+            {Props.department} | {Props.numberOfExpenses} Expenses
           </div>
         </div>
       </div>
