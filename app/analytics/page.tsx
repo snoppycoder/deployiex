@@ -14,7 +14,7 @@ import AnalyticsCard from "../component/Analytics-Card";
 
 import AnalyticsTabSwitcher from "../component/Analytics-Toggle";
 import { useState } from "react";
-import DashboardCard from "../component/Dashboard-Card";
+import DashboardCard from "../component/dashboard-card";
 
 export default function Analytics() {
   const [open, setOpen] = useState(false);

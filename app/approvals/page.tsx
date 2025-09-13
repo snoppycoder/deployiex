@@ -6,7 +6,7 @@ import {
   ShieldAlert,
   Users,
 } from "lucide-react";
-import ExpenseCard from "../component/Expense-card";
+import ExpenseCard from "../component/expense-card";
 import ApprovalTabSwitcher from "../component/Approval-ToggleTab";
 
 export default function Approval() {

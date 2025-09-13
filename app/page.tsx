@@ -10,7 +10,7 @@ import BarChartComponent from "./component/bar-chart";
 import PieChartComponent from "./component/pie-chart";
 import TransactionCard from "./component/Transaction-Card";
 import { Progress } from "@/components/ui/progress";
-import DashboardCard from "./component/Dashboard-Card";
+import DashboardCard from "./component/dashboard-card";
 
 export default function Dashboard() {
   return (
