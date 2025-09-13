@@ -9,11 +9,12 @@ import {
   ChevronDown,
   Filter,
 } from "lucide-react";
-import DashboardCard from "../component/Dashboard-Card";
+
 import AnalyticsCard from "../component/Analytics-Card";
 
 import AnalyticsTabSwitcher from "../component/Analytics-Toggle";
 import { useState } from "react";
+import DashboardCard from "../component/dashboard-card";
 
 export default function Analytics() {
   const [open, setOpen] = useState(false);
@@ -78,7 +79,7 @@ export default function Analytics() {
           </button>
         </div>
       </div>
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 gap-2.5">
+      <div className=" w-full grid grid-cols-2 gap-y-2.5 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">
         <DashboardCard
           title={"Total Expense"}
           amount={"1,245.67 Birr"}

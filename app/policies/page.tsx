@@ -5,10 +5,10 @@ import {
   Plus,
   Receipt,
 } from "lucide-react";
-import DashboardCard from "../component/Dashboard-Card";
+import DashboardCard from "../component/dashboard-card";
 import BarChartComponent from "../component/bar-chart";
 import PieChartComponent from "../component/pie-chart";
-import TransactionCard from "../component/transactioncard";
+import TransactionCard from "../component/Transaction-Card";
 import PolicyManagementCard from "../component/PolicyManagement-Card";
 import PolicyTabSwitcher from "../component/Policy-Toggle";
 
@@ -32,7 +32,7 @@ export default function Polices() {
           </button>
         </div>
       </div>
-      <div className=" w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6 gap-y-4">
+      <div className=" w-full grid grid-cols-2 gap-y-2.5 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">
         <PolicyManagementCard
           title={"Travel"}
           amount={"94%"}

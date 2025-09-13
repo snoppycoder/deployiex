@@ -7,7 +7,7 @@ import {
   SquarePen,
   Trash,
 } from "lucide-react";
-import ExpenseCard from "../component/Expense-card";
+import ExpenseCard from "../component/expense-card";
 import PieChartComponent from "../component/pie-chart";
 import BarChartComponent, { data } from "../component/bar-chart";
 import DataTable from "../component/table";
@@ -97,7 +97,7 @@ export default function Income() {
           </button>
         </div>
       </div>
-      <div className="w-full flex flex-col md:flex-row gap-y-2.5 justify-between mb-2.5">
+      <div className=" w-full grid grid-cols-2 gap-y-2.5 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6 mb-2.5">
         <ExpenseCard
           title={"Total Income"}
           amount={"550.49 Birr"}
@@ -132,7 +132,7 @@ export default function Income() {
             </span>
           </div>
           <div className="w-full flex justify-center items-center">
-            <div className="w-[460px] h-[300px]">
+            <div className="w-[300px] h-auto md:w-[460px] md:h-[300px]">
               <BarChartComponent />
             </div>
           </div>

@@ -20,7 +20,7 @@ export default function PolicyManagementCard({
     statusColor = "text-white bg-black";
   }
   return (
-    <div className="w-48 xl:w-56 px-4 py-6 flex flex-col border border-gray-300 rounded-lg hover:shadow-lg gap-y-4">
+    <div className="w-36 md:w-48 xl:w-56 px-4 py-2 md:px-4 md:py-6 flex flex-col border border-gray-300 rounded-lg hover:shadow-lg gap-y-4">
       <div className="w-full py-2 flex justify-between items-start">
         {title}
       </div>

@@ -8,14 +8,14 @@ import {
 
 import BarChartComponent from "./component/bar-chart";
 import PieChartComponent from "./component/pie-chart";
-import TransactionCard from "./component/transactioncard";
+import TransactionCard from "./component/Transaction-Card";
 import { Progress } from "@/components/ui/progress";
-import DashboardCard from "./component/Dashboard-Card";
+import DashboardCard from "./component/dashboard-card";
 
 export default function Dashboard() {
   return (
     <div className="h-full w-full flex flex-col p-6 pb-2 pt-6 gap-4">
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full flex flex-col md:flex-row md:items-center md:justify-between gap-y-2.5 ">
         <div>
           <h1 className="text-2xl sm:text-3xl">Dashboard</h1>
           <span className="font-extralight text-gray-600 ">
@@ -25,19 +25,19 @@ export default function Dashboard() {
         <div className="flex gap-x-2.5">
           <button
             data-slot="button"
-            className="inline-flex items-center gap-2 justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-black hover:bg-black/90 h-9 px-4 py-2   text-white"
+            className="inline-flex items-center gap-2 justify-center whitespace-nowrap rounded-md lg:text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-black hover:bg-black/90 h-8 lg:h-9 lg:px-4 px-2 py-2  text-xs text-white"
           >
-            <Plus size={18} /> Add Expense
+            <Plus size={16} /> Add Expense
           </button>
           <button
             data-slot="button"
-            className="inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all cursor-pointer disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-white hover:bg-white/90 h-9 px-4 py-2  justify-center text-black border border-gray-300"
+            className="inline-flex items-center gap-2 justify-center whitespace-nowrap rounded-md lg:text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-white  h-8 lg:h-9 lg:px-4 px-2 py-2  text-xs text-black border border-gray-300"
           >
-            <Receipt size={18} /> Scan Receipt
+            <Receipt size={16} /> Scan Receipt
           </button>
         </div>
       </div>
-      <div className=" w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">
+      <div className=" w-full grid grid-cols-2 gap-y-2.5 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">
         <DashboardCard
           title={"Total Expense"}
           amount={"4,235.50 Birr "}
@@ -63,7 +63,7 @@ export default function Dashboard() {
         {/** we don't need to make a custom card for this we will just do some refactoring
          */}
 
-        <div className="w-48 xl:w-56 px-4 py-6 flex flex-col border border-gray-300 rounded-lg hover:shadow-lg gap-y-4">
+        <div className="w-36 md:w-48 xl:w-56 px-2 py-4 md:px-4 md:py-6 flex flex-col border border-gray-300 rounded-lg hover:shadow-lg gap-y-4">
           <div className="w-full py-2 flex justify-between items-start">
             Budget Remaining
             <div>
@@ -93,7 +93,7 @@ export default function Dashboard() {
             </span>
           </div>
           <div className="w-full flex justify-center items-center">
-            <div className="w-[460px] h-[300px]">
+            <div className="w-[300px] h-auto md:w-[460px] md:h-[300px]">
               <BarChartComponent />
             </div>
           </div>
