@@ -21,7 +21,7 @@ export default function DashboardCard({
         {title}
         <div className={`${isLogo} ? "block" : "hidden" `}>{Logo}</div>
       </div>
-      <div className="gap-y-1">
+      <div className="gap-y-1 ">
         <div className={`w-full text-xl ${color}`}>
           <span className="text-2xl font-medium">{amount}</span>
         </div>
