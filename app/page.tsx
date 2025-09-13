@@ -63,7 +63,7 @@ export default function Dashboard() {
         {/** we don't need to make a custom card for this we will just do some refactoring
          */}
 
-        <div className="w-36 md:w-48 xl:w-56 px-2 py-4 md:px-4 md:py-6 flex flex-col border border-gray-300 rounded-lg hover:shadow-lg gap-y-4">
+        <div className="w-38 md:w-48 xl:w-56 px-2 py-4 md:px-4 md:py-6 flex flex-col border border-gray-300 rounded-lg hover:shadow-lg gap-y-4">
           <div className="w-full py-2 flex justify-between items-start">
             Budget Remaining
             <div>

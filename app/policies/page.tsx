@@ -15,7 +15,7 @@ import PolicyTabSwitcher from "../component/Policy-Toggle";
 export default function Polices() {
   return (
     <div className="h-full w-full flex flex-col p-6 pb-2 pt-6 gap-4">
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full flex md:flex-row items-center justify-between flex-col ">
         <div>
           <h1 className="text-2xl sm:text-3xl">Policy Management</h1>
           <span className="font-extralight text-gray-600 ">
@@ -23,7 +23,7 @@ export default function Polices() {
             organization
           </span>
         </div>
-        <div className="flex gap-x-2.5">
+        <div className="flex gap-x-2.5 mt-2.5 md:mt-0">
           <button
             data-slot="button"
             className="inline-flex items-center gap-2 justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-black hover:bg-black/90 h-9 px-4 py-2   text-white"

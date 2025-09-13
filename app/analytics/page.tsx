@@ -27,7 +27,7 @@ export default function Analytics() {
   const [selected, setSelected] = useState(options[2]);
   return (
     <div className="h-full w-full flex flex-col p-6 pb-2 md:pt-6 gap-4">
-      <div className="w-full grid grid-rows-2 md:flex items-center justify-between">
+      <div className="w-full flex lg:flex-row lg:items-center justify-between flex-col ">
         <div>
           <h1 className="text-2xl sm:text-3xl">Analytics & Reports</h1>
           <span className="font-extralight text-gray-600 ">
@@ -35,7 +35,7 @@ export default function Analytics() {
             patterns
           </span>
         </div>
-        <div className="flex gap-x-2.5">
+        <div className="flex gap-x-2.5 mt-3.5 mb-2.5">
           <div className="relative w-full md:w-48 ">
             <button
               onClick={() => setOpen(!open)}
@@ -84,7 +84,7 @@ export default function Analytics() {
           title={"Total Expense"}
           amount={"1,245.67 Birr"}
           detail={"+12% more than last month"}
-          Logo={<TrendingDown size={18} className="text-red-500" />}
+          Logo={<TrendingDown size={16} className="text-red-500" />}
           isLogo={true}
           color="text-black"
         />
@@ -92,14 +92,14 @@ export default function Analytics() {
           title={"Budget Utilization"}
           amount={"84.7%"}
           isLogo={true}
-          Logo={<Target size={18} className="text-blue-500" />}
+          Logo={<Target size={16} className="text-blue-500" />}
           detail={"Expense approval time"}
         />
         <DashboardCard
           title={"Net Income"}
           amount={"4,515 Birr"}
           detail={"Income minus expenses"}
-          Logo={<TrendingUp size={18} className="text-green-500" />}
+          Logo={<TrendingUp size={16} className="text-green-500" />}
           isLogo={true}
         />
 
@@ -107,7 +107,7 @@ export default function Analytics() {
           title={"Avg Processing Time"}
           amount={"2.5"}
           detail={"Expense approval time"}
-          Logo={<ChartColumnIncreasing size={18} className="text-indigo-500" />}
+          Logo={<ChartColumnIncreasing size={16} className="text-indigo-500" />}
           isLogo={true}
         />
       </div>
