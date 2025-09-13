@@ -8,8 +8,7 @@ import {
   SquarePen,
   Trash,
 } from "lucide-react";
-import ExpenseCard from "./expense-card";
-import { Table } from "@/components/ui/table";
+
 import DataTable from "../component/table";
 import { ColumnDef } from "@tanstack/react-table";
 const columns: ColumnDef<(typeof data)[0]>[] = [

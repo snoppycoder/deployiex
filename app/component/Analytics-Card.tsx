@@ -16,7 +16,7 @@ export default function AnalyticsCard({
   isLogo,
 }: AnalyticsCardProp) {
   return (
-    <div className="w-36 md:w-48 xl:w-56 px-2 py-4 md:px-4 md:py-6 flex flex-col border border-gray-300 rounded-lg hover:shadow-lg gap-y-4">
+    <div className="w-38 md:w-48 xl:w-56 px-2 py-4 md:px-4 md:py-6 flex flex-col border border-gray-300 rounded-lg hover:shadow-lg gap-y-4">
       <div className="w-full text-md md:text-lg py-0 md:py-2 flex justify-between items-start">
         {title}
         <div className={`${isLogo} ? "block" : "hidden" `}>{Logo}</div>
