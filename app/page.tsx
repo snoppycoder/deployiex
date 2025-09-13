@@ -11,6 +11,7 @@ import PieChartComponent from "./component/pie-chart";
 import TransactionCard from "./component/Transaction-Card";
 import { Progress } from "@/components/ui/progress";
 import DashboardCard from "./component/dashboard-card";
+import AddExpenseButton from "./component/Expense-Button";
 
 export default function Dashboard() {
   return (
@@ -23,12 +24,7 @@ export default function Dashboard() {
           </span>
         </div>
         <div className="flex gap-x-2.5">
-          <button
-            data-slot="button"
-            className="inline-flex items-center gap-2 justify-center whitespace-nowrap rounded-md lg:text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-black hover:bg-black/90 h-8 lg:h-9 lg:px-4 px-2 py-2  text-xs text-white"
-          >
-            <Plus size={16} /> Add Expense
-          </button>
+          <AddExpenseButton />
           <button
             data-slot="button"
             className="inline-flex items-center gap-2 justify-center whitespace-nowrap rounded-md lg:text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-white  h-8 lg:h-9 lg:px-4 px-2 py-2  text-xs text-black border border-gray-300"
