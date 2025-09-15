@@ -13,6 +13,7 @@ import BarChartComponent, { data } from "../component/bar-chart";
 import DataTable from "../component/table";
 import { ColumnDef } from "@tanstack/react-table";
 import IncomeTable from "../component/income-table";
+import AddIncomeButton from "../component/AddIncome-Button";
 
 export default function Income() {
   const columns: ColumnDef<(typeof data)[0]>[] = [
@@ -89,12 +90,7 @@ export default function Income() {
           </span>
         </div>
         <div className="flex gap-x-2.5">
-          <button
-            data-slot="button"
-            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-black hover:bg-black/90 h-9 px-4 py-2   text-white"
-          >
-            <Plus size={18} /> Add Income
-          </button>
+          <AddIncomeButton />
         </div>
       </div>
       <div className=" w-full grid grid-cols-2 gap-y-2.5 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6 mb-2.5">
