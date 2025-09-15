@@ -1,5 +1,5 @@
 "use client";
-import { Plus } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { useState } from "react";
 
 export default function AddExpenseButton() {
@@ -17,14 +17,16 @@ export default function AddExpenseButton() {
 
       {isOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg w-80">
+          <div className="relative bg-white p-6 rounded-lg w-80">
             <h2 className="text-lg font-semibold mb-4">Add Expense</h2>
             <button
               onClick={() => setIsOpen(false)}
-              className="mt-2 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+              className="absolute right-0 top-0 p-3 rounded hover:bg-gray-300"
             >
-              Close
+              <X size={16} />
             </button>
+
+            <div>Needs to be decided</div>
           </div>
         </div>
       )}

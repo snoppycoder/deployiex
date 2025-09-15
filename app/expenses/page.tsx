@@ -1,6 +1,8 @@
 import { Camera, Filter, Plus, Receipt, Search } from "lucide-react";
 import ExpenseTabSwitcher from "../component/Expense-ToggleTab";
 import DropDown from "../component/dropdown";
+import ScanReciept from "../component/ScanReciept-Button";
+import NewExpenseButton from "../component/NewExpense-Button";
 
 export default function Expenses() {
   return (
@@ -13,18 +15,8 @@ export default function Expenses() {
           </span>
         </div>
         <div className="flex gap-x-2.5">
-          <button
-            data-slot="button"
-            className="inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all cursor-pointer disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-white hover:bg-white/90 h-9 px-4 py-2  justify-center text-black border border-gray-300"
-          >
-            <Camera size={18} /> Scan Receipt
-          </button>
-          <button
-            data-slot="button"
-            className="inline-flex items-center gap-2 justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-black hover:bg-black/90 h-9 px-4 py-2   text-white"
-          >
-            <Plus /> New Expense
-          </button>
+          <ScanReciept />
+          <NewExpenseButton />
         </div>
       </div>
       <div className="w-full flex flex-col md:flex-row gap-2.5 px-2 py-4 border border-gray-300 rounded-lg">
