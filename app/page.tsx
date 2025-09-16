@@ -23,15 +23,6 @@ export default function Dashboard() {
             Welcome back! Here's your expense overview for this month.
           </span>
         </div>
-        <div className="flex gap-x-2.5">
-          <AddExpenseButton />
-          <button
-            data-slot="button"
-            className="inline-flex items-center gap-2 justify-center whitespace-nowrap rounded-md lg:text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-white  h-8 lg:h-9 lg:px-4 px-2 py-2  text-xs text-black border border-gray-300"
-          >
-            <Receipt size={16} /> Scan Receipt
-          </button>
-        </div>
       </div>
       <div className=" w-full grid grid-cols-2 gap-y-2.5 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">
         <DashboardCard
