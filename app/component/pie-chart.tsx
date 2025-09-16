@@ -47,11 +47,9 @@ export const data = {
   ],
 };
 
-// Pie chart component
 export default function PieChartComponent() {
   return (
     <>
-      
       <Doughnut options={options} data={data} />
     </>
   );

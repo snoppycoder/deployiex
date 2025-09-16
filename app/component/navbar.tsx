@@ -30,7 +30,7 @@ export default function Navbar() {
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/40 z-20 md:hidden"
-          onClick={() => setIsOpen(false)} // closes when clicking outside
+          onClick={() => setIsOpen(false)}
         ></div>
       )}
       <nav
