@@ -33,7 +33,7 @@ export default function Approval() {
           isLogo={true}
           Logo={<Clock className="text-orange-300" size={18} />}
           detail={"Awaiting your review"}
-        ></ExpenseCard>
+        />
         <ExpenseCard
           title={"High Priority"}
           amount={"3"}
@@ -41,7 +41,7 @@ export default function Approval() {
           isLogo={true}
           Logo={<ShieldAlert className="text-red-300" size={18} />}
           detail={"Urgent review needed"}
-        ></ExpenseCard>
+        />
         <ExpenseCard
           title={"Total Amount"}
           amount={"857.89 Birr"}
@@ -49,7 +49,7 @@ export default function Approval() {
           isLogo={true}
           Logo={<Users className="text-blue-300" size={18} />}
           detail={"Pending Approval"}
-        ></ExpenseCard>
+        />
         <ExpenseCard
           title={"Approved Today"}
           amount={"12"}
@@ -57,7 +57,7 @@ export default function Approval() {
           Logo={<CircleCheckBig className="text-green-300" size={18} />}
           detail={"Processed successfully"}
           type={"Total"}
-        ></ExpenseCard>
+        />
       </div>
       <ApprovalTabSwitcher />
     </div>
