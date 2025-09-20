@@ -9,6 +9,7 @@ import {
 
 import ApprovalTabSwitcher from "../component/Approval-ToggleTab";
 import ExpenseCard from "../component/expense-card";
+import WorkflowsButton from "../component/ManagerWorkflow-Button";
 
 export default function Approval() {
   return (
@@ -21,12 +22,7 @@ export default function Approval() {
           </span>
         </div>
         <div className="flex gap-x-2.5 mt-2.5 md:mt-0">
-          <button
-            data-slot="button"
-            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-white h-9 px-5 py-2  border border-gray-300 text-black"
-          >
-            <Settings size={18} className="mr-2" /> Manage Workflows
-          </button>
+          <WorkflowsButton />
         </div>
       </div>
       <div className=" w-full grid grid-cols-2 gap-y-2.5 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">

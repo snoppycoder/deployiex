@@ -1,16 +1,8 @@
-import {
-  ArrowDownRight,
-  ArrowUpRight,
-  Clock,
-  Plus,
-  Receipt,
-} from "lucide-react";
-import DashboardCard from "../component/dashboard-card";
-import BarChartComponent from "../component/bar-chart";
-import PieChartComponent from "../component/pie-chart";
-import TransactionCard from "../component/Transaction-Card";
+import { Plus } from "lucide-react";
+
 import PolicyManagementCard from "../component/PolicyManagement-Card";
 import PolicyTabSwitcher from "../component/Policy-Toggle";
+import AddPolicyButton from "../component/AddPolicy";
 
 export default function Polices() {
   return (
@@ -24,12 +16,7 @@ export default function Polices() {
           </span>
         </div>
         <div className="flex gap-x-2.5 mt-2.5 md:mt-0">
-          <button
-            data-slot="button"
-            className="inline-flex items-center gap-2 justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-black hover:bg-black/90 h-9 px-4 py-2   text-white"
-          >
-            <Plus size={18} /> Create Policy
-          </button>
+          <AddPolicyButton />
         </div>
       </div>
       <div className=" w-full grid grid-cols-2 gap-y-2.5 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">

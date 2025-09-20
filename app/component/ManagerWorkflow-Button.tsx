@@ -1,8 +1,9 @@
 "use client";
-import { Plus, X } from "lucide-react";
+import { Plus, Settings, X } from "lucide-react";
 import { useState } from "react";
+import DropDown from "./dropdown";
 
-export default function AddIncomeButton() {
+export default function WorkflowsButton() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -10,9 +11,9 @@ export default function AddIncomeButton() {
       <button
         onClick={() => setIsOpen(true)}
         data-slot="button"
-        className="inline-flex items-center gap-2 justify-center whitespace-nowrap rounded-md lg:text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-black hover:bg-black/90 h-8 lg:h-9 lg:px-4 px-2 py-2 text-xs text-white"
+        className="inline-flex items-center gap-2 justify-center whitespace-nowrap rounded-md lg:text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-white hover:bg-white/90 h-8 lg:h-9 lg:px-4 px-2 py-2 text-xs text-black border border-gray-300"
       >
-        <Plus size={16} /> Add Income
+        <Settings size={16} /> Manage Workflows
       </button>
 
       {isOpen && (
@@ -45,11 +46,7 @@ export default function AddIncomeButton() {
                     <label htmlFor="catagory" className="font-semibold">
                       Catagory
                     </label>
-                    <input
-                      type="number"
-                      id="catagory"
-                      className="w-full px-2 py-2 bg-gray-100 rounded-md" //will change this to drop down
-                    />
+                    <DropDown options={["IT", "Finance", "HR", "Accountant"]} />
                   </div>
                 </div>
                 <div className="w-full">

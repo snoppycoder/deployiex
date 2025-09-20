@@ -1,8 +1,9 @@
 "use client";
 import { Plus, X } from "lucide-react";
 import { useState } from "react";
+import DropDown from "./dropdown";
 
-export default function AddIncomeButton() {
+export default function AddPolicyButton() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -12,7 +13,7 @@ export default function AddIncomeButton() {
         data-slot="button"
         className="inline-flex items-center gap-2 justify-center whitespace-nowrap rounded-md lg:text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-black hover:bg-black/90 h-8 lg:h-9 lg:px-4 px-2 py-2 text-xs text-white"
       >
-        <Plus size={16} /> Add Income
+        <Plus size={16} /> Create Policy
       </button>
 
       {isOpen && (
@@ -32,29 +33,26 @@ export default function AddIncomeButton() {
               <div className="w-full flex flex-col gap-2.5">
                 <div className="flex w-full gap-x-2.5 ">
                   <div className="flex w-full flex-col gap-y-1.5">
-                    <label htmlFor="amount " className="font-semibold">
-                      Amount
+                    <label htmlFor="title " className="font-semibold">
+                      Policy title
                     </label>
                     <input
-                      id="amount"
-                      type="number"
+                      id="title"
+                      type="text"
                       className="w-full px-2 py-2 bg-gray-100 rounded-md"
+                      placeholder="Enter a Policy title"
                     />
                   </div>
                   <div className="flex w-full flex-col gap-y-1.5">
                     <label htmlFor="catagory" className="font-semibold">
                       Catagory
                     </label>
-                    <input
-                      type="number"
-                      id="catagory"
-                      className="w-full px-2 py-2 bg-gray-100 rounded-md" //will change this to drop down
-                    />
+                    <DropDown options={["IT", "Finance", "HR", "Accountant"]} />
                   </div>
                 </div>
                 <div className="w-full">
                   <label htmlFor="description" className="font-semibold">
-                    Income Source
+                    Description
                   </label>
                   <input
                     id="description"
@@ -63,29 +61,14 @@ export default function AddIncomeButton() {
                     placeholder="Brief description of the income source "
                   />
                 </div>
+
                 <div className="flex w-full gap-x-2.5 ">
                   <div className="flex w-full flex-col gap-y-1.5">
-                    <label htmlFor="client " className="font-semibold">
-                      Client/Source
+                    <label htmlFor="proprity" className="font-semibold">
+                      Priority
                     </label>
-                    <input
-                      id="client"
-                      type="number"
-                      className="w-full px-2 py-2 bg-gray-100 rounded-md"
-                    />
+                    <DropDown options={["Low", "Medium", "High"]} default={1} />
                   </div>
-                  <div className="flex w-full flex-col gap-y-1.5">
-                    <label htmlFor="invoice-no" className="font-semibold">
-                      Invoice Number
-                    </label>
-                    <input
-                      type="number"
-                      id="invoice-no"
-                      className="w-full px-2 py-2 bg-gray-100 rounded-md" //will change this to drop down
-                    />
-                  </div>
-                </div>
-                <div className="flex w-full gap-x-2.5 ">
                   <div className="flex w-full flex-col gap-y-1.5">
                     <label htmlFor="date " className="font-semibold">
                       Date Received
@@ -94,17 +77,6 @@ export default function AddIncomeButton() {
                       id="date"
                       type="date"
                       className="w-full px-2 py-2 bg-gray-100 rounded-md"
-                    />
-                  </div>
-                  <div className="flex w-full flex-col gap-y-1.5">
-                    <label htmlFor="status" className="font-semibold">
-                      Status
-                      {/* Status    will make this a dropdown */}
-                    </label>
-                    <input
-                      type="number"
-                      id="status"
-                      className="w-full px-2 py-2 bg-gray-100 rounded-md" //will change this to drop down
                     />
                   </div>
                 </div>
