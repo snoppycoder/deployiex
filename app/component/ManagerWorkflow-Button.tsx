@@ -46,6 +46,7 @@ export default function WorkflowsButton() {
                     <label htmlFor="catagory" className="font-semibold">
                       Catagory
                     </label>
+
                     <DropDown options={["IT", "Finance", "HR", "Accountant"]} />
                   </div>
                 </div>
