@@ -1,12 +1,15 @@
 "use client";
 import { useState } from "react";
 import { Check, ChevronDown, Filter } from "lucide-react";
+type DropDownProp = {
+  options: string[];
+  default?: number;
+};
 
-export default function Dropdown() {
+export default function DropDown(Prop: DropDownProp) {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState("All Status");
-
-  const options = ["All Status", "Approved", "Pending", "Rejected"];
+  const options = Prop.options;
+  const [selected, setSelected] = useState(options[Prop.default ?? 0]);
 
   return (
     <div className="relative w-full md:w-48 ">
@@ -37,7 +40,8 @@ export default function Dropdown() {
               }}
               className="px-3 py-2 hover:bg-gray-100 cursor-pointer flex justify-between text-sm"
             >
-              {option} <Check className="w-4 h-4" />
+              {option}
+              {option == selected ? <Check className="w-4 h-4" /> : <></>}
             </div>
           ))}
         </div>

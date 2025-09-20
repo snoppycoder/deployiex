@@ -1,67 +1,73 @@
 import {
-  ArrowBigRightDash,
   ArrowDownRight,
   ArrowUpRight,
   Clock,
   Plus,
   Receipt,
 } from "lucide-react";
-import Image from "next/image";
-import DashboardCard from "./component/dashboard-card";
+
 import BarChartComponent from "./component/bar-chart";
 import PieChartComponent from "./component/pie-chart";
-import TransactionCard from "./component/transactioncard";
+import TransactionCard from "./component/Transaction-Card";
+import { Progress } from "@/components/ui/progress";
+import DashboardCard from "./component/dashboard-card";
+import AddExpenseButton from "./component/Expense-Button";
+
 export default function Dashboard() {
   return (
     <div className="h-full w-full flex flex-col p-6 pb-2 pt-6 gap-4">
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full flex flex-col md:flex-row md:items-center md:justify-between gap-y-2.5 ">
         <div>
           <h1 className="text-2xl sm:text-3xl">Dashboard</h1>
           <span className="font-extralight text-gray-600 ">
             Welcome back! Here's your expense overview for this month.
           </span>
         </div>
-        <div className="flex gap-x-2.5">
-          <button
-            data-slot="button"
-            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-black hover:bg-black/90 h-9 px-4 py-2   text-white"
-          >
-            <Plus size={18} /> Add Expense
-          </button>
-          <button
-            data-slot="button"
-            className="inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all cursor-pointer disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-white hover:bg-white/90 h-9 px-4 py-2  justify-center text-black border border-gray-300"
-          >
-            <Receipt /> Scan Receipt
-          </button>
-        </div>
       </div>
-      <div className=" w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">
+      <div className=" w-full grid grid-cols-2 gap-y-2.5 lg:grid-cols-4 md:grid-cols-2 lg:gap-x-6">
         <DashboardCard
           title={"Total Expense"}
-          amount={"$1,245.67"}
-          insight={"+12% more than last month"}
-          icon={<ArrowDownRight className="text-red-500" />}
+          amount={"4,235.50 Birr "}
+          detail={"+12% more than last month"}
+          Logo={<ArrowDownRight size={18} className="text-red-500" />}
+          isLogo={true}
         />
         <DashboardCard
           title={"Total Income"}
-          amount={"$8,753.67"}
-          insight={"+8% more than last month"}
-          icon={<ArrowUpRight className="text-green-500" />}
+          amount={"8753.67 Birr"}
+          detail={"+8% more than last month"}
+          Logo={<ArrowUpRight size={18} className="text-green-500" />}
+          isLogo={true}
         />
         <DashboardCard
           title={"Pending"}
           amount={"7"}
-          insight={"3 requests require your action"}
-          icon={<Clock className="text-orange-300" />}
+          detail={"3 requests require your action"}
+          Logo={<Clock size={18} className="text-orange-300" />}
+          isLogo={true}
+          color={"text-orange-500"}
         />
-        <DashboardCard
-          title={"Budget Remaining"}
-          isBudget={true}
-          amount={"$1,245.67"}
-          insight={"+12% more than last month"}
-          icon={<ArrowDownRight className="text-red-500" />}
-        />
+        {/** we don't need to make a custom card for this we will just do some refactoring
+         */}
+
+        <div className="w-38 md:w-48 xl:w-56 px-2 py-4 md:px-4 md:py-6 flex flex-col border border-gray-300 rounded-lg hover:shadow-lg gap-y-4">
+          <div className="w-full py-2 flex justify-between items-start">
+            Budget Remaining
+            <div>
+              <ArrowDownRight size={18} className="text-red-500" />
+            </div>
+          </div>
+          <div className="gap-y-1">
+            <div className="w-full flex flex-col gap-y-2 text-xl">
+              <span className="text-2xl font-medium">1,764.50 Birr</span>
+              <Progress value={70}></Progress>
+            </div>
+
+            <div className="w-full text-sm  text-gray-400">
+              72% of monthly budget used
+            </div>
+          </div>
+        </div>
       </div>
       <div className=" w-full flex flex-col xl:grid xl:grid-cols-2 gap-x-4">
         <div className="w-full px-2  border border-gray-300 rounded-lg">
@@ -74,7 +80,7 @@ export default function Dashboard() {
             </span>
           </div>
           <div className="w-full flex justify-center items-center">
-            <div className="w-[460px] h-[300px]">
+            <div className="w-[300px] h-auto md:w-[460px] md:h-[300px]">
               <BarChartComponent />
             </div>
           </div>
