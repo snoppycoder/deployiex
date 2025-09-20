@@ -10,7 +10,7 @@ export default function ApprovalTabSwitcher() {
     <div className="w-full p-4">
       <div className="w-72 flex border border-gray-300 rounded-lg overflow-hidden">
         <button
-          className={`w-36 flex-1  p-2 text-sm font-medium transition-all ${
+          className={`w-36 flex-1 p-2 text-sm font-medium transition-all ${
             activeTab === "pending"
               ? "bg-black text-white"
               : "bg-white text-gray-700 hover:bg-gray-100"
