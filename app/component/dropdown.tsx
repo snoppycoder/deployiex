@@ -14,7 +14,7 @@ export default function DropDown(Prop: DropDownProp) {
   return (
     <div className="relative w-full md:w-48 ">
       <button
-        onClick={() => setOpen(!open)}
+        // onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between px-4 py-2 bg-gray-200 rounded-md"
       >
         <div className="flex items-center gap-2">

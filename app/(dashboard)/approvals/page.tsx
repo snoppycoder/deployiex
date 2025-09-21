@@ -7,9 +7,9 @@ import {
   Users,
 } from "lucide-react";
 
-import ApprovalTabSwitcher from "../component/Approval-ToggleTab";
-import ExpenseCard from "../component/expense-card";
-import WorkflowsButton from "../component/ManagerWorkflow-Button";
+import ApprovalTabSwitcher from "../../component/Approval-ToggleTab";
+import ExpenseCard from "../../component/expense-card";
+import WorkflowsButton from "../../component/ManagerWorkflow-Button";
 
 export default function Approval() {
   return (

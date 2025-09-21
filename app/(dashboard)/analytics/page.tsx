@@ -10,11 +10,11 @@ import {
   Filter,
 } from "lucide-react";
 
-import AnalyticsCard from "../component/Analytics-Card";
+import AnalyticsCard from "../../component/Analytics-Card";
 
-import AnalyticsTabSwitcher from "../component/Analytics-Toggle";
+import AnalyticsTabSwitcher from "../../component/Analytics-Toggle";
 import { useState } from "react";
-import DashboardCard from "../component/dashboard-card";
+import DashboardCard from "../../component/dashboard-card";
 
 export default function Analytics() {
   const [open, setOpen] = useState(false);

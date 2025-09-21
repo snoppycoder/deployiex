@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 
 import {
   ChartColumnDecreasing,
@@ -13,7 +13,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import Link from "next/link";
-import Navbar from "./component/navbar";
+import Navbar from "../component/navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
