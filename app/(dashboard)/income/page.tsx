@@ -7,13 +7,13 @@ import {
   SquarePen,
   Trash,
 } from "lucide-react";
-import ExpenseCard from "../component/expense-card";
-import PieChartComponent from "../component/pie-chart";
-import BarChartComponent, { data } from "../component/bar-chart";
-import DataTable from "../component/table";
+import ExpenseCard from "../../component/expense-card";
+import PieChartComponent from "../../component/pie-chart";
+import BarChartComponent, { data } from "../../component/bar-chart";
+import DataTable from "../../component/table";
 import { ColumnDef } from "@tanstack/react-table";
-import IncomeTable from "../component/income-table";
-import AddIncomeButton from "../component/AddIncome-Button";
+import IncomeTable from "../../component/income-table";
+import AddIncomeButton from "../../component/AddIncome-Button";
 
 export default function Income() {
   const columns: ColumnDef<(typeof data)[0]>[] = [

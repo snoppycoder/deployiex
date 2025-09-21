@@ -1,19 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 
-import {
-  ChartColumnDecreasing,
-  DollarSign,
-  LayoutDashboard,
-  Menu,
-  Receipt,
-  Settings,
-  TrendingUp,
-  UsersRound,
-} from "lucide-react";
-import Link from "next/link";
-import Navbar from "./component/navbar";
+import Navbar from "../component/navbar";
+import { AuthProvider } from "@/context/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,7 +31,9 @@ export default function RootLayout({
         <aside className="w-full md:w-64 md:min-h-screen border-r border-gray-300">
           <Navbar />
         </aside>
-        <main className="flex-1">{children}</main>
+        <main className="flex-1">
+          <AuthProvider>{children}</AuthProvider>
+        </main>
       </body>
     </html>
   );
