@@ -6,12 +6,11 @@ import {
   Receipt,
 } from "lucide-react";
 
-import BarChartComponent from "./component/bar-chart";
-import PieChartComponent from "./component/pie-chart";
-import TransactionCard from "./component/Transaction-Card";
+import BarChartComponent from "../component/bar-chart";
+import PieChartComponent from "../component/pie-chart";
+import TransactionCard from "../component/Transaction-Card";
 import { Progress } from "@/components/ui/progress";
-import DashboardCard from "./component/dashboard-card";
-import AddExpenseButton from "./component/Expense-Button";
+import DashboardCard from "../component/dashboard-card";
 
 export default function Dashboard() {
   return (
