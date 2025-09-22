@@ -53,7 +53,7 @@ export default function Login() {
           <input
             type="email"
             placeholder="Email Address"
-            className="border mt-4  border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 p-3 rounded-md outline-none w-full transition-all pr-10"
+            className="border mt-4  border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 p-2 rounded-md outline-none w-full transition-all pr-10"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -62,7 +62,7 @@ export default function Login() {
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
-              className="border border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 p-3 rounded-md outline-none w-full transition-all pr-10"
+              className="border border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 p-2 rounded-md outline-none w-full transition-all pr-10"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
