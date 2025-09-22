@@ -41,7 +41,7 @@ export default function Navbar() {
   }, [isOpen]);
 
   return (
-    <div className="reative w-full min-h-screen ">
+    <div className="relative w-full md:min-h-screen ">
       <div className="md:hidden w-full flex  items-center justify-between p-5 border-b border-b-gray-300 ">
         <div className=" w-full flex items-center gap-x-2.5 ">
           <TrendingUp size={28} />
@@ -81,7 +81,11 @@ export default function Navbar() {
           })}
         </div>
       </nav>
-      <div className="fixed bottom-0 left-0 w-64 bg-white border-r border-gray-300 p-3 flex flex-col gap-y-2 md:w-64">
+      <div
+        className={`${
+          isOpen ? "absolute" : "fixed"
+        } md:fixed    bottom-0 left-0 w-64 bg-white border-r border-gray-300 p-3 flex flex-col gap-y-2 md:w-64`}
+      >
         {change && (
           <div className="mb-2 flex flex-col gap-y-1.5 border rounded-lg">
             <div className="w-full flex items-center p-2 rounded-lg hover:bg-gray-100 cursor-pointer gap-x-2">
@@ -96,7 +100,6 @@ export default function Navbar() {
           </div>
         )}
 
-        {/* Main profile */}
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center gap-x-2">
             <div className="bg-gray-300  h-9 w-9 rounded-2xl ml-2 flex items-center justify-center">
