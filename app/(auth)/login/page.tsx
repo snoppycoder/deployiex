@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/context/AuthContext";
 
@@ -7,6 +8,10 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const { isLoggedIn, login, logout } = useAuthContext();
   const router = useRouter();
+
+  const schema = z.object({
+    email: z.string().email(),
+  });
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -16,7 +21,12 @@ export default function Login() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    //some api call login(credentials then setisLogin to true)
+    const res = schema.safeParse({ email });
+    if (!res.success) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+    //some api call login(credentials) then setisLogin to true)
 
     // login(email, someCredentials)
     // we will implement it later on
@@ -32,14 +42,14 @@ export default function Login() {
           <input
             type="email"
             placeholder="Email Address"
-            className="border p-2 rounded-md mt-4 w-80"
+            className="border p-2 rounded-md mt-4 w-full"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
           <button
             type="submit"
-            className="mt-4 bg-blue-500 text-white p-2 rounded-md"
+            className="mt-4 bg-black text-white p-2 rounded-md"
           >
             Submit
           </button>
