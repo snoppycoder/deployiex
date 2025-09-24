@@ -5,14 +5,13 @@ import * as RechartsPrimitive from "recharts";
 
 import { cn } from "@/lib/utils";
 
-// Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const;
 interface TooltipItem {
   value?: number | string;
   name?: string;
   dataKey?: string;
   color?: string;
-  payload?: { fill?: string; [key: string]: any };
+  payload?: TooltipItem[];
 }
 
 export type ChartConfig = {
@@ -119,14 +118,17 @@ interface ChartTooltipContentProps extends React.ComponentProps<"div"> {
   hideLabel?: boolean;
   hideIndicator?: boolean;
   label?: React.ReactNode;
-  labelFormatter?: (label: any, payload: TooltipItem[]) => React.ReactNode;
+  labelFormatter?: (
+    label: React.ReactNode,
+    payload: TooltipItem[]
+  ) => React.ReactNode;
   labelClassName?: string;
   formatter?: (
-    value: any,
+    value: string | number | undefined,
     name: string,
     item: TooltipItem,
     index: number,
-    payload?: any
+    payload?: TooltipItem[]
   ) => React.ReactNode;
   color?: string;
   nameKey?: string;
@@ -276,7 +278,7 @@ const ChartLegend = RechartsPrimitive.Legend;
 interface ChartLegendContentProps extends React.ComponentProps<"div"> {
   hideIcon?: boolean;
   nameKey?: string;
-  payload?: any[];
+  payload?: TooltipItem[];
   verticalAlign?: "top" | "bottom" | "middle";
 }
 
@@ -330,7 +332,6 @@ function ChartLegendContent({
   );
 }
 
-// Helper to extract item config from a payload.
 function getPayloadConfigFromPayload(
   config: ChartConfig,
   payload: unknown,
@@ -340,28 +341,22 @@ function getPayloadConfigFromPayload(
     return undefined;
   }
 
-  const payloadPayload =
-    "payload" in payload &&
-    typeof payload.payload === "object" &&
-    payload.payload !== null
-      ? payload.payload
+  const typedPayload = payload as Record<string, unknown>;
+  const innerPayload =
+    "payload" in typedPayload && typeof typedPayload.payload === "object"
+      ? (typedPayload.payload as Record<string, unknown>)
       : undefined;
 
   let configLabelKey: string = key;
 
-  if (
-    key in payload &&
-    typeof payload[key as keyof typeof payload] === "string"
-  ) {
-    configLabelKey = payload[key as keyof typeof payload] as string;
+  if (key in typedPayload && typeof typedPayload[key] === "string") {
+    configLabelKey = typedPayload[key] as string;
   } else if (
-    payloadPayload &&
-    key in payloadPayload &&
-    typeof payloadPayload[key as keyof typeof payloadPayload] === "string"
+    innerPayload &&
+    key in innerPayload &&
+    typeof innerPayload[key] === "string"
   ) {
-    configLabelKey = payloadPayload[
-      key as keyof typeof payloadPayload
-    ] as string;
+    configLabelKey = innerPayload[key] as string;
   }
 
   return configLabelKey in config
