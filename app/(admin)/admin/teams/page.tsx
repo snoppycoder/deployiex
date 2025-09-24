@@ -197,8 +197,8 @@ export default function TeamsPage() {
   }
 
   const handleAddMember = (member: string) => {
-    if (managingTeam && !managingTeam.members.includes(member)) {
-      const updatedTeam = { ...managingTeam, members: [...managingTeam.members, member] }
+    if (managingTeam && !managingTeam.members.includes(member) ) {
+      const updatedTeam = { ...managingTeam, members: [...managingTeam.members, member], id: managingTeam.id! }
       setTeams(teams.map((team) => (team.id === managingTeam.id ? updatedTeam : team)))
       setManagingTeam(updatedTeam)
     }
@@ -206,7 +206,7 @@ export default function TeamsPage() {
 
   const handleRemoveMember = (member: string) => {
     if (managingTeam) {
-      const updatedTeam = { ...managingTeam, members: managingTeam.members.filter((m) => m !== member) }
+      const updatedTeam = { ...managingTeam, members: managingTeam.members.filter((m) => m !== member), id: managingTeam.id! }
       setTeams(teams.map((team) => (team.id === managingTeam.id ? updatedTeam : team)))
       setManagingTeam(updatedTeam)
     }
