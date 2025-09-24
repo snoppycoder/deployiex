@@ -1,12 +1,25 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Badge } from "@/components/ui/badge"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   Dialog,
   DialogContent,
@@ -15,7 +28,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -26,20 +39,52 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Plus, Search, Edit, Trash2, MoreHorizontal, FileText, DollarSign, X } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+} from "@/components/ui/alert-dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Plus,
+  Search,
+  Edit,
+  Trash2,
+  MoreHorizontal,
+  FileText,
+  DollarSign,
+  X,
+} from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 // Mock data
-const mockPolicies = [
+type PolicyType = {
+  id: number;
+  name: string;
+  organization: string;
+  description: string;
+  userLimit: number;
+  teamLimit: number;
+  categories: string[];
+  createdDate: string;
+  lastModified: string;
+};
+const mockPolicies: PolicyType[] = [
   {
     id: 1,
     name: "Standard Business Policy",
     organization: "TechCorp Inc.",
-    description: "Standard expense policy for all employees with basic spending limits.",
+    description:
+      "Standard expense policy for all employees with basic spending limits.",
     userLimit: 1000,
     teamLimit: 5000,
     categories: ["Travel", "Meals", "Office Supplies"],
@@ -50,7 +95,8 @@ const mockPolicies = [
     id: 2,
     name: "Executive Policy",
     organization: "TechCorp Inc.",
-    description: "Enhanced expense policy for executive team members with higher limits.",
+    description:
+      "Enhanced expense policy for executive team members with higher limits.",
     userLimit: 5000,
     teamLimit: 25000,
     categories: ["Travel", "Meals", "Entertainment", "Office Supplies"],
@@ -61,7 +107,8 @@ const mockPolicies = [
     id: 3,
     name: "Marketing Campaign Policy",
     organization: "Global Marketing Ltd.",
-    description: "Specialized policy for marketing campaigns and promotional activities.",
+    description:
+      "Specialized policy for marketing campaigns and promotional activities.",
     userLimit: 2000,
     teamLimit: 15000,
     categories: ["Marketing", "Travel", "Entertainment", "Software"],
@@ -72,16 +119,22 @@ const mockPolicies = [
     id: 4,
     name: "Remote Work Policy",
     organization: "HealthCare Solutions",
-    description: "Policy designed for remote workers with focus on home office expenses.",
+    description:
+      "Policy designed for remote workers with focus on home office expenses.",
     userLimit: 800,
     teamLimit: 4000,
     categories: ["Office Supplies", "Software", "Equipment"],
     createdDate: "2024-02-15",
     lastModified: "2024-03-12",
   },
-]
+];
 
-const mockOrganizations = ["TechCorp Inc.", "Global Marketing Ltd.", "FinanceFirst", "HealthCare Solutions"]
+const mockOrganizations = [
+  "TechCorp Inc.",
+  "Global Marketing Ltd.",
+  "FinanceFirst",
+  "HealthCare Solutions",
+];
 
 const availableCategories = [
   "Travel",
@@ -94,26 +147,28 @@ const availableCategories = [
   "Training",
   "Utilities",
   "Other",
-]
+];
 
 interface ExpensePolicy {
-  id?: number
-  name: string
-  organization: string
-  description: string
-  userLimit: number
-  teamLimit: number
-  categories: string[]
-  createdDate: string
-  lastModified: string
+  id?: number;
+  name: string;
+  organization: string;
+  description: string;
+  userLimit: number;
+  teamLimit: number;
+  categories: string[];
+  createdDate: string;
+  lastModified: string;
 }
 
 export default function ExpensePoliciesPage() {
-  const [policies, setPolicies] = useState(mockPolicies)
-  const [searchTerm, setSearchTerm] = useState("")
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const [editingPolicy, setEditingPolicy] = useState<ExpensePolicy | null>(null)
+  const [policies, setPolicies] = useState(mockPolicies);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingPolicy, setEditingPolicy] = useState<ExpensePolicy | null>(
+    null
+  );
   const [formData, setFormData] = useState<ExpensePolicy>({
     name: "",
     organization: "",
@@ -123,49 +178,53 @@ export default function ExpensePoliciesPage() {
     categories: [],
     createdDate: new Date().toISOString().split("T")[0],
     lastModified: new Date().toISOString().split("T")[0],
-  })
+  });
 
   const filteredPolicies = policies.filter(
     (policy) =>
       policy.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       policy.organization.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      policy.description.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+      policy.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleCreate = () => {
     const newPolicy = {
       ...formData,
       id: Math.max(...policies.map((p) => p.id!)) + 1,
       lastModified: new Date().toISOString().split("T")[0],
-    }
-    setPolicies([...policies, newPolicy])
-    setIsCreateModalOpen(false)
-    resetForm()
-  }
+    };
+    setPolicies([...policies, newPolicy]);
+    setIsCreateModalOpen(false);
+    resetForm();
+  };
 
   const handleEdit = () => {
-    if (editingPolicy) {
-      const updatedPolicy = {
+    if (editingPolicy && typeof editingPolicy.id === "number") {
+      const updatedPolicy: PolicyType = {
         ...formData,
         id: editingPolicy.id,
         lastModified: new Date().toISOString().split("T")[0],
-      }
-      setPolicies(policies.map((policy) => (policy.id === editingPolicy.id ? updatedPolicy : policy)))
-      setIsEditModalOpen(false)
-      setEditingPolicy(null)
-      resetForm()
+      };
+      setPolicies(
+        policies.map((policy) =>
+          policy.id === editingPolicy.id ? updatedPolicy : policy
+        )
+      );
+      setIsEditModalOpen(false);
+      setEditingPolicy(null);
+      resetForm();
     }
-  }
+  };
 
   const handleDelete = (id: number) => {
-    setPolicies(policies.filter((policy) => policy.id !== id))
-  }
+    setPolicies(policies.filter((policy) => policy.id !== id));
+  };
 
   const openEditModal = (policy: ExpensePolicy) => {
-    setEditingPolicy(policy)
-    setFormData(policy)
-    setIsEditModalOpen(true)
-  }
+    setEditingPolicy(policy);
+    setFormData(policy);
+    setIsEditModalOpen(true);
+  };
 
   const resetForm = () => {
     setFormData({
@@ -177,8 +236,8 @@ export default function ExpensePoliciesPage() {
       categories: [],
       createdDate: new Date().toISOString().split("T")[0],
       lastModified: new Date().toISOString().split("T")[0],
-    })
-  }
+    });
+  };
 
   const handleCategoryToggle = (category: string) => {
     setFormData({
@@ -186,15 +245,15 @@ export default function ExpensePoliciesPage() {
       categories: formData.categories.includes(category)
         ? formData.categories.filter((c) => c !== category)
         : [...formData.categories, category],
-    })
-  }
+    });
+  };
 
   const removeCategory = (category: string) => {
     setFormData({
       ...formData,
       categories: formData.categories.filter((c) => c !== category),
-    })
-  }
+    });
+  };
 
   return (
     <div className="space-y-6">
@@ -208,8 +267,12 @@ export default function ExpensePoliciesPage() {
       {/* Page header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Expense Policies</h1>
-          <p className="text-muted-foreground">Manage spending limits and expense categories</p>
+          <h1 className="text-3xl font-bold text-foreground">
+            Expense Policies
+          </h1>
+          <p className="text-muted-foreground">
+            Manage spending limits and expense categories
+          </p>
         </div>
         <Dialog open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen}>
           <DialogTrigger asChild>
@@ -222,7 +285,8 @@ export default function ExpensePoliciesPage() {
             <DialogHeader>
               <DialogTitle>Create Expense Policy</DialogTitle>
               <DialogDescription>
-                Create a new expense policy with spending limits and approved categories.
+                Create a new expense policy with spending limits and approved
+                categories.
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto">
@@ -231,7 +295,9 @@ export default function ExpensePoliciesPage() {
                 <Input
                   id="name"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                   placeholder="Enter policy name"
                 />
               </div>
@@ -239,7 +305,9 @@ export default function ExpensePoliciesPage() {
                 <Label htmlFor="organization">Organization</Label>
                 <Select
                   value={formData.organization}
-                  onValueChange={(value) => setFormData({ ...formData, organization: value })}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, organization: value })
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select organization" />
@@ -258,7 +326,9 @@ export default function ExpensePoliciesPage() {
                 <Textarea
                   id="description"
                   value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                   placeholder="Enter policy description"
                   rows={3}
                 />
@@ -270,7 +340,12 @@ export default function ExpensePoliciesPage() {
                     id="userLimit"
                     type="number"
                     value={formData.userLimit}
-                    onChange={(e) => setFormData({ ...formData, userLimit: Number(e.target.value) })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        userLimit: Number(e.target.value),
+                      })
+                    }
                     placeholder="0"
                   />
                 </div>
@@ -280,7 +355,12 @@ export default function ExpensePoliciesPage() {
                     id="teamLimit"
                     type="number"
                     value={formData.teamLimit}
-                    onChange={(e) => setFormData({ ...formData, teamLimit: Number(e.target.value) })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        teamLimit: Number(e.target.value),
+                      })
+                    }
                     placeholder="0"
                   />
                 </div>
@@ -295,7 +375,10 @@ export default function ExpensePoliciesPage() {
                         checked={formData.categories.includes(category)}
                         onCheckedChange={() => handleCategoryToggle(category)}
                       />
-                      <Label htmlFor={`category-${category}`} className="text-sm">
+                      <Label
+                        htmlFor={`category-${category}`}
+                        className="text-sm"
+                      >
                         {category}
                       </Label>
                     </div>
@@ -304,7 +387,11 @@ export default function ExpensePoliciesPage() {
                 {formData.categories.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-2">
                     {formData.categories.map((category) => (
-                      <Badge key={category} variant="secondary" className="text-xs">
+                      <Badge
+                        key={category}
+                        variant="secondary"
+                        className="text-xs"
+                      >
                         {category}
                         <Button
                           variant="ghost"
@@ -321,7 +408,10 @@ export default function ExpensePoliciesPage() {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsCreateModalOpen(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setIsCreateModalOpen(false)}
+              >
                 Cancel
               </Button>
               <Button onClick={handleCreate}>Create Policy</Button>
@@ -337,7 +427,9 @@ export default function ExpensePoliciesPage() {
             <FileText className="h-5 w-5" />
             Expense Policy List
           </CardTitle>
-          <CardDescription>View and manage all expense policies</CardDescription>
+          <CardDescription>
+            View and manage all expense policies
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center space-x-2 mb-4">
@@ -370,7 +462,9 @@ export default function ExpensePoliciesPage() {
                     <TableCell>
                       <div>
                         <div className="font-medium">{policy.name}</div>
-                        <div className="text-sm text-muted-foreground line-clamp-1">{policy.description}</div>
+                        <div className="text-sm text-muted-foreground line-clamp-1">
+                          {policy.description}
+                        </div>
                       </div>
                     </TableCell>
                     <TableCell>{policy.organization}</TableCell>
@@ -389,7 +483,11 @@ export default function ExpensePoliciesPage() {
                     <TableCell>
                       <div className="flex flex-wrap gap-1">
                         {policy.categories.slice(0, 2).map((category) => (
-                          <Badge key={category} variant="outline" className="text-xs">
+                          <Badge
+                            key={category}
+                            variant="outline"
+                            className="text-xs"
+                          >
                             {category}
                           </Badge>
                         ))}
@@ -409,22 +507,30 @@ export default function ExpensePoliciesPage() {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuItem onClick={() => openEditModal(policy)}>
+                          <DropdownMenuItem
+                            onClick={() => openEditModal(policy)}
+                          >
                             <Edit className="h-4 w-4 mr-2" />
                             Edit
                           </DropdownMenuItem>
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
-                              <DropdownMenuItem onSelect={(e) => e.preventDefault()} className="text-destructive">
+                              <DropdownMenuItem
+                                onSelect={(e) => e.preventDefault()}
+                                className="text-destructive"
+                              >
                                 <Trash2 className="h-4 w-4 mr-2" />
                                 Delete
                               </DropdownMenuItem>
                             </AlertDialogTrigger>
                             <AlertDialogContent>
                               <AlertDialogHeader>
-                                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                                <AlertDialogTitle>
+                                  Are you sure?
+                                </AlertDialogTitle>
                                 <AlertDialogDescription>
-                                  This action cannot be undone. This will permanently delete the expense policy and may
+                                  This action cannot be undone. This will
+                                  permanently delete the expense policy and may
                                   affect users who are currently assigned to it.
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
@@ -455,7 +561,9 @@ export default function ExpensePoliciesPage() {
         <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
             <DialogTitle>Edit Expense Policy</DialogTitle>
-            <DialogDescription>Update the expense policy details and settings.</DialogDescription>
+            <DialogDescription>
+              Update the expense policy details and settings.
+            </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto">
             <div className="grid gap-2">
@@ -463,7 +571,9 @@ export default function ExpensePoliciesPage() {
               <Input
                 id="edit-name"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 placeholder="Enter policy name"
               />
             </div>
@@ -471,7 +581,9 @@ export default function ExpensePoliciesPage() {
               <Label htmlFor="edit-organization">Organization</Label>
               <Select
                 value={formData.organization}
-                onValueChange={(value) => setFormData({ ...formData, organization: value })}
+                onValueChange={(value) =>
+                  setFormData({ ...formData, organization: value })
+                }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select organization" />
@@ -490,7 +602,9 @@ export default function ExpensePoliciesPage() {
               <Textarea
                 id="edit-description"
                 value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, description: e.target.value })
+                }
                 placeholder="Enter policy description"
                 rows={3}
               />
@@ -502,7 +616,12 @@ export default function ExpensePoliciesPage() {
                   id="edit-userLimit"
                   type="number"
                   value={formData.userLimit}
-                  onChange={(e) => setFormData({ ...formData, userLimit: Number(e.target.value) })}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      userLimit: Number(e.target.value),
+                    })
+                  }
                   placeholder="0"
                 />
               </div>
@@ -512,7 +631,12 @@ export default function ExpensePoliciesPage() {
                   id="edit-teamLimit"
                   type="number"
                   value={formData.teamLimit}
-                  onChange={(e) => setFormData({ ...formData, teamLimit: Number(e.target.value) })}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      teamLimit: Number(e.target.value),
+                    })
+                  }
                   placeholder="0"
                 />
               </div>
@@ -527,7 +651,10 @@ export default function ExpensePoliciesPage() {
                       checked={formData.categories.includes(category)}
                       onCheckedChange={() => handleCategoryToggle(category)}
                     />
-                    <Label htmlFor={`edit-category-${category}`} className="text-sm">
+                    <Label
+                      htmlFor={`edit-category-${category}`}
+                      className="text-sm"
+                    >
                       {category}
                     </Label>
                   </div>
@@ -536,7 +663,11 @@ export default function ExpensePoliciesPage() {
               {formData.categories.length > 0 && (
                 <div className="flex flex-wrap gap-1 mt-2">
                   {formData.categories.map((category) => (
-                    <Badge key={category} variant="secondary" className="text-xs">
+                    <Badge
+                      key={category}
+                      variant="secondary"
+                      className="text-xs"
+                    >
                       {category}
                       <Button
                         variant="ghost"
@@ -561,5 +692,5 @@ export default function ExpensePoliciesPage() {
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }
