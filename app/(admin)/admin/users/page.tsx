@@ -1,11 +1,24 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +27,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,13 +38,33 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Plus, Search, Edit, Trash2, MoreHorizontal, UserCheck, Mail, Filter } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+} from "@/components/ui/alert-dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Plus,
+  Search,
+  Edit,
+  Trash2,
+  MoreHorizontal,
+  UserCheck,
+  Mail,
+  Filter,
+} from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 // Mock data
 const mockUsers = [
@@ -90,34 +123,45 @@ const mockUsers = [
     lastLogin: "2024-02-28 11:30",
     avatar: "/placeholder.svg?height=32&width=32",
   },
-]
+];
 
-const mockOrganizations = ["TechCorp Inc.", "Global Marketing Ltd.", "FinanceFirst", "HealthCare Solutions"]
-const mockTeams = ["Engineering", "Marketing", "Sales", "Support", "HR"]
-const mockRoles = ["Admin", "Team Lead", "Developer", "Marketing Manager", "Support Agent"]
+const mockOrganizations = [
+  "TechCorp Inc.",
+  "Global Marketing Ltd.",
+  "FinanceFirst",
+  "HealthCare Solutions",
+];
+const mockTeams = ["Engineering", "Marketing", "Sales", "Support", "HR"];
+const mockRoles = [
+  "Admin",
+  "Team Lead",
+  "Developer",
+  "Marketing Manager",
+  "Support Agent",
+];
 
 interface User {
-  id?: number
-  name: string
-  email: string
-  roles: string[]
-  teams: string[]
-  organizations: string[]
-  status: string
-  lastLogin: string
-  avatar?: string
+  id?: number;
+  name: string;
+  email: string;
+  roles: string[];
+  teams: string[];
+  organizations: string[];
+  status: string;
+  lastLogin: string;
+  avatar?: string;
 }
 
 export default function UsersPage() {
-  const [users, setUsers] = useState(mockUsers)
-  const [searchTerm, setSearchTerm] = useState("")
-  const [organizationFilter, setOrganizationFilter] = useState("all")
-  const [teamFilter, setTeamFilter] = useState("all")
-  const [roleFilter, setRoleFilter] = useState("all")
-  const [statusFilter, setStatusFilter] = useState("all")
-  const [isInviteModalOpen, setIsInviteModalOpen] = useState(false)
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const [editingUser, setEditingUser] = useState<User | null>(null)
+  const [users, setUsers] = useState(mockUsers);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [organizationFilter, setOrganizationFilter] = useState("all");
+  const [teamFilter, setTeamFilter] = useState("all");
+  const [roleFilter, setRoleFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
   const [formData, setFormData] = useState<User>({
     name: "",
     email: "",
@@ -126,19 +170,24 @@ export default function UsersPage() {
     organizations: [],
     status: "Active",
     lastLogin: "",
-  })
+  });
 
   const filteredUsers = users.filter((user) => {
     const matchesSearch =
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesOrg = organizationFilter === "all" || user.organizations.includes(organizationFilter)
-    const matchesTeam = teamFilter === "all" || user.teams.includes(teamFilter)
-    const matchesRole = roleFilter === "all" || user.roles.includes(roleFilter)
-    const matchesStatus = statusFilter === "all" || user.status === statusFilter
+      user.email.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesOrg =
+      organizationFilter === "all" ||
+      user.organizations.includes(organizationFilter);
+    const matchesTeam = teamFilter === "all" || user.teams.includes(teamFilter);
+    const matchesRole = roleFilter === "all" || user.roles.includes(roleFilter);
+    const matchesStatus =
+      statusFilter === "all" || user.status === statusFilter;
 
-    return matchesSearch && matchesOrg && matchesTeam && matchesRole && matchesStatus
-  })
+    return (
+      matchesSearch && matchesOrg && matchesTeam && matchesRole && matchesStatus
+    );
+  });
 
   const handleInviteUser = () => {
     const newUser = {
@@ -146,59 +195,79 @@ export default function UsersPage() {
       id: Math.max(...users.map((u) => u.id!)) + 1,
       lastLogin: "Never",
       avatar: "/placeholder.svg?height=32&width=32",
-    }
-    setUsers([...users, newUser])
-    setIsInviteModalOpen(false)
-    resetForm()
-  }
+    };
+    setUsers([...users, newUser]);
+    setIsInviteModalOpen(false);
+    resetForm();
+  };
 
   const handleEditUser = () => {
     if (editingUser) {
-      setUsers(users.map((user) => (user.id === editingUser.id ? { ...formData, id: editingUser.id } : user)))
-      setIsEditModalOpen(false)
-      setEditingUser(null)
-      resetForm()
+      setUsers(
+        users.map((user) =>
+          user.id! === editingUser.id
+            ? {
+                ...formData,
+                id: editingUser.id!,
+                avatar:
+                  formData.avatar ?? "/placeholder.svg?height=32&width=32",
+              }
+            : user
+        )
+      );
+      setIsEditModalOpen(false);
+      setEditingUser(null);
+      resetForm();
     }
-  }
+  };
 
   const handleDeleteUser = (id: number) => {
-    setUsers(users.filter((user) => user.id !== id))
-  }
+    setUsers(users.filter((user) => user.id !== id));
+  };
 
   const handleStatusToggle = (id: number) => {
     setUsers(
       users.map((user) => {
         if (user.id === id) {
-          let newStatus = "Active"
-          if (user.status === "Active") newStatus = "Suspended"
-          else if (user.status === "Suspended") newStatus = "Inactive"
-          else newStatus = "Active"
-          return { ...user, status: newStatus }
+          let newStatus = "Active";
+          if (user.status === "Active") newStatus = "Suspended";
+          else if (user.status === "Suspended") newStatus = "Inactive";
+          else newStatus = "Active";
+          return { ...user, status: newStatus };
         }
-        return user
-      }),
-    )
-  }
+        return user;
+      })
+    );
+  };
 
   const handleRemoveFromTeam = (userId: number, team: string) => {
     setUsers(
-      users.map((user) => (user.id === userId ? { ...user, teams: user.teams.filter((t) => t !== team) } : user)),
-    )
-  }
+      users.map((user) =>
+        user.id === userId
+          ? { ...user, teams: user.teams.filter((t) => t !== team) }
+          : user
+      )
+    );
+  };
 
   const handleRemoveFromOrganization = (userId: number, org: string) => {
     setUsers(
       users.map((user) =>
-        user.id === userId ? { ...user, organizations: user.organizations.filter((o) => o !== org) } : user,
-      ),
-    )
-  }
+        user.id === userId
+          ? {
+              ...user,
+              organizations: user.organizations.filter((o) => o !== org),
+            }
+          : user
+      )
+    );
+  };
 
   const openEditModal = (user: User) => {
-    setEditingUser(user)
-    setFormData(user)
-    setIsEditModalOpen(true)
-  }
+    setEditingUser(user);
+    setFormData(user);
+    setIsEditModalOpen(true);
+  };
 
   const resetForm = () => {
     setFormData({
@@ -209,30 +278,34 @@ export default function UsersPage() {
       organizations: [],
       status: "Active",
       lastLogin: "",
-    })
-  }
+    });
+  };
 
   const handleRoleToggle = (role: string) => {
     setFormData({
       ...formData,
-      roles: formData.roles.includes(role) ? formData.roles.filter((r) => r !== role) : [...formData.roles, role],
-    })
-  }
+      roles: formData.roles.includes(role)
+        ? formData.roles.filter((r) => r !== role)
+        : [...formData.roles, role],
+    });
+  };
 
   const handleTeamToggle = (team: string) => {
     setFormData({
       ...formData,
-      teams: formData.teams.includes(team) ? formData.teams.filter((t) => t !== team) : [...formData.teams, team],
-    })
-  }
+      teams: formData.teams.includes(team)
+        ? formData.teams.filter((t) => t !== team)
+        : [...formData.teams, team],
+    });
+  };
 
   const clearFilters = () => {
-    setOrganizationFilter("all")
-    setTeamFilter("all")
-    setRoleFilter("all")
-    setStatusFilter("all")
-    setSearchTerm("")
-  }
+    setOrganizationFilter("all");
+    setTeamFilter("all");
+    setRoleFilter("all");
+    setStatusFilter("all");
+    setSearchTerm("");
+  };
 
   return (
     <div className="space-y-6">
@@ -247,7 +320,9 @@ export default function UsersPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Users</h1>
-          <p className="text-muted-foreground">Manage users, roles, and team assignments</p>
+          <p className="text-muted-foreground">
+            Manage users, roles, and team assignments
+          </p>
         </div>
         <Dialog open={isInviteModalOpen} onOpenChange={setIsInviteModalOpen}>
           <DialogTrigger asChild>
@@ -259,7 +334,9 @@ export default function UsersPage() {
           <DialogContent className="sm:max-w-[500px]">
             <DialogHeader>
               <DialogTitle>Invite User</DialogTitle>
-              <DialogDescription>Send an invitation to a new user to join the system.</DialogDescription>
+              <DialogDescription>
+                Send an invitation to a new user to join the system.
+              </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
@@ -267,7 +344,9 @@ export default function UsersPage() {
                 <Input
                   id="name"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                   placeholder="Enter user name"
                 />
               </div>
@@ -277,7 +356,9 @@ export default function UsersPage() {
                   id="email"
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   placeholder="Enter email address"
                 />
               </div>
@@ -285,7 +366,9 @@ export default function UsersPage() {
                 <Label htmlFor="organization">Organization</Label>
                 <Select
                   value={formData.organizations[0] || ""}
-                  onValueChange={(value) => setFormData({ ...formData, organizations: [value] })}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, organizations: [value] })
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select organization" />
@@ -335,7 +418,10 @@ export default function UsersPage() {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsInviteModalOpen(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setIsInviteModalOpen(false)}
+              >
                 Cancel
               </Button>
               <Button onClick={handleInviteUser}>
@@ -366,7 +452,10 @@ export default function UsersPage() {
                 className="pl-10"
               />
             </div>
-            <Select value={organizationFilter} onValueChange={setOrganizationFilter}>
+            <Select
+              value={organizationFilter}
+              onValueChange={setOrganizationFilter}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="All Organizations" />
               </SelectTrigger>
@@ -435,7 +524,9 @@ export default function UsersPage() {
             <UserCheck className="h-5 w-5" />
             User List
           </CardTitle>
-          <CardDescription>View and manage all users in the system</CardDescription>
+          <CardDescription>
+            View and manage all users in the system
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="rounded-md border">
@@ -457,19 +548,28 @@ export default function UsersPage() {
                     <TableCell>
                       <div className="flex items-center space-x-3">
                         <Avatar className="h-8 w-8">
-                          <AvatarImage src={user.avatar || "/placeholder.svg"} alt={user.name} />
+                          <AvatarImage
+                            src={user.avatar || "/placeholder.svg"}
+                            alt={user.name}
+                          />
                           <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
                         </Avatar>
                         <div>
                           <div className="font-medium">{user.name}</div>
-                          <div className="text-sm text-muted-foreground">{user.email}</div>
+                          <div className="text-sm text-muted-foreground">
+                            {user.email}
+                          </div>
                         </div>
                       </div>
                     </TableCell>
                     <TableCell>
                       <div className="flex flex-wrap gap-1">
                         {user.roles.map((role) => (
-                          <Badge key={role} variant="secondary" className="text-xs">
+                          <Badge
+                            key={role}
+                            variant="secondary"
+                            className="text-xs"
+                          >
                             {role}
                           </Badge>
                         ))}
@@ -478,7 +578,11 @@ export default function UsersPage() {
                     <TableCell>
                       <div className="flex flex-wrap gap-1">
                         {user.teams.map((team) => (
-                          <Badge key={team} variant="outline" className="text-xs">
+                          <Badge
+                            key={team}
+                            variant="outline"
+                            className="text-xs"
+                          >
                             {team}
                           </Badge>
                         ))}
@@ -487,7 +591,11 @@ export default function UsersPage() {
                     <TableCell>
                       <div className="flex flex-wrap gap-1">
                         {user.organizations.map((org) => (
-                          <Badge key={org} variant="default" className="text-xs">
+                          <Badge
+                            key={org}
+                            variant="default"
+                            className="text-xs"
+                          >
                             {org}
                           </Badge>
                         ))}
@@ -499,8 +607,8 @@ export default function UsersPage() {
                           user.status === "Active"
                             ? "default"
                             : user.status === "Suspended"
-                              ? "destructive"
-                              : "secondary"
+                            ? "destructive"
+                            : "secondary"
                         }
                       >
                         {user.status}
@@ -519,12 +627,16 @@ export default function UsersPage() {
                             <Edit className="h-4 w-4 mr-2" />
                             Edit User
                           </DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => handleStatusToggle(user.id!)}>
+                          <DropdownMenuItem
+                            onClick={() => handleStatusToggle(user.id!)}
+                          >
                             {user.status === "Active" ? "Suspend" : "Activate"}
                           </DropdownMenuItem>
                           {user.teams.length > 0 && (
                             <DropdownMenuItem
-                              onClick={() => handleRemoveFromTeam(user.id!, user.teams[0])}
+                              onClick={() =>
+                                handleRemoveFromTeam(user.id!, user.teams[0])
+                              }
                               className="text-orange-600"
                             >
                               Remove from Team
@@ -532,7 +644,12 @@ export default function UsersPage() {
                           )}
                           {user.organizations.length > 0 && (
                             <DropdownMenuItem
-                              onClick={() => handleRemoveFromOrganization(user.id!, user.organizations[0])}
+                              onClick={() =>
+                                handleRemoveFromOrganization(
+                                  user.id!,
+                                  user.organizations[0]
+                                )
+                              }
                               className="text-orange-600"
                             >
                               Remove from Org
@@ -540,16 +657,22 @@ export default function UsersPage() {
                           )}
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
-                              <DropdownMenuItem onSelect={(e) => e.preventDefault()} className="text-destructive">
+                              <DropdownMenuItem
+                                onSelect={(e) => e.preventDefault()}
+                                className="text-destructive"
+                              >
                                 <Trash2 className="h-4 w-4 mr-2" />
                                 Delete User
                               </DropdownMenuItem>
                             </AlertDialogTrigger>
                             <AlertDialogContent>
                               <AlertDialogHeader>
-                                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                                <AlertDialogTitle>
+                                  Are you sure?
+                                </AlertDialogTitle>
                                 <AlertDialogDescription>
-                                  This action cannot be undone. This will permanently delete the user account and all
+                                  This action cannot be undone. This will
+                                  permanently delete the user account and all
                                   associated data.
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
@@ -580,7 +703,9 @@ export default function UsersPage() {
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
             <DialogTitle>Edit User</DialogTitle>
-            <DialogDescription>Update user details and assignments.</DialogDescription>
+            <DialogDescription>
+              Update user details and assignments.
+            </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
@@ -588,7 +713,9 @@ export default function UsersPage() {
               <Input
                 id="edit-name"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 placeholder="Enter user name"
               />
             </div>
@@ -598,7 +725,9 @@ export default function UsersPage() {
                 id="edit-email"
                 type="email"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 placeholder="Enter email address"
               />
             </div>
@@ -646,5 +775,5 @@ export default function UsersPage() {
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }
