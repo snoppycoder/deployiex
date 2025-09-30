@@ -404,7 +404,7 @@ export default function ReportsPage() {
                       color: "#3B82F6",
                     },
                   }}
-                  className="h-[300px]"
+                  className="h-[300px] w-full md:w-[400px] "
                 >
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={expenseByTeam}>
@@ -445,7 +445,7 @@ export default function ReportsPage() {
                     color: "#10B981",
                   },
                 }}
-                className="h-[300px]"
+                className="h-[300px] w-full md:w-[400px] "
               >
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={expenseTrends}>
