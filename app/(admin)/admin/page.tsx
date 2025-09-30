@@ -1,6 +1,12 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Line,
   LineChart,
@@ -14,9 +20,13 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from "recharts"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { Building2, Users, UserCheck, Activity } from "lucide-react"
+} from "recharts";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+import { Building2, Users, UserCheck, Activity } from "lucide-react";
 
 // Mock data for charts
 const userGrowthData = [
@@ -26,7 +36,7 @@ const userGrowthData = [
   { month: "Apr", users: 220 },
   { month: "May", users: 280 },
   { month: "Jun", users: 350 },
-]
+];
 
 const teamActivityData = [
   { team: "Engineering", activity: 85 },
@@ -34,7 +44,7 @@ const teamActivityData = [
   { team: "Sales", activity: 90 },
   { team: "Support", activity: 68 },
   { team: "HR", activity: 45 },
-]
+];
 
 const expenseData = [
   { category: "Travel", value: 35, color: "#3B82F6" },
@@ -42,7 +52,7 @@ const expenseData = [
   { category: "Office", value: 20, color: "#F59E0B" },
   { category: "Software", value: 15, color: "#EF4444" },
   { category: "Other", value: 5, color: "#8B5CF6" },
-]
+];
 
 export default function AdminDashboard() {
   return (
@@ -57,14 +67,18 @@ export default function AdminDashboard() {
       {/* Page header */}
       <div>
         <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
-        <p className="text-muted-foreground">Overview of your organization's activity and metrics</p>
+        <p className="text-muted-foreground">
+          Overview of your organization's activity and metrics
+        </p>
       </div>
 
       {/* Overview cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Organizations</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Total Organizations
+            </CardTitle>
             <Building2 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -97,7 +111,9 @@ export default function AdminDashboard() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Users (24h)</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Active Users (24h)
+            </CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -113,7 +129,9 @@ export default function AdminDashboard() {
         <Card>
           <CardHeader>
             <CardTitle>User Growth Trend</CardTitle>
-            <CardDescription>Monthly user registration over the last 6 months</CardDescription>
+            <CardDescription>
+              Monthly user registration over the last 6 months
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <ChartContainer
@@ -123,7 +141,7 @@ export default function AdminDashboard() {
                   color: "#3B82F6",
                 },
               }}
-              className="h-[300px]"
+              className="h-[300px] w-full md:w-[400px]"
             >
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={userGrowthData}>
@@ -131,7 +149,12 @@ export default function AdminDashboard() {
                   <XAxis dataKey="month" />
                   <YAxis />
                   <ChartTooltip content={<ChartTooltipContent />} />
-                  <Line type="monotone" dataKey="users" stroke="#3B82F6" strokeWidth={2} />
+                  <Line
+                    type="monotone"
+                    dataKey="users"
+                    stroke="#3B82F6"
+                    strokeWidth={2}
+                  />
                 </LineChart>
               </ResponsiveContainer>
             </ChartContainer>
@@ -142,7 +165,9 @@ export default function AdminDashboard() {
         <Card>
           <CardHeader>
             <CardTitle>Team Activity</CardTitle>
-            <CardDescription>Activity score by team (last 30 days)</CardDescription>
+            <CardDescription>
+              Activity score by team (last 30 days)
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <ChartContainer
@@ -152,7 +177,7 @@ export default function AdminDashboard() {
                   color: "#10B981",
                 },
               }}
-              className="h-[300px]"
+              className="h-[300px] w-full md:w-[400px]"
             >
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={teamActivityData}>
@@ -172,7 +197,9 @@ export default function AdminDashboard() {
       <Card>
         <CardHeader>
           <CardTitle>Expense Breakdown</CardTitle>
-          <CardDescription>Distribution of expenses by category</CardDescription>
+          <CardDescription>
+            Distribution of expenses by category
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer
@@ -181,7 +208,7 @@ export default function AdminDashboard() {
                 label: "Percentage",
               },
             }}
-            className="h-[400px]"
+            className="h-[400px] w-full flex justify-center items-center"
           >
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -206,5 +233,5 @@ export default function AdminDashboard() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

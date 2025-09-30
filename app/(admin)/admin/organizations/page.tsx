@@ -1,11 +1,24 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +27,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,11 +38,29 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Label } from "@/components/ui/label"
-import { Plus, Search, Edit, Trash2, MoreHorizontal, Building2 } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+} from "@/components/ui/alert-dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import {
+  Plus,
+  Search,
+  Edit,
+  Trash2,
+  MoreHorizontal,
+  Building2,
+} from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 // Mock data
 const mockOrganizations = [
@@ -65,85 +96,98 @@ const mockOrganizations = [
     status: "Active",
     createdDate: "2024-03-10",
   },
-]
+];
 
 const mockUsers = [
   { id: 1, name: "John Smith", email: "john@techcorp.com" },
   { id: 2, name: "Sarah Johnson", email: "sarah@globalmarketing.com" },
   { id: 3, name: "Mike Davis", email: "mike@financefirst.com" },
   { id: 4, name: "Emily Brown", email: "emily@healthcare.com" },
-]
+];
 
-const industries = ["Technology", "Marketing", "Finance", "Healthcare", "Manufacturing", "Retail", "Education", "Other"]
+const industries = [
+  "Technology",
+  "Marketing",
+  "Finance",
+  "Healthcare",
+  "Manufacturing",
+  "Retail",
+  "Education",
+  "Other",
+];
 
 interface Organization {
-  id?: number
-  name: string
-  industry: string
-  owner: string
-  status: string
-  createdDate: string
+  id?: number;
+  name: string;
+  industry: string;
+  owner: string;
+  status: string;
+  createdDate: string;
 }
 
 export default function OrganizationsPage() {
-  const [organizations, setOrganizations] = useState(mockOrganizations)
-  const [searchTerm, setSearchTerm] = useState("")
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const [editingOrg, setEditingOrg] = useState<Organization | null>(null)
+  const [organizations, setOrganizations] = useState(mockOrganizations);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingOrg, setEditingOrg] = useState<Organization | null>(null);
   const [formData, setFormData] = useState<Organization>({
     name: "",
     industry: "",
     owner: "",
     status: "Active",
     createdDate: new Date().toISOString().split("T")[0],
-  })
+  });
 
   const filteredOrganizations = organizations.filter(
     (org) =>
       org.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       org.industry.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      org.owner.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+      org.owner.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleCreate = () => {
     const newOrg = {
       ...formData,
       id: Math.max(...organizations.map((o) => o.id)) + 1,
-    }
-    setOrganizations([...organizations, newOrg])
-    setIsCreateModalOpen(false)
-    resetForm()
-  }
+    };
+    setOrganizations([...organizations, newOrg]);
+    setIsCreateModalOpen(false);
+    resetForm();
+  };
 
   const handleEdit = () => {
     if (editingOrg) {
       setOrganizations(
-        organizations.map((org) => (org.id === editingOrg.id ? { ...formData, id: editingOrg.id } : org)),
-      )
-      setIsEditModalOpen(false)
-      setEditingOrg(null)
-      resetForm()
+        organizations.map((org) =>
+          org.id === editingOrg.id ? { ...formData, id: editingOrg.id } : org
+        )
+      );
+      setIsEditModalOpen(false);
+      setEditingOrg(null);
+      resetForm();
     }
-  }
+  };
 
   const handleDelete = (id: number) => {
-    setOrganizations(organizations.filter((org) => org.id !== id))
-  }
+    setOrganizations(organizations.filter((org) => org.id !== id));
+  };
 
   const handleStatusToggle = (id: number) => {
     setOrganizations(
       organizations.map((org) =>
-        org.id === id ? { ...org, status: org.status === "Active" ? "Suspended" : "Active" } : org,
-      ),
-    )
-  }
+        org.id === id
+          ? { ...org, status: org.status === "Active" ? "Suspended" : "Active" }
+          : org
+      )
+    );
+  };
 
   const openEditModal = (org: Organization) => {
-    setEditingOrg(org)
-    setFormData(org)
-    setIsEditModalOpen(true)
-  }
+    setEditingOrg(org);
+    setFormData(org);
+    setIsEditModalOpen(true);
+  };
 
   const resetForm = () => {
     setFormData({
@@ -152,8 +196,8 @@ export default function OrganizationsPage() {
       owner: "",
       status: "Active",
       createdDate: new Date().toISOString().split("T")[0],
-    })
-  }
+    });
+  };
 
   return (
     <div className="space-y-6">
@@ -165,14 +209,16 @@ export default function OrganizationsPage() {
       </div>
 
       {/* Page header */}
-      <div className="flex items-center justify-between">
+      <div className="flex md:items-center md:flex-row flex-col md:justify-between  ">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Organizations</h1>
-          <p className="text-muted-foreground">Manage organizations and their settings</p>
+          <p className="text-muted-foreground">
+            Manage organizations and their settings
+          </p>
         </div>
         <Dialog open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen}>
           <DialogTrigger asChild>
-            <Button onClick={() => resetForm()}>
+            <Button onClick={() => resetForm()} className=" mt-2 md:mt-0">
               <Plus className="h-4 w-4 mr-2" />
               Add Organization
             </Button>
@@ -180,7 +226,9 @@ export default function OrganizationsPage() {
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
               <DialogTitle>Create Organization</DialogTitle>
-              <DialogDescription>Add a new organization to the system. Fill in the details below.</DialogDescription>
+              <DialogDescription>
+                Add a new organization to the system. Fill in the details below.
+              </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
@@ -188,7 +236,9 @@ export default function OrganizationsPage() {
                 <Input
                   id="name"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                   placeholder="Enter organization name"
                 />
               </div>
@@ -196,7 +246,9 @@ export default function OrganizationsPage() {
                 <Label htmlFor="industry">Industry</Label>
                 <Select
                   value={formData.industry}
-                  onValueChange={(value) => setFormData({ ...formData, industry: value })}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, industry: value })
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select industry" />
@@ -212,7 +264,12 @@ export default function OrganizationsPage() {
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="owner">Owner</Label>
-                <Select value={formData.owner} onValueChange={(value) => setFormData({ ...formData, owner: value })}>
+                <Select
+                  value={formData.owner}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, owner: value })
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select owner" />
                   </SelectTrigger>
@@ -227,7 +284,10 @@ export default function OrganizationsPage() {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsCreateModalOpen(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setIsCreateModalOpen(false)}
+              >
                 Cancel
               </Button>
               <Button onClick={handleCreate}>Create Organization</Button>
@@ -237,13 +297,15 @@ export default function OrganizationsPage() {
       </div>
 
       {/* Search and filters */}
-      <Card>
+      <Card className="w-full">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Building2 className="h-5 w-5" />
             Organization List
           </CardTitle>
-          <CardDescription>View and manage all organizations in the system</CardDescription>
+          <CardDescription>
+            View and manage all organizations in the system
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center space-x-2 mb-4">
@@ -277,7 +339,13 @@ export default function OrganizationsPage() {
                     <TableCell>{org.industry}</TableCell>
                     <TableCell>{org.owner}</TableCell>
                     <TableCell>
-                      <Badge variant={org.status === "Active" ? "default" : "destructive"}>{org.status}</Badge>
+                      <Badge
+                        variant={
+                          org.status === "Active" ? "default" : "destructive"
+                        }
+                      >
+                        {org.status}
+                      </Badge>
                     </TableCell>
                     <TableCell>{org.createdDate}</TableCell>
                     <TableCell className="text-right">
@@ -292,21 +360,29 @@ export default function OrganizationsPage() {
                             <Edit className="h-4 w-4 mr-2" />
                             Edit
                           </DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => handleStatusToggle(org.id!)}>
+                          <DropdownMenuItem
+                            onClick={() => handleStatusToggle(org.id!)}
+                          >
                             {org.status === "Active" ? "Suspend" : "Activate"}
                           </DropdownMenuItem>
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
-                              <DropdownMenuItem onSelect={(e) => e.preventDefault()} className="text-destructive">
+                              <DropdownMenuItem
+                                onSelect={(e) => e.preventDefault()}
+                                className="text-destructive"
+                              >
                                 <Trash2 className="h-4 w-4 mr-2" />
                                 Delete
                               </DropdownMenuItem>
                             </AlertDialogTrigger>
                             <AlertDialogContent>
                               <AlertDialogHeader>
-                                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                                <AlertDialogTitle>
+                                  Are you sure?
+                                </AlertDialogTitle>
                                 <AlertDialogDescription>
-                                  This action cannot be undone. This will permanently delete the organization and all
+                                  This action cannot be undone. This will
+                                  permanently delete the organization and all
                                   associated data.
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
@@ -337,7 +413,9 @@ export default function OrganizationsPage() {
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Edit Organization</DialogTitle>
-            <DialogDescription>Update the organization details below.</DialogDescription>
+            <DialogDescription>
+              Update the organization details below.
+            </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
@@ -345,7 +423,9 @@ export default function OrganizationsPage() {
               <Input
                 id="edit-name"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 placeholder="Enter organization name"
               />
             </div>
@@ -353,7 +433,9 @@ export default function OrganizationsPage() {
               <Label htmlFor="edit-industry">Industry</Label>
               <Select
                 value={formData.industry}
-                onValueChange={(value) => setFormData({ ...formData, industry: value })}
+                onValueChange={(value) =>
+                  setFormData({ ...formData, industry: value })
+                }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select industry" />
@@ -369,7 +451,12 @@ export default function OrganizationsPage() {
             </div>
             <div className="grid gap-2">
               <Label htmlFor="edit-owner">Owner</Label>
-              <Select value={formData.owner} onValueChange={(value) => setFormData({ ...formData, owner: value })}>
+              <Select
+                value={formData.owner}
+                onValueChange={(value) =>
+                  setFormData({ ...formData, owner: value })
+                }
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Select owner" />
                 </SelectTrigger>
@@ -392,5 +479,5 @@ export default function OrganizationsPage() {
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }
