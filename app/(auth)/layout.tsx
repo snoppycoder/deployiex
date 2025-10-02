@@ -1,33 +1,19 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "../globals.css";
-import { AuthProvider } from "@/context/AuthContext";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "IEX Tracker",
-  description: "Expense tracker",
+import { GuestOnly } from "@/utils/router/before-load";
+export const metadata = {
+	title: "IEX Tracker",
+	description: "Expense tracker",
 };
 
-export default function RootLayout({
-  children,
+export default function AuthLayout({
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className="min-h-screen w-full flex flex-col md:flex-row">
-        <AuthProvider>{children}</AuthProvider>
-      </body>
-    </html>
-  );
+	return (
+		<GuestOnly>
+			<div className="min-h-screen w-full flex flex-col md:flex-row">
+				{children}
+			</div>
+		</GuestOnly>
+	);
 }

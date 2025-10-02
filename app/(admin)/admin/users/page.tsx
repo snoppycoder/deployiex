@@ -1,779 +1,437 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+// Badge/table UI moved into columns/DataTable
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
 } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+// Using TanStack Table via shared DataTable component
+import DataTable from "~/component/table";
 import {
-  Plus,
-  Search,
-  Edit,
-  Trash2,
-  MoreHorizontal,
-  UserCheck,
-  Mail,
-  Filter,
+	Plus,
+	Search,
+	Edit,
+	Trash2,
+	MoreHorizontal,
+	UserCheck,
+	Filter,
 } from "lucide-react";
+
+import { toast } from "sonner";
+import { RegisterUserModal } from "~/component/RegisterUser-Modal";
+import { InviteUserModal } from "./components/modals/InviteUserModal";
+import { EditUserModal } from "./components/modals/EditUserModal";
+import { useDeleteUserMutation } from "./components/mutations";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+	useOrganizations,
+	useTeamsByOrganization,
+	useUsersWithRelations,
+} from "./components/queries";
+import type { UserRow } from "./components/types";
+import { getUserColumns } from "./components/columns";
 
-// Mock data
-const mockUsers = [
-  {
-    id: 1,
-    name: "John Smith",
-    email: "john@techcorp.com",
-    roles: ["Admin", "Team Lead"],
-    teams: ["Engineering"],
-    organizations: ["TechCorp Inc."],
-    status: "Active",
-    lastLogin: "2024-03-15 10:30",
-    avatar: "/placeholder.svg?height=32&width=32",
-  },
-  {
-    id: 2,
-    name: "Sarah Johnson",
-    email: "sarah@globalmarketing.com",
-    roles: ["Marketing Manager"],
-    teams: ["Marketing", "Sales"],
-    organizations: ["Global Marketing Ltd."],
-    status: "Active",
-    lastLogin: "2024-03-14 16:45",
-    avatar: "/placeholder.svg?height=32&width=32",
-  },
-  {
-    id: 3,
-    name: "Mike Davis",
-    email: "mike@financefirst.com",
-    roles: ["Developer"],
-    teams: ["Engineering"],
-    organizations: ["FinanceFirst"],
-    status: "Suspended",
-    lastLogin: "2024-03-10 09:15",
-    avatar: "/placeholder.svg?height=32&width=32",
-  },
-  {
-    id: 4,
-    name: "Emily Brown",
-    email: "emily@healthcare.com",
-    roles: ["Team Lead"],
-    teams: ["Support", "HR"],
-    organizations: ["HealthCare Solutions"],
-    status: "Active",
-    lastLogin: "2024-03-15 14:20",
-    avatar: "/placeholder.svg?height=32&width=32",
-  },
-  {
-    id: 5,
-    name: "David Wilson",
-    email: "david@techcorp.com",
-    roles: ["Developer"],
-    teams: ["Engineering"],
-    organizations: ["TechCorp Inc."],
-    status: "Inactive",
-    lastLogin: "2024-02-28 11:30",
-    avatar: "/placeholder.svg?height=32&width=32",
-  },
-];
-
-const mockOrganizations = [
-  "TechCorp Inc.",
-  "Global Marketing Ltd.",
-  "FinanceFirst",
-  "HealthCare Solutions",
-];
-const mockTeams = ["Engineering", "Marketing", "Sales", "Support", "HR"];
-const mockRoles = [
-  "Admin",
-  "Team Lead",
-  "Developer",
-  "Marketing Manager",
-  "Support Agent",
-];
-
-interface User {
-  id?: number;
-  name: string;
-  email: string;
-  roles: string[];
-  teams: string[];
-  organizations: string[];
-  status: string;
-  lastLogin: string;
-  avatar?: string;
-}
+// Invite and Edit modals are modularized under ./components/modals
 
 export default function UsersPage() {
-  const [users, setUsers] = useState(mockUsers);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [organizationFilter, setOrganizationFilter] = useState("all");
-  const [teamFilter, setTeamFilter] = useState("all");
-  const [roleFilter, setRoleFilter] = useState("all");
-  const [statusFilter, setStatusFilter] = useState("all");
-  const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editingUser, setEditingUser] = useState<User | null>(null);
-  const [formData, setFormData] = useState<User>({
-    name: "",
-    email: "",
-    roles: [],
-    teams: [],
-    organizations: [],
-    status: "Active",
-    lastLogin: "",
-  });
+	// Filters and UI state
+	const [searchTerm, setSearchTerm] = useState("");
+	const [organizationFilter, setOrganizationFilter] = useState("all");
+	const [teamFilter, setTeamFilter] = useState("all");
+	const [userRoleFilter, setUserRoleFilter] = useState("all");
+	// Removed teamRoleFilter per requirements
+	const [statusFilter, setStatusFilter] = useState("all");
+	const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
+	const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+	const [editingUser, setEditingUser] = useState<UserRow | null>(null);
+	// Inline form state and schemas removed; handled inside modular modals
 
-  const filteredUsers = users.filter((user) => {
-    const matchesSearch =
-      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesOrg =
-      organizationFilter === "all" ||
-      user.organizations.includes(organizationFilter);
-    const matchesTeam = teamFilter === "all" || user.teams.includes(teamFilter);
-    const matchesRole = roleFilter === "all" || user.roles.includes(roleFilter);
-    const matchesStatus =
-      statusFilter === "all" || user.status === statusFilter;
+	// Pagination state
+	const [page, setPage] = useState(1);
+	const [limit, setLimit] = useState(10);
+	const order: "asc" | "desc" = "asc";
+	const {
+		data: usersQuery,
+		isLoading,
+		isError,
+		refetch,
+	} = useUsersWithRelations({
+		page,
+		limit,
+		order,
+		q: searchTerm || undefined,
+		organizationId:
+			organizationFilter !== "all" ? organizationFilter : undefined,
+		teamId:
+			organizationFilter !== "all" && teamFilter !== "all"
+				? teamFilter
+				: undefined,
+		role:
+			userRoleFilter !== "all"
+				? (userRoleFilter as "Admin" | "Owner" | "Staff")
+				: undefined,
+		status:
+			statusFilter === "Active"
+				? true
+				: statusFilter === "Inactive"
+				? false
+				: undefined,
+	});
 
-    return (
-      matchesSearch && matchesOrg && matchesTeam && matchesRole && matchesStatus
-    );
-  });
+	const users = usersQuery?.rows ?? [];
+	const pagination = usersQuery?.pagination as
+		| { total?: number; page?: number; limit?: number; totalPages?: number }
+		| undefined;
 
-  const handleInviteUser = () => {
-    const newUser = {
-      ...formData,
-      id: Math.max(...users.map((u) => u.id!)) + 1,
-      lastLogin: "Never",
-      avatar: "/placeholder.svg?height=32&width=32",
-    };
-    setUsers([...users, newUser]);
-    setIsInviteModalOpen(false);
-    resetForm();
-  };
+	// Reset to first page when server-driven filters change
+	useEffect(() => {
+		setPage(1);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [
+		searchTerm,
+		organizationFilter,
+		teamFilter,
+		userRoleFilter,
+		statusFilter,
+	]);
 
-  const handleEditUser = () => {
-    if (editingUser) {
-      setUsers(
-        users.map((user) =>
-          user.id! === editingUser.id
-            ? {
-                ...formData,
-                id: editingUser.id!,
-                avatar:
-                  formData.avatar ?? "/placeholder.svg?height=32&width=32",
-              }
-            : user
-        )
-      );
-      setIsEditModalOpen(false);
-      setEditingUser(null);
-      resetForm();
-    }
-  };
+	// Reset to first page when primary filters change
+	// Only search is server-driven currently; keep others UI-only for now
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 
-  const handleDeleteUser = (id: number) => {
-    setUsers(users.filter((user) => user.id !== id));
-  };
+	// Dynamic filter data
+	const { data: organizations = [] } = useOrganizations();
 
-  const handleStatusToggle = (id: number) => {
-    setUsers(
-      users.map((user) => {
-        if (user.id === id) {
-          let newStatus = "Active";
-          if (user.status === "Active") newStatus = "Suspended";
-          else if (user.status === "Suspended") newStatus = "Inactive";
-          else newStatus = "Active";
-          return { ...user, status: newStatus };
-        }
-        return user;
-      })
-    );
-  };
+	const orgSelected = organizationFilter !== "all";
 
-  const handleRemoveFromTeam = (userId: number, team: string) => {
-    setUsers(
-      users.map((user) =>
-        user.id === userId
-          ? { ...user, teams: user.teams.filter((t) => t !== team) }
-          : user
-      )
-    );
-  };
+	const { data: teams = [] } = useTeamsByOrganization(
+		orgSelected ? (organizationFilter as string) : undefined,
+		orgSelected
+	);
 
-  const handleRemoveFromOrganization = (userId: number, org: string) => {
-    setUsers(
-      users.map((user) =>
-        user.id === userId
-          ? {
-              ...user,
-              organizations: user.organizations.filter((o) => o !== org),
-            }
-          : user
-      )
-    );
-  };
+	// Removed orgRoles query (team role filter removed)
 
-  const openEditModal = (user: User) => {
-    setEditingUser(user);
-    setFormData(user);
-    setIsEditModalOpen(true);
-  };
+	// Invite handled by InviteUserModal
 
-  const resetForm = () => {
-    setFormData({
-      name: "",
-      email: "",
-      roles: [],
-      teams: [],
-      organizations: [],
-      status: "Active",
-      lastLogin: "",
-    });
-  };
+	// Edit handled by EditUserModal
 
-  const handleRoleToggle = (role: string) => {
-    setFormData({
-      ...formData,
-      roles: formData.roles.includes(role)
-        ? formData.roles.filter((r) => r !== role)
-        : [...formData.roles, role],
-    });
-  };
+	const { mutate: deleteUser } = useDeleteUserMutation(() => refetch());
 
-  const handleTeamToggle = (team: string) => {
-    setFormData({
-      ...formData,
-      teams: formData.teams.includes(team)
-        ? formData.teams.filter((t) => t !== team)
-        : [...formData.teams, team],
-    });
-  };
+	const handleDeleteUser = (id: string) => {
+		deleteUser(id);
+	};
 
-  const clearFilters = () => {
-    setOrganizationFilter("all");
-    setTeamFilter("all");
-    setRoleFilter("all");
-    setStatusFilter("all");
-    setSearchTerm("");
-  };
+	const handleStatusToggle = (id: string) => {
+		// TODO: Status toggle API then refetch
+		refetch();
+	};
 
-  return (
-    <div className="space-y-6">
-      {/* Breadcrumb */}
-      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-        <span>Admin</span>
-        <span>/</span>
-        <span className="text-foreground">Users</span>
-      </div>
+	const handleRemoveFromTeam = (userId: string, team: string) => {
+		// TODO: Implement remove-from-team API
+		toast.message("Remove from Team not implemented yet");
+	};
 
-      {/* Page header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Users</h1>
-          <p className="text-muted-foreground">
-            Manage users, roles, and team assignments
-          </p>
-        </div>
-        <Dialog open={isInviteModalOpen} onOpenChange={setIsInviteModalOpen}>
-          <DialogTrigger asChild>
-            <Button onClick={() => resetForm()}>
-              <Plus className="h-4 w-4 mr-2" />
-              Invite User
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[500px]">
-            <DialogHeader>
-              <DialogTitle>Invite User</DialogTitle>
-              <DialogDescription>
-                Send an invitation to a new user to join the system.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid gap-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  placeholder="Enter user name"
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  placeholder="Enter email address"
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="organization">Organization</Label>
-                <Select
-                  value={formData.organizations[0] || ""}
-                  onValueChange={(value) =>
-                    setFormData({ ...formData, organizations: [value] })
-                  }
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select organization" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {mockOrganizations.map((org) => (
-                      <SelectItem key={org} value={org}>
-                        {org}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid gap-2">
-                <Label>Roles</Label>
-                <div className="grid grid-cols-2 gap-2">
-                  {mockRoles.map((role) => (
-                    <div key={role} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`role-${role}`}
-                        checked={formData.roles.includes(role)}
-                        onCheckedChange={() => handleRoleToggle(role)}
-                      />
-                      <Label htmlFor={`role-${role}`} className="text-sm">
-                        {role}
-                      </Label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="grid gap-2">
-                <Label>Teams</Label>
-                <div className="grid grid-cols-2 gap-2">
-                  {mockTeams.map((team) => (
-                    <div key={team} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`team-${team}`}
-                        checked={formData.teams.includes(team)}
-                        onCheckedChange={() => handleTeamToggle(team)}
-                      />
-                      <Label htmlFor={`team-${team}`} className="text-sm">
-                        {team}
-                      </Label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <DialogFooter>
-              <Button
-                variant="outline"
-                onClick={() => setIsInviteModalOpen(false)}
-              >
-                Cancel
-              </Button>
-              <Button onClick={handleInviteUser}>
-                <Mail className="h-4 w-4 mr-2" />
-                Send Invite
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </div>
+	const handleRemoveFromOrganization = (userId: string, org: string) => {
+		// TODO: Implement remove-from-organization API
+		toast.message("Remove from Organization not implemented yet");
+	};
 
-      {/* Filters */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Filter className="h-5 w-5" />
-            Filters
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search users..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-            <Select
-              value={organizationFilter}
-              onValueChange={setOrganizationFilter}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="All Organizations" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Organizations</SelectItem>
-                {mockOrganizations.map((org) => (
-                  <SelectItem key={org} value={org}>
-                    {org}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Select value={teamFilter} onValueChange={setTeamFilter}>
-              <SelectTrigger>
-                <SelectValue placeholder="All Teams" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Teams</SelectItem>
-                {mockTeams.map((team) => (
-                  <SelectItem key={team} value={team}>
-                    {team}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Select value={roleFilter} onValueChange={setRoleFilter}>
-              <SelectTrigger>
-                <SelectValue placeholder="All Roles" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Roles</SelectItem>
-                {mockRoles.map((role) => (
-                  <SelectItem key={role} value={role}>
-                    {role}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger>
-                <SelectValue placeholder="All Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Status</SelectItem>
-                <SelectItem value="Active">Active</SelectItem>
-                <SelectItem value="Inactive">Inactive</SelectItem>
-                <SelectItem value="Suspended">Suspended</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="flex justify-between items-center mt-4">
-            <p className="text-sm text-muted-foreground">
-              Showing {filteredUsers.length} of {users.length} users
-            </p>
-            <Button variant="outline" size="sm" onClick={clearFilters}>
-              Clear Filters
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+	const openEditModal = (user: UserRow) => {
+		setEditingUser(user);
+		setIsEditModalOpen(true);
+	};
 
-      {/* User List */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <UserCheck className="h-5 w-5" />
-            User List
-          </CardTitle>
-          <CardDescription>
-            View and manage all users in the system
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="rounded-md border">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>User</TableHead>
-                  <TableHead>Role(s)</TableHead>
-                  <TableHead>Team(s)</TableHead>
-                  <TableHead>Organization(s)</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Last Login</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredUsers.map((user) => (
-                  <TableRow key={user.id}>
-                    <TableCell>
-                      <div className="flex items-center space-x-3">
-                        <Avatar className="h-8 w-8">
-                          <AvatarImage
-                            src={user.avatar || "/placeholder.svg"}
-                            alt={user.name}
-                          />
-                          <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <div className="font-medium">{user.name}</div>
-                          <div className="text-sm text-muted-foreground">
-                            {user.email}
-                          </div>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex flex-wrap gap-1">
-                        {user.roles.map((role) => (
-                          <Badge
-                            key={role}
-                            variant="secondary"
-                            className="text-xs"
-                          >
-                            {role}
-                          </Badge>
-                        ))}
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex flex-wrap gap-1">
-                        {user.teams.map((team) => (
-                          <Badge
-                            key={team}
-                            variant="outline"
-                            className="text-xs"
-                          >
-                            {team}
-                          </Badge>
-                        ))}
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex flex-wrap gap-1">
-                        {user.organizations.map((org) => (
-                          <Badge
-                            key={org}
-                            variant="default"
-                            className="text-xs"
-                          >
-                            {org}
-                          </Badge>
-                        ))}
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <Badge
-                        variant={
-                          user.status === "Active"
-                            ? "default"
-                            : user.status === "Suspended"
-                            ? "destructive"
-                            : "secondary"
-                        }
-                      >
-                        {user.status}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-sm">{user.lastLogin}</TableCell>
-                    <TableCell className="text-right">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" className="h-8 w-8 p-0">
-                            <MoreHorizontal className="h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem onClick={() => openEditModal(user)}>
-                            <Edit className="h-4 w-4 mr-2" />
-                            Edit User
-                          </DropdownMenuItem>
-                          <DropdownMenuItem
-                            onClick={() => handleStatusToggle(user.id!)}
-                          >
-                            {user.status === "Active" ? "Suspend" : "Activate"}
-                          </DropdownMenuItem>
-                          {user.teams.length > 0 && (
-                            <DropdownMenuItem
-                              onClick={() =>
-                                handleRemoveFromTeam(user.id!, user.teams[0])
-                              }
-                              className="text-orange-600"
-                            >
-                              Remove from Team
-                            </DropdownMenuItem>
-                          )}
-                          {user.organizations.length > 0 && (
-                            <DropdownMenuItem
-                              onClick={() =>
-                                handleRemoveFromOrganization(
-                                  user.id!,
-                                  user.organizations[0]
-                                )
-                              }
-                              className="text-orange-600"
-                            >
-                              Remove from Org
-                            </DropdownMenuItem>
-                          )}
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <DropdownMenuItem
-                                onSelect={(e) => e.preventDefault()}
-                                className="text-destructive"
-                              >
-                                <Trash2 className="h-4 w-4 mr-2" />
-                                Delete User
-                              </DropdownMenuItem>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>
-                                  Are you sure?
-                                </AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  This action cannot be undone. This will
-                                  permanently delete the user account and all
-                                  associated data.
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction
-                                  onClick={() => handleDeleteUser(user.id!)}
-                                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                                >
-                                  Delete User
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </CardContent>
-      </Card>
+	// Removed local reset and toggle helpers (handled in modular components if needed)
 
-      {/* Edit User Modal */}
-      <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-        <DialogContent className="sm:max-w-[500px]">
-          <DialogHeader>
-            <DialogTitle>Edit User</DialogTitle>
-            <DialogDescription>
-              Update user details and assignments.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
-              <Label htmlFor="edit-name">Name</Label>
-              <Input
-                id="edit-name"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-                placeholder="Enter user name"
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="edit-email">Email</Label>
-              <Input
-                id="edit-email"
-                type="email"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                placeholder="Enter email address"
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label>Roles</Label>
-              <div className="grid grid-cols-2 gap-2">
-                {mockRoles.map((role) => (
-                  <div key={role} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`edit-role-${role}`}
-                      checked={formData.roles.includes(role)}
-                      onCheckedChange={() => handleRoleToggle(role)}
-                    />
-                    <Label htmlFor={`edit-role-${role}`} className="text-sm">
-                      {role}
-                    </Label>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="grid gap-2">
-              <Label>Teams</Label>
-              <div className="grid grid-cols-2 gap-2">
-                {mockTeams.map((team) => (
-                  <div key={team} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`edit-team-${team}`}
-                      checked={formData.teams.includes(team)}
-                      onCheckedChange={() => handleTeamToggle(team)}
-                    />
-                    <Label htmlFor={`edit-team-${team}`} className="text-sm">
-                      {team}
-                    </Label>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsEditModalOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleEditUser}>Save Changes</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
-  );
+	const clearFilters = () => {
+		setOrganizationFilter("all");
+		setUserRoleFilter("all");
+		setTeamFilter("all");
+		setStatusFilter("all");
+		setSearchTerm("");
+	};
+
+	return (
+		<div className="space-y-6">
+			{/* Breadcrumb */}
+			<div className="flex items-center space-x-2 text-sm text-muted-foreground">
+				<span>Admin</span>
+				<span>/</span>
+				<span className="text-foreground">Users</span>
+			</div>
+
+			{/* Page header */}
+			<div className="flex items-center justify-between">
+				<div>
+					<h1 className="text-3xl font-bold text-foreground">Users</h1>
+					<p className="text-muted-foreground">
+						Manage users, roles, and team assignments
+					</p>
+				</div>
+				<div className="flex items-center gap-2">
+					<Button
+						variant="secondary"
+						onClick={() => setIsRegisterModalOpen(true)}
+					>
+						<Plus className="h-4 w-4 mr-2" />
+						Register User
+					</Button>
+					<Button onClick={() => setIsInviteModalOpen(true)}>
+						<Plus className="h-4 w-4 mr-2" />
+						Invite User
+					</Button>
+				</div>
+			</div>
+
+			{/* Filters */}
+			<Card>
+				<CardHeader>
+					<CardTitle className="flex items-center gap-2">
+						<Filter className="h-5 w-5" />
+						Filters
+					</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+						<div className="relative">
+							<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+							<Input
+								placeholder="Search users..."
+								value={searchTerm}
+								onChange={(e) => setSearchTerm(e.target.value)}
+								className="pl-10"
+							/>
+						</div>
+						<Select value={userRoleFilter} onValueChange={setUserRoleFilter}>
+							<SelectTrigger>
+								<SelectValue placeholder="User Role (Admin/Owner/Staff)" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectItem value="all">All User Roles</SelectItem>
+								<SelectItem value="Admin">Admin</SelectItem>
+								<SelectItem value="Owner">Owner</SelectItem>
+								<SelectItem value="Staff">Staff</SelectItem>
+							</SelectContent>
+						</Select>
+						<Select value={statusFilter} onValueChange={setStatusFilter}>
+							<SelectTrigger>
+								<SelectValue placeholder="All Status" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectItem value="all">All Status</SelectItem>
+								<SelectItem value="Active">Active</SelectItem>
+								<SelectItem value="Inactive">Inactive</SelectItem>
+							</SelectContent>
+						</Select>
+						<Select
+							value={organizationFilter}
+							onValueChange={(val) => {
+								setOrganizationFilter(val);
+								setTeamFilter("all");
+							}}
+						>
+							<SelectTrigger>
+								<SelectValue placeholder="All Organizations" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectItem value="all">All Organizations</SelectItem>
+								{organizations.map((org: any) => (
+									<SelectItem key={org.id} value={org.id}>
+										{org.name}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+						{orgSelected ? (
+							<Select value={teamFilter} onValueChange={setTeamFilter}>
+								<SelectTrigger>
+									<SelectValue placeholder="All Teams" />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value="all">All Teams</SelectItem>
+									{teams.map((team: any) => (
+										<SelectItem key={team.id} value={team.id}>
+											{team.name}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
+						) : (
+							<div />
+						)}
+						{/* Team Role filter removed as requested */}
+					</div>
+					<div className="flex justify-between items-center mt-4">
+						<p className="text-sm text-muted-foreground">
+							{isLoading ? "Loading users..." : `Showing ${users.length} users`}
+						</p>
+						<div className="flex items-center gap-2">
+							<Button variant="outline" size="sm" onClick={clearFilters}>
+								Clear Filters
+							</Button>
+							<Button
+								variant="outline"
+								size="sm"
+								onClick={() => refetch()}
+								disabled={isLoading}
+							>
+								Refresh
+							</Button>
+						</div>
+					</div>
+				</CardContent>
+			</Card>
+
+			{/* User List */}
+			<Card>
+				<CardHeader>
+					<CardTitle className="flex items-center gap-2">
+						<UserCheck className="h-5 w-5" />
+						User List
+					</CardTitle>
+					<CardDescription>
+						View and manage all users in the system
+					</CardDescription>
+				</CardHeader>
+				<CardContent>
+					{isError ? (
+						<div className="p-6 text-sm text-destructive">
+							Failed to load users.
+						</div>
+					) : isLoading ? (
+						<div className="p-6 text-sm text-muted-foreground">Loading…</div>
+					) : (
+						<DataTable
+							columns={getUserColumns({
+								onEdit: openEditModal,
+								onStatusToggle: handleStatusToggle,
+								onRemoveTeam: handleRemoveFromTeam,
+								onRemoveOrg: handleRemoveFromOrganization,
+								onDelete: handleDeleteUser,
+							})}
+							data={users}
+						/>
+					)}
+					<div className="flex items-center justify-between py-4">
+						<div className="text-sm text-muted-foreground">
+							{pagination?.total !== undefined &&
+							pagination?.page !== undefined &&
+							pagination?.limit !== undefined
+								? `Page ${pagination.page} of ${
+										pagination.totalPages ?? "?"
+								  } • ${users.length} / ${
+										pagination.limit
+								  } on this page • Total ${pagination.total}`
+								: `Showing ${users.length} users`}
+						</div>
+						<div className="flex items-center gap-3">
+							<div className="flex items-center gap-2 text-sm">
+								<span>Rows per page</span>
+								<Select
+									value={String(limit)}
+									onValueChange={(v) => {
+										const newLimit = parseInt(v, 10) || 10;
+										setLimit(newLimit);
+										setPage(1);
+									}}
+								>
+									<SelectTrigger className="w-[90px]">
+										<SelectValue />
+									</SelectTrigger>
+									<SelectContent>
+										{[10, 20, 50].map((n) => (
+											<SelectItem key={n} value={String(n)}>
+												{n}
+											</SelectItem>
+										))}
+									</SelectContent>
+								</Select>
+							</div>
+							<div className="flex items-center gap-2">
+								<Button
+									variant="outline"
+									size="sm"
+									onClick={() => setPage((p) => Math.max(1, p - 1))}
+									disabled={isLoading || (pagination?.page ?? 1) <= 1}
+								>
+									Prev
+								</Button>
+								<Button
+									variant="outline"
+									size="sm"
+									onClick={() => setPage((p) => p + 1)}
+									disabled={
+										isLoading ||
+										(pagination?.totalPages !== undefined &&
+											(pagination?.page ?? 1) >= (pagination?.totalPages ?? 1))
+									}
+								>
+									Next
+								</Button>
+							</div>
+						</div>
+					</div>
+				</CardContent>
+			</Card>
+
+			{/* Edit User Modal */}
+			<RegisterUserModal
+				open={isRegisterModalOpen}
+				onOpenChange={setIsRegisterModalOpen}
+				onSuccess={() => refetch()}
+			/>
+			<InviteUserModal
+				open={isInviteModalOpen}
+				onOpenChange={setIsInviteModalOpen}
+				onSuccess={() => {
+					toast.success("Invite sent");
+					setIsInviteModalOpen(false);
+					refetch();
+				}}
+			/>
+			<EditUserModal
+				open={isEditModalOpen}
+				onOpenChange={setIsEditModalOpen}
+				user={editingUser}
+				onSuccess={() => {
+					setIsEditModalOpen(false);
+					setEditingUser(null);
+					refetch();
+				}}
+			/>
+		</div>
+	);
 }

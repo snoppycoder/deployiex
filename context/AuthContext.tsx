@@ -1,49 +1,56 @@
 "use client";
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
 
-interface AuthContextType {
-  isLoggedIn: boolean;
-  login: () => void;
-  logout: () => void;
-}
+import React, { createContext, useContext } from "react";
+import useCurrentSession, {
+	CURRENT_SESSION_QUERY_KEY,
+	getCurrentSession,
+} from "@/hooks/useCurrentSession";
+import { queryClient } from "@/providers/QueryClientProvider";
+import { auth } from "@/lib/auth";
+
+type AuthContextType = {
+	isLoggedIn: boolean;
+	session: Awaited<ReturnType<typeof getCurrentSession>> | null | undefined;
+	refreshSession: () => Promise<void>;
+	logout: () => Promise<void>;
+};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: ReactNode }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+	const { data: session } = useCurrentSession();
+	const isLoggedIn = Boolean(session);
 
-  // Load login state from localStorage on mount
-  useEffect(() => {
-    const stored = localStorage.getItem("isLoggedIn");
-    if (stored === "true") setIsLoggedIn(true);
-  }, []);
+	const refreshSession = async () => {
+		await queryClient.invalidateQueries({
+			queryKey: [CURRENT_SESSION_QUERY_KEY],
+		});
+		await queryClient.refetchQueries({ queryKey: [CURRENT_SESSION_QUERY_KEY] });
+	};
 
-  const login = () => {
-    localStorage.setItem("isLoggedIn", "true");
-    setIsLoggedIn(true);
-  };
+	const logout = async () => {
+		try {
+			await auth.signOut();
+		} finally {
+			await queryClient.removeQueries({
+				queryKey: [CURRENT_SESSION_QUERY_KEY],
+			});
+		}
+	};
 
-  const logout = () => {
-    localStorage.removeItem("isLoggedIn");
-    setIsLoggedIn(false);
-  };
+	const value: AuthContextType = {
+		isLoggedIn,
+		session,
+		refreshSession,
+		logout,
+	};
 
-  return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuthContext() {
-  const context = useContext(AuthContext);
-  if (!context)
-    throw new Error("useAuthContext must be used within AuthProvider");
-  return context;
+	const context = useContext(AuthContext);
+	if (!context)
+		throw new Error("useAuthContext must be used within AuthProvider");
+	return context;
 }

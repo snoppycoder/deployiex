@@ -1,0 +1,12 @@
+[2025-10-02T10:12:42.479Z] Error: fetch failed
+Stack:
+TypeError: fetch failed
+    at Object.fetch (node:internal/deps/undici/undici:11730:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async D:/plexsol/IEX/IEX-NEXT/openapi-ts.config.ts:17:13
+    at async Function.import (D:\plexsol\IEX\IEX-NEXT\node_modules\.pnpm\jiti@2.5.1\node_modules\jiti\dist\jiti.cjs:1:202945)
+    at async resolveConfig (D:\plexsol\IEX\IEX-NEXT\node_modules\.pnpm\c12@2.0.1\node_modules\c12\dist\shared\c12.CLRr5qYj.cjs:360:18)
+    at async Object.loadConfig (D:\plexsol\IEX\IEX-NEXT\node_modules\.pnpm\c12@2.0.1\node_modules\c12\dist\shared\c12.CLRr5qYj.cjs:164:23)
+    at async hl (D:\plexsol\IEX\IEX-NEXT\node_modules\.pnpm\@hey-api+openapi-ts@0.84.3_typescript@5.9.2\node_modules\@hey-api\openapi-ts\dist\index.cjs:51:175761)
+    at async bH (D:\plexsol\IEX\IEX-NEXT\node_modules\.pnpm\@hey-api+openapi-ts@0.84.3_typescript@5.9.2\node_modules\@hey-api\openapi-ts\dist\index.cjs:1350:6413)
+    at async start (D:\plexsol\IEX\IEX-NEXT\node_modules\.pnpm\@hey-api+openapi-ts@0.84.3_typescript@5.9.2\node_modules\@hey-api\openapi-ts\bin\index.cjs:139:21)

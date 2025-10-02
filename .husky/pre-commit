@@ -1,0 +1,19 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Enforce branch naming: must start with 'IEX'
+BRANCH="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
+
+# Skip check for detached HEAD (e.g., during rebase) or empty
+if [ "$BRANCH" = "HEAD" ] || [ -z "$BRANCH" ]; then
+  exit 0
+fi
+
+echo "$BRANCH" | grep -Eq '^IEX'
+if [ $? -ne 0 ]; then
+  echo "\033[31m✖ Invalid branch name: '$BRANCH'\033[0m"
+  echo "Branch name must start with 'IEX'"
+  exit 1
+fi
+
+exit 0
