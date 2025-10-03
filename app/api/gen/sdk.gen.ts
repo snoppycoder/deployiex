@@ -70,7 +70,7 @@ export const healthControllerCheck = <ThrowOnError extends boolean = false>(opti
 };
 
 /**
- * Get current user
+ * Get current user including team roles (team id/name, role id/name) and team organization (id/name)
  */
 export const userControllerGetCurrentUser = <ThrowOnError extends boolean = false>(options?: Options<UserControllerGetCurrentUserData, ThrowOnError>) => {
     return (options?.client ?? client).get<UserControllerGetCurrentUserResponses, UserControllerGetCurrentUserErrors, ThrowOnError>({

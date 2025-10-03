@@ -81,18 +81,14 @@ export type HealthCheckDto = {
     };
 };
 
-export type UserDto = {
+export type UserWithRelationsDto = {
     id: string;
-    role: 'Admin' | 'Owner' | 'Staff';
     username: string;
     email: string;
+    role: string;
     firstName?: string;
     lastName?: string;
-    image?: string;
-    phoneNumber?: string;
     isActive: boolean;
-    createdAt: string;
-    updatedAt: string;
 };
 
 export type OffsetPaginationDto = {
@@ -107,6 +103,20 @@ export type OffsetPaginationDto = {
 export type OffsetPaginatedDto = {
     data: Array<Array<unknown>>;
     pagination: OffsetPaginationDto;
+};
+
+export type UserDto = {
+    id: string;
+    role: 'Admin' | 'Owner' | 'Staff';
+    username: string;
+    email: string;
+    firstName?: string;
+    lastName?: string;
+    image?: string;
+    phoneNumber?: string;
+    isActive: boolean;
+    createdAt: string;
+    updatedAt: string;
 };
 
 export type OffsetPaginatedUserDto = {
@@ -129,16 +139,6 @@ export type CursorPaginatedDto = {
 export type CursorPaginatedUserDto = {
     data: Array<UserDto>;
     pagination: CursorPaginationDto;
-};
-
-export type UserWithRelationsDto = {
-    id: string;
-    username: string;
-    email: string;
-    role: string;
-    firstName?: string;
-    lastName?: string;
-    isActive: boolean;
 };
 
 export type OffsetPaginatedUserWithRelationsDto = {
@@ -533,7 +533,7 @@ export type UserControllerGetCurrentUserResponses = {
     /**
      * OK
      */
-    200: UserDto;
+    200: UserWithRelationsDto;
 };
 
 export type UserControllerGetCurrentUserResponse = UserControllerGetCurrentUserResponses[keyof UserControllerGetCurrentUserResponses];

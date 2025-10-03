@@ -16,6 +16,7 @@ import {
 	CardDescription,
 } from "@/components/ui/card";
 import { getCurrentSession } from "@/hooks/useCurrentSession";
+import { prefetchWhoAmI } from "@/hooks/useWhoAmI";
 import { use2faStore } from "@auth/ui/auth/2fa/store";
 import GithubOAuth from "@auth/ui/auth/GithubOAuth";
 import SignInMagicLink from "@auth/ui/auth/SignInMagicLink";
@@ -69,6 +70,10 @@ export default function SignIn() {
 
 				if (data.token) {
 					await getCurrentSession({ networkMode: "online" });
+					// Prefetch whoami (non-persisted) for role/org data; ignore errors
+					try {
+						await prefetchWhoAmI();
+					} catch {}
 					router.push(redirectTo);
 				}
 				// Might have 2fa

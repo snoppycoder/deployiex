@@ -29,6 +29,7 @@ import {
 	ChevronRight,
 } from "lucide-react";
 import { Suspense } from "react";
+import { UsernameDisplay } from "@/app/(admin)/components/UsernameDisplay";
 import { RequireAuth } from "@/utils/router/before-load";
 
 const navigation = [
@@ -172,6 +173,8 @@ export default function AdminLayout({
 									</span>
 								</Button>
 
+								{/* Username display */}
+								<UsernameDisplay />
 								{/* Profile dropdown */}
 								<Suspense fallback={null}>
 									<DropdownMenu>

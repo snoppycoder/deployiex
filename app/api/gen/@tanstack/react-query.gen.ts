@@ -115,7 +115,7 @@ export const healthControllerCheckOptions = (options?: Options<HealthControllerC
 export const userControllerGetCurrentUserQueryKey = (options?: Options<UserControllerGetCurrentUserData>) => createQueryKey('userControllerGetCurrentUser', options);
 
 /**
- * Get current user
+ * Get current user including team roles (team id/name, role id/name) and team organization (id/name)
  */
 export const userControllerGetCurrentUserOptions = (options?: Options<UserControllerGetCurrentUserData>) => {
     return queryOptions({
