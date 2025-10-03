@@ -2,7 +2,7 @@ import { Camera, Filter, Plus, Receipt, Search } from "lucide-react";
 import ExpenseTabSwitcher from "../../component/Expense-ToggleTab";
 import DropDown from "../../component/dropdown";
 import ScanReciept from "../../component/ScanReciept-Button";
-import NewExpenseButton from "../../component/NewExpense-Button";
+import NewExpenseButton from "./components/modals/NewExpense-Button";
 
 export default function Expenses() {
   return (
