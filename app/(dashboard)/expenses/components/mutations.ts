@@ -6,26 +6,27 @@ export function useCreateExpenseMutation(onSuccess?: () => void) {
   return useMutation({
     mutationFn: async (payload: {
       amount: number;
-      catagoryId: string;
-      description: string;
+      categoryId: string;
+      date: string;
+      description?: string;
       notes?: string;
-      recieptFilePath: string;
       currency: string;
       userTeamId: string | null;
-      organizationId: string;
+      organizationId?: string | null;
       userId: string;
+      receiptFile?: string | null;
     }) => {
       return expenseControllerCreate({
         body: {
           amount: payload.amount,
-          catagoryId: payload.catagoryId,
-          description: payload.description,
-          organizationId: payload.organizationId,
-          date: new Date().toISOString(),
+          categoryId: payload.categoryId,
+          // description: payload.description,
+          organizationId: payload.organizationId ?? null,
+          date: payload.date,
           userTeamId: payload.userTeamId,
           userId: payload.userId,
           currency: payload.currency,
-          receiptUrl: payload.recieptFilePath,
+          receiptUrl: payload.receiptFile as string,
           status: "draft",
         },
       });

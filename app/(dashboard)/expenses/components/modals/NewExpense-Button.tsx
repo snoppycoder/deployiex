@@ -1,40 +1,66 @@
 "use client";
 import { Plus, Upload, X } from "lucide-react";
-import { useEffect, useState } from "react";
-import { createExpenseSchema, expenseForm } from "../schemas";
+import { useState } from "react";
+import { toast } from "sonner";
+import { createExpenseSchema } from "../schemas";
 import { useAuthContext } from "@/context/AuthContext";
 import { useCreateExpenseMutation } from "../mutations";
-
-const { session, isLoggedIn } = useAuthContext();
-
-const [form, setForm] = useState({
-  amount: "",
-  catagoryId: "",
-  description: "",
-  notes: "",
-  recieptFilePath: "",
-  currency: "Birr",
-  userTeamId: session?.user.id || null, //this is just a placeholder, will change later
-  userId: session?.user.id || null,
-  organizationId: session?.user.id || null,
-});
+import { useWhoAmI } from "@/hooks/useWhoAmI";
+import { singleUpload } from "@/lib/utils";
 
 export default function NewExpenseButton() {
+  const { data, isLoading, isError } = useWhoAmI();
+  const { session, isLoggedIn } = useAuthContext();
+  const [file, setFile] = useState<File | null>(null);
+  const [response, setResponse] = useState({}) as any;
+  const [form, setForm] = useState({
+    amount: "",
+    categoryId: "",
+    description: "",
+    notes: "",
+    date: new Date().toISOString(),
+    recieptFilePath: "",
+    currency: "ETB",
+    userTeamId: data?.userTeamRoles[0].id || "",
+
+    userId: session?.user.id || "",
+    organizationId: data?.userTeamRoles[0].team.organization.id || "",
+  });
+
   const [isOpen, setIsOpen] = useState(false);
   const { mutate, isPending } = useCreateExpenseMutation(() => {
-    console.log("Expense created successfully");
+    setForm({
+      amount: "",
+      categoryId: "",
+      description: "",
+      notes: "",
+      date: new Date().toISOString(),
+      recieptFilePath: "",
+      currency: "ETB",
+      userId: session?.user.id || "",
+      userTeamId: data?.userTeamRoles[0].id || "",
+      organizationId: data?.userTeamRoles[0].team.organization.id || "",
+    });
   });
 
   const [isDragging, setIsDragging] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [fileName, setFileName] = useState("");
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(false);
 
     const file = e.dataTransfer.files?.[0];
     if (file) {
-      setFileName(file.name);
+      try {
+        const res = await singleUpload(file);
+        console.log(res, "res aws");
+        setResponse(res.filePath);
+        setFileName(file.name);
+      } catch (err) {
+        toast.error("Failed to upload file. Please try again.");
+        return;
+      }
     }
   };
 
@@ -46,29 +72,47 @@ export default function NewExpenseButton() {
   const handleDragLeave = () => {
     setIsDragging(false);
   };
-  const onSubmit = () => {
+
+  //   const file = e.target.files?.[0];
+  //   if (!file) return;
+
+  //   setForm((prev) => ({
+  //     ...prev,
+  //     recieptFile: file, // store the actual File object
+  //   }));
+  // };
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!isLoggedIn) return;
+
+    const expenseData = {
+      amount: Number(form.amount),
+      categoryId: form.categoryId,
+      description: form.description || "",
+      notes: form.notes || "",
+      userId: form.userId,
+      organizationId: form.organizationId,
+      userTeamId: form.userTeamId || null,
+      currency: form.currency || "Birr",
+      date: new Date().toISOString().split("T")[0],
+      receiptFile: response, // we will make an api that returns a string after uploading the file to db and we will use that string here
+    };
+    console.log(expenseData, "expense data");
+
+    mutate(expenseData);
+
     setErrors({});
-    const parsed = createExpenseSchema.safeParse(form);
+    const parsed = createExpenseSchema.safeParse(expenseData);
     if (!parsed.success) {
       const errs: Record<string, string> = {};
       for (const e of parsed.error.issues)
         errs[e.path[0] as string] = e.message;
+
       setErrors(errs);
       return;
     }
-    if (!isLoggedIn) return;
-
-    mutate({
-      amount: Number(form.amount),
-      catagoryId: form.catagoryId,
-      description: form.description,
-      notes: form.notes || undefined,
-      recieptFilePath: form.recieptFilePath,
-      currency: form.currency || "Birr",
-      userTeamId: form.userTeamId,
-      organizationId: form.organizationId || "",
-      userId: form.userId || "",
-    });
   };
 
   return (
@@ -104,6 +148,7 @@ export default function NewExpenseButton() {
                     <input
                       id="amount"
                       type="number"
+                      required
                       value={form.amount}
                       onChange={(e) =>
                         setForm({ ...form, amount: e.target.value })
@@ -116,11 +161,12 @@ export default function NewExpenseButton() {
                       Catagory
                     </label>
                     <input
-                      type="number"
+                      type="text"
                       id="catagory"
-                      value={form.catagoryId}
+                      required
+                      value={form.categoryId}
                       onChange={(e) =>
-                        setForm({ ...form, catagoryId: e.target.value })
+                        setForm({ ...form, categoryId: e.target.value })
                       }
                       placeholder="Select Catagory"
                       className="w-full px-2 py-2 bg-gray-100 rounded-md" //will change this to drop down
@@ -133,7 +179,8 @@ export default function NewExpenseButton() {
                   </label>
                   <input
                     id="description"
-                    type="number"
+                    required
+                    type="text"
                     value={form.description}
                     onChange={(e) =>
                       setForm({ ...form, description: e.target.value })
@@ -148,7 +195,7 @@ export default function NewExpenseButton() {
                   </label>
                   <input
                     id="note"
-                    type="number"
+                    type="text"
                     className="w-full px-2 py-2 bg-gray-100 rounded-md"
                     placeholder="Any additional detail or context "
                   />
@@ -165,13 +212,10 @@ export default function NewExpenseButton() {
                   <input
                     type="file"
                     className="hidden"
-                    value={form.recieptFilePath}
-                    onChange={(e) =>
-                      setForm({
-                        ...form,
-                        recieptFilePath: e.target.files?.[0]?.name || "",
-                      })
-                    }
+                    onChange={(e) => {
+                      setFile(e.target.files?.[0] || null);
+                    }}
+                    required
                     id="file-upload"
                   />
                   <label

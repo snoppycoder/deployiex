@@ -1,0 +1,9 @@
+[2025-10-03T11:36:08.506Z] Error: Unsupported OpenAPI specification
+Stack:
+Error: Unsupported OpenAPI specification
+    at Hc (C:\Users\HP\Desktop\IEX-NEXT\node_modules\.pnpm\@hey-api+openapi-ts@0.84.3_typescript@5.9.2\node_modules\@hey-api\openapi-ts\dist\index.cjs:40:129854)
+    at sa (C:\Users\HP\Desktop\IEX-NEXT\node_modules\.pnpm\@hey-api+openapi-ts@0.84.3_typescript@5.9.2\node_modules\@hey-api\openapi-ts\dist\index.cjs:54:8964)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async bH (C:\Users\HP\Desktop\IEX-NEXT\node_modules\.pnpm\@hey-api+openapi-ts@0.84.3_typescript@5.9.2\node_modules\@hey-api\openapi-ts\dist\index.cjs:1350:6572)
+    at async start (C:\Users\HP\Desktop\IEX-NEXT\node_modules\.pnpm\@hey-api+openapi-ts@0.84.3_typescript@5.9.2\node_modules\@hey-api\openapi-ts\bin\index.cjs:139:21)
