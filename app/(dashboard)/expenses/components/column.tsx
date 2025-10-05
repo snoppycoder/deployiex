@@ -33,7 +33,7 @@ export function getExpenseColumns(handlers: {
   return [
     {
       id: "description",
-      header: "description",
+      header: "Description",
       cell: ({ row }) => {
         return (
           <div className="flex p-2">
@@ -45,13 +45,13 @@ export function getExpenseColumns(handlers: {
       },
     },
     {
-      id: "category",
+      id: "categoryId",
       header: "category",
       cell: ({ row }) => {
         return (
           <div className="flex p-2">
             <span className="font-medium">
-              {row.original.category ?? "Some Category"}
+              {row.original.categoryId ?? "Some Category"}
             </span>
           </div>
         );

@@ -5,7 +5,10 @@ import DataTable from "./table";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, SquarePen, Trash } from "lucide-react";
 import ExpenseCard from "./expense-card";
-import { useExpenseByUser } from "../(dashboard)/expenses/components/queries";
+import {
+  useExpenseByUser,
+  useExpenseInfoByUser,
+} from "../(dashboard)/expenses/components/queries";
 import { useAuthContext } from "@/context/AuthContext";
 
 import { getExpenseColumns } from "../(dashboard)/expenses/components/column";
@@ -18,8 +21,8 @@ export default function ExpenseTabSwitcher() {
   const router = useRouter();
   const userId = user?.id;
 
-  const { data: expenses, isLoading: isLoaded } = useExpenseByUser(userId);
-  console.log(expenses);
+  const { data: expenses, ...others } = useExpenseByUser(userId);
+  const { data: expenseInfo, ...rest } = useExpenseInfoByUser(userId);
 
   const [activeTab, setActiveTab] = useState("live-view");
 
@@ -81,20 +84,20 @@ export default function ExpenseTabSwitcher() {
           <div className="w-full flex justify-between">
             <ExpenseCard
               title={"Total Submitted"}
-              amount={"550.49 Birr"}
-              detail={"4 expenses"}
+              amount={`${expenseInfo?.totalNumberOfExpenses}`}
+              detail={`${expenseInfo?.totalNumberOfExpenses} expenses`}
               type={"Total"}
             />
             <ExpenseCard
               title={"Approved Amount"}
-              amount={"205.5 Birr"}
-              detail={"2 expenses"}
+              amount={`${expenseInfo?.approvedAmount}`}
+              detail={`${expenseInfo?.totalNumberOfApprovedExpenses} expenses`}
               type={"Approved"}
             />
             <ExpenseCard
-              title={"Total Submitted"}
-              amount={"45.00 Birr"}
-              detail={"1 expense"}
+              title={"Pending Amount"}
+              amount={`${expenseInfo?.pendingAmount}`}
+              detail={`${expenseInfo?.totalNumberOfPendingExpenses} expenses`}
               type={"Pending"}
             />
           </div>

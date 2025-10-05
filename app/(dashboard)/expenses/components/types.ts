@@ -4,5 +4,13 @@ export interface ExpenseRow {
   description: string;
   date: string;
   status: "Approved" | "Pending" | "Rejected" | "Draft";
-  category: string;
+  categoryId: string; // we will may be match it with a title
+}
+export interface ExpenseInfo {
+  totalAmount: number;
+  approvedAmount: number;
+  pendingAmount: number;
+  totalNumberOfExpenses: number;
+  totalNumberOfApprovedExpenses: number;
+  totalNumberOfPendingExpenses: number;
 }
