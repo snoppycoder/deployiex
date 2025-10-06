@@ -1,10 +1,28 @@
 "use client";
 import { Plus, X } from "lucide-react";
-import { useState } from "react";
-import DropDown from "./dropdown";
+import { useEffect, useState } from "react";
+import DropDown from "../../../../component/dropdown";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@radix-ui/react-dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { CategoryType } from "../types";
+import { useWhoAmI } from "@/hooks/useWhoAmI";
+import { useCategoryByOrganization } from "../queries";
 
 export default function AddPolicyButton() {
+  const { data: userData, ...rest } = useWhoAmI();
+
   const [isOpen, setIsOpen] = useState(false);
+  const organizationId = userData?.userTeamRoles[0]?.team.organization.id;
+  const { data: categories } = useCategoryByOrganization(organizationId);
+  const [selected, setSelected] = useState<string>();
+  useEffect(() => {
+    if (categories) setSelected(categories[0].name);
+  }, [categories]);
 
   return (
     <>
@@ -47,7 +65,35 @@ export default function AddPolicyButton() {
                     <label htmlFor="catagory" className="font-semibold">
                       Catagory
                     </label>
-                    <DropDown options={["IT", "Finance", "HR", "Accountant"]} />
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="w-64 justify-between"
+                        >
+                          <span className="text-center">
+                            {selected ?? "Select category"}
+                          </span>
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="bg-white rounded-md shadow-md mt-2 w-64">
+                        {categories && categories.length > 0 ? (
+                          categories.map((cat) => (
+                            <DropdownMenuItem
+                              key={cat.id}
+                              className="px-2 py-1 cursor-pointer hover:bg-gray-100 rounded-sm "
+                              onSelect={() => setSelected(cat.name)}
+                            >
+                              {cat.name}
+                            </DropdownMenuItem>
+                          ))
+                        ) : (
+                          <DropdownMenuItem className="px-2 py-1 text-gray-400">
+                            No categories
+                          </DropdownMenuItem>
+                        )}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                 </div>
                 <div className="w-full">

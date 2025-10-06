@@ -45,13 +45,13 @@ export function getExpenseColumns(handlers: {
       },
     },
     {
-      id: "categoryId",
-      header: "category",
+      id: "categoryName",
+      header: "Category",
       cell: ({ row }) => {
         return (
           <div className="flex p-2">
             <span className="font-medium">
-              {row.original.categoryId ?? "Some Category"}
+              {row.original.categoryName ?? "Some Category"}
             </span>
           </div>
         );
@@ -100,10 +100,18 @@ export function getExpenseColumns(handlers: {
             {/* <Button variant="link" onClick={() => onEdit(row.original.id)}>
               <Eye className="h-4 w-4" />
             </Button> */}
-            <Button variant="link" onClick={() => onEdit(row.original.id)}>
-              <Edit className="h-4 w-4" />
+            <Button
+              variant="link"
+              className="cursor-pointer"
+              onClick={() => onEdit(row.original.id)}
+            >
+              <Edit className="h-4 w-4 " />
             </Button>
-            <Button variant="link" onClick={() => onDelete(row.original.id)}>
+            <Button
+              variant="link"
+              className="cursor-pointer"
+              onClick={() => onDelete(row.original.id)}
+            >
               <Trash2 className="h-4 w-4 text-red-600" />
             </Button>
           </div>

@@ -1,0 +1,13 @@
+[2025-10-06T10:19:51.177Z] Error: Unexpected token 'I', "Invalid credentials" is not valid JSON
+Stack:
+SyntaxError: Unexpected token 'I', "Invalid credentials" is not valid JSON
+    at JSON.parse (<anonymous>)
+    at parseJSONFromBytes (node:internal/deps/undici/undici:4306:19)
+    at successSteps (node:internal/deps/undici/undici:4288:27)
+    at fullyReadBody (node:internal/deps/undici/undici:2724:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async consumeBody (node:internal/deps/undici/undici:4297:7)
+    at async C:/Users/HP/Desktop/IEX-NEXT/openapi-ts.config.ts:25:16
+    at async Function.import (C:\Users\HP\Desktop\IEX-NEXT\node_modules\.pnpm\jiti@2.5.1\node_modules\jiti\dist\jiti.cjs:1:202945)
+    at async resolveConfig (C:\Users\HP\Desktop\IEX-NEXT\node_modules\.pnpm\c12@2.0.1\node_modules\c12\dist\shared\c12.CLRr5qYj.cjs:360:18)
+    at async Object.loadConfig (C:\Users\HP\Desktop\IEX-NEXT\node_modules\.pnpm\c12@2.0.1\node_modules\c12\dist\shared\c12.CLRr5qYj.cjs:164:23)

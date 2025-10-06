@@ -9,12 +9,11 @@ import {
   useExpenseByUser,
   useExpenseInfoByUser,
 } from "../(dashboard)/expenses/components/queries";
-import { useAuthContext } from "@/context/AuthContext";
 
 import { getExpenseColumns } from "../(dashboard)/expenses/components/column";
 import { useRouter } from "next/navigation";
-import Loading from "../(admin)/admin/expense-policies/loading";
 import { useWhoAmI } from "@/hooks/useWhoAmI";
+import { expenseControllerRemove } from "../api/gen";
 
 export default function ExpenseTabSwitcher() {
   const { data: user, isLoading, isError } = useWhoAmI();
@@ -22,6 +21,10 @@ export default function ExpenseTabSwitcher() {
   const userId = user?.id;
 
   const { data: expenses, ...others } = useExpenseByUser(userId);
+  if (expenses) {
+    console.log(expenses, "expenses here");
+  }
+
   const { data: expenseInfo, ...rest } = useExpenseInfoByUser(userId);
 
   const [activeTab, setActiveTab] = useState("live-view");
@@ -30,8 +33,9 @@ export default function ExpenseTabSwitcher() {
     throw new Error("Function not implemented.");
   }
 
-  function onDelete(id: string): void {
-    throw new Error("Function not implemented.");
+  async function onDelete(id: string): Promise<void> {
+    await expenseControllerRemove({ path: { id } });
+    others.refetch();
   }
 
   return (

@@ -3,8 +3,8 @@
 import { type DefaultError, type InfiniteData, infiniteQueryOptions, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { activityLogControllerCreate, activityLogControllerDelete, activityLogControllerFindAll, activityLogControllerFindAllCursor, activityLogControllerFindOne, approvalControllerCreate, approvalControllerFindAll, approvalControllerFindOne, approvalControllerRemove, approvalControllerUpdate, approvalWorkflowControllerCreate, approvalWorkflowControllerFindAll, approvalWorkflowControllerFindOne, approvalWorkflowControllerRemove, approvalWorkflowControllerUpdate, authControllerAdminUpdateUser, authControllerRegister, categoryControllerCreate, categoryControllerFindAll, categoryControllerFindOne, categoryControllerRemove, categoryControllerUpdate, expenseControllerCreate, expenseControllerFindAll, expenseControllerFindOne, expenseControllerRemove, expenseControllerSubmit, expenseControllerUpdate, expensePolicyControllerCreate, expensePolicyControllerFindAll, expensePolicyControllerFindOne, expensePolicyControllerRemove, expensePolicyControllerUpdate, healthControllerCheck, invitationControllerCreate, invitationControllerFindAll, invitationControllerFindOne, invitationControllerRemove, type Options, organizationControllerCreateOrganization, organizationControllerDeleteOrganization, organizationControllerFindAllOrganizations, organizationControllerFindAllOrganizationsCursor, organizationControllerFindOrganization, organizationControllerUpdateOrganization, organizationControllerUpdateOrganizationStatus, prometheusControllerIndex, roleControllerCreate, roleControllerFindAll, roleControllerFindByOrganization, roleControllerFindOne, roleControllerRemove, roleControllerUpdate, teamControllerCreate, teamControllerFindAll, teamControllerFindByOrganization, teamControllerFindOne, teamControllerRemove, userControllerDeleteUser, userControllerFindAllUsers, userControllerFindAllUsersCursor, userControllerFindAllUsersWithRelations, userControllerFindUser, userControllerGetCurrentUser, userControllerUpdateUserProfile, userTeamRoleControllerAssign, userTeamRoleControllerByTeam, userTeamRoleControllerByUser, userTeamRoleControllerRemove, userTeamRoleControllerSetStatus, userTeamRoleControllerUpdate } from '../sdk.gen';
-import type { ActivityLogControllerCreateData, ActivityLogControllerCreateError, ActivityLogControllerCreateResponse, ActivityLogControllerDeleteData, ActivityLogControllerDeleteError, ActivityLogControllerFindAllCursorData, ActivityLogControllerFindAllData, ActivityLogControllerFindAllError, ActivityLogControllerFindAllResponse, ActivityLogControllerFindOneData, ApprovalControllerCreateData, ApprovalControllerFindAllData, ApprovalControllerFindOneData, ApprovalControllerRemoveData, ApprovalControllerUpdateData, ApprovalWorkflowControllerCreateData, ApprovalWorkflowControllerFindAllData, ApprovalWorkflowControllerFindOneData, ApprovalWorkflowControllerRemoveData, ApprovalWorkflowControllerUpdateData, AuthControllerAdminUpdateUserData, AuthControllerAdminUpdateUserError, AuthControllerRegisterData, AuthControllerRegisterError, CategoryControllerCreateData, CategoryControllerCreateError, CategoryControllerCreateResponse, CategoryControllerFindAllData, CategoryControllerFindOneData, CategoryControllerRemoveData, CategoryControllerRemoveError, CategoryControllerUpdateData, CategoryControllerUpdateError, CategoryControllerUpdateResponse, ExpenseControllerCreateData, ExpenseControllerFindAllData, ExpenseControllerFindOneData, ExpenseControllerRemoveData, ExpenseControllerSubmitData, ExpenseControllerUpdateData, ExpensePolicyControllerCreateData, ExpensePolicyControllerFindAllData, ExpensePolicyControllerFindOneData, ExpensePolicyControllerRemoveData, ExpensePolicyControllerUpdateData, HealthControllerCheckData, InvitationControllerCreateData, InvitationControllerCreateError, InvitationControllerCreateResponse, InvitationControllerFindAllData, InvitationControllerFindOneData, InvitationControllerRemoveData, InvitationControllerRemoveError, OrganizationControllerCreateOrganizationData, OrganizationControllerCreateOrganizationError, OrganizationControllerCreateOrganizationResponse, OrganizationControllerDeleteOrganizationData, OrganizationControllerDeleteOrganizationError, OrganizationControllerFindAllOrganizationsCursorData, OrganizationControllerFindAllOrganizationsData, OrganizationControllerFindAllOrganizationsError, OrganizationControllerFindAllOrganizationsResponse, OrganizationControllerFindOrganizationData, OrganizationControllerUpdateOrganizationData, OrganizationControllerUpdateOrganizationError, OrganizationControllerUpdateOrganizationResponse, OrganizationControllerUpdateOrganizationStatusData, OrganizationControllerUpdateOrganizationStatusError, OrganizationControllerUpdateOrganizationStatusResponse, PrometheusControllerIndexData, RoleControllerCreateData, RoleControllerCreateError, RoleControllerCreateResponse, RoleControllerFindAllData, RoleControllerFindByOrganizationData, RoleControllerFindByOrganizationError, RoleControllerFindByOrganizationResponse, RoleControllerFindOneData, RoleControllerRemoveData, RoleControllerRemoveError, RoleControllerUpdateData, RoleControllerUpdateError, RoleControllerUpdateResponse, TeamControllerCreateData, TeamControllerCreateError, TeamControllerCreateResponse, TeamControllerFindAllData, TeamControllerFindByOrganizationData, TeamControllerFindByOrganizationError, TeamControllerFindByOrganizationResponse, TeamControllerFindOneData, TeamControllerRemoveData, TeamControllerRemoveError, UserControllerDeleteUserData, UserControllerDeleteUserError, UserControllerFindAllUsersCursorData, UserControllerFindAllUsersData, UserControllerFindAllUsersError, UserControllerFindAllUsersResponse, UserControllerFindAllUsersWithRelationsData, UserControllerFindAllUsersWithRelationsError, UserControllerFindAllUsersWithRelationsResponse, UserControllerFindUserData, UserControllerGetCurrentUserData, UserControllerUpdateUserProfileData, UserControllerUpdateUserProfileError, UserControllerUpdateUserProfileResponse, UserTeamRoleControllerAssignData, UserTeamRoleControllerByTeamData, UserTeamRoleControllerByUserData, UserTeamRoleControllerRemoveData, UserTeamRoleControllerSetStatusData, UserTeamRoleControllerUpdateData } from '../types.gen';
+import { activityLogControllerCreate, activityLogControllerDelete, activityLogControllerFindAll, activityLogControllerFindAllCursor, activityLogControllerFindOne, approvalControllerCreate, approvalControllerFindAll, approvalControllerFindOne, approvalControllerRemove, approvalControllerUpdate, approvalWorkflowControllerCreate, approvalWorkflowControllerFindAll, approvalWorkflowControllerFindOne, approvalWorkflowControllerRemove, approvalWorkflowControllerUpdate, authControllerAdminUpdateUser, authControllerRegister, categoryControllerCreate, categoryControllerFindAll, categoryControllerFindAllByOrganization, categoryControllerFindOne, categoryControllerRemove, categoryControllerUpdate, expenseControllerCreate, expenseControllerFindAll, expenseControllerFindByUser, expenseControllerFindOne, expenseControllerGetExpenseInfo, expenseControllerRemove, expenseControllerSubmit, expenseControllerUpdate, expensePolicyControllerCreate, expensePolicyControllerFindAll, expensePolicyControllerFindOne, expensePolicyControllerRemove, expensePolicyControllerUpdate, healthControllerCheck, invitationControllerCreate, invitationControllerFindAll, invitationControllerFindOne, invitationControllerRemove, type Options, organizationControllerCreateOrganization, organizationControllerDeleteOrganization, organizationControllerFindAllOrganizations, organizationControllerFindAllOrganizationsCursor, organizationControllerFindOrganization, organizationControllerUpdateOrganization, organizationControllerUpdateOrganizationStatus, prometheusControllerIndex, roleControllerCreate, roleControllerFindAll, roleControllerFindByOrganization, roleControllerFindOne, roleControllerRemove, roleControllerUpdate, teamControllerCreate, teamControllerFindAll, teamControllerFindByOrganization, teamControllerFindOne, teamControllerRemove, userControllerDeleteUser, userControllerFindAllUsers, userControllerFindAllUsersCursor, userControllerFindAllUsersWithRelations, userControllerFindUser, userControllerGetCurrentUser, userControllerUpdateUserProfile, userTeamRoleControllerAssign, userTeamRoleControllerByTeam, userTeamRoleControllerByUser, userTeamRoleControllerRemove, userTeamRoleControllerSetStatus, userTeamRoleControllerUpdate } from '../sdk.gen';
+import type { ActivityLogControllerCreateData, ActivityLogControllerCreateError, ActivityLogControllerCreateResponse, ActivityLogControllerDeleteData, ActivityLogControllerDeleteError, ActivityLogControllerFindAllCursorData, ActivityLogControllerFindAllData, ActivityLogControllerFindAllError, ActivityLogControllerFindAllResponse, ActivityLogControllerFindOneData, ApprovalControllerCreateData, ApprovalControllerFindAllData, ApprovalControllerFindOneData, ApprovalControllerRemoveData, ApprovalControllerUpdateData, ApprovalWorkflowControllerCreateData, ApprovalWorkflowControllerFindAllData, ApprovalWorkflowControllerFindOneData, ApprovalWorkflowControllerRemoveData, ApprovalWorkflowControllerUpdateData, AuthControllerAdminUpdateUserData, AuthControllerAdminUpdateUserError, AuthControllerRegisterData, AuthControllerRegisterError, CategoryControllerCreateData, CategoryControllerCreateError, CategoryControllerCreateResponse, CategoryControllerFindAllByOrganizationData, CategoryControllerFindAllData, CategoryControllerFindOneData, CategoryControllerRemoveData, CategoryControllerRemoveError, CategoryControllerUpdateData, CategoryControllerUpdateError, CategoryControllerUpdateResponse, ExpenseControllerCreateData, ExpenseControllerFindAllData, ExpenseControllerFindByUserData, ExpenseControllerFindOneData, ExpenseControllerGetExpenseInfoData, ExpenseControllerRemoveData, ExpenseControllerSubmitData, ExpenseControllerUpdateData, ExpensePolicyControllerCreateData, ExpensePolicyControllerFindAllData, ExpensePolicyControllerFindOneData, ExpensePolicyControllerRemoveData, ExpensePolicyControllerUpdateData, HealthControllerCheckData, InvitationControllerCreateData, InvitationControllerCreateError, InvitationControllerCreateResponse, InvitationControllerFindAllData, InvitationControllerFindOneData, InvitationControllerRemoveData, InvitationControllerRemoveError, OrganizationControllerCreateOrganizationData, OrganizationControllerCreateOrganizationError, OrganizationControllerCreateOrganizationResponse, OrganizationControllerDeleteOrganizationData, OrganizationControllerDeleteOrganizationError, OrganizationControllerFindAllOrganizationsCursorData, OrganizationControllerFindAllOrganizationsData, OrganizationControllerFindAllOrganizationsError, OrganizationControllerFindAllOrganizationsResponse, OrganizationControllerFindOrganizationData, OrganizationControllerUpdateOrganizationData, OrganizationControllerUpdateOrganizationError, OrganizationControllerUpdateOrganizationResponse, OrganizationControllerUpdateOrganizationStatusData, OrganizationControllerUpdateOrganizationStatusError, OrganizationControllerUpdateOrganizationStatusResponse, PrometheusControllerIndexData, RoleControllerCreateData, RoleControllerCreateError, RoleControllerCreateResponse, RoleControllerFindAllData, RoleControllerFindByOrganizationData, RoleControllerFindByOrganizationError, RoleControllerFindByOrganizationResponse, RoleControllerFindOneData, RoleControllerRemoveData, RoleControllerRemoveError, RoleControllerUpdateData, RoleControllerUpdateError, RoleControllerUpdateResponse, TeamControllerCreateData, TeamControllerCreateError, TeamControllerCreateResponse, TeamControllerFindAllData, TeamControllerFindByOrganizationData, TeamControllerFindByOrganizationError, TeamControllerFindByOrganizationResponse, TeamControllerFindOneData, TeamControllerRemoveData, TeamControllerRemoveError, UserControllerDeleteUserData, UserControllerDeleteUserError, UserControllerFindAllUsersCursorData, UserControllerFindAllUsersData, UserControllerFindAllUsersError, UserControllerFindAllUsersResponse, UserControllerFindAllUsersWithRelationsData, UserControllerFindAllUsersWithRelationsError, UserControllerFindAllUsersWithRelationsResponse, UserControllerFindUserData, UserControllerGetCurrentUserData, UserControllerUpdateUserProfileData, UserControllerUpdateUserProfileError, UserControllerUpdateUserProfileResponse, UserTeamRoleControllerAssignData, UserTeamRoleControllerByTeamData, UserTeamRoleControllerByUserData, UserTeamRoleControllerRemoveData, UserTeamRoleControllerSetStatusData, UserTeamRoleControllerUpdateData } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -799,6 +799,26 @@ export const categoryControllerCreateMutation = (options?: Partial<Options<Categ
     return mutationOptions;
 };
 
+export const categoryControllerFindAllByOrganizationQueryKey = (options: Options<CategoryControllerFindAllByOrganizationData>) => createQueryKey('categoryControllerFindAllByOrganization', options);
+
+/**
+ * Get all category of an organization
+ */
+export const categoryControllerFindAllByOrganizationOptions = (options: Options<CategoryControllerFindAllByOrganizationData>) => {
+    return queryOptions({
+        queryFn: async ({ queryKey, signal }) => {
+            const { data } = await categoryControllerFindAllByOrganization({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: categoryControllerFindAllByOrganizationQueryKey(options)
+    });
+};
+
 /**
  * Delete category
  */
@@ -882,6 +902,40 @@ export const expenseControllerCreateMutation = (options?: Partial<Options<Expens
         }
     };
     return mutationOptions;
+};
+
+export const expenseControllerGetExpenseInfoQueryKey = (options: Options<ExpenseControllerGetExpenseInfoData>) => createQueryKey('expenseControllerGetExpenseInfo', options);
+
+export const expenseControllerGetExpenseInfoOptions = (options: Options<ExpenseControllerGetExpenseInfoData>) => {
+    return queryOptions({
+        queryFn: async ({ queryKey, signal }) => {
+            const { data } = await expenseControllerGetExpenseInfo({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: expenseControllerGetExpenseInfoQueryKey(options)
+    });
+};
+
+export const expenseControllerFindByUserQueryKey = (options: Options<ExpenseControllerFindByUserData>) => createQueryKey('expenseControllerFindByUser', options);
+
+export const expenseControllerFindByUserOptions = (options: Options<ExpenseControllerFindByUserData>) => {
+    return queryOptions({
+        queryFn: async ({ queryKey, signal }) => {
+            const { data } = await expenseControllerFindByUser({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: expenseControllerFindByUserQueryKey(options)
+    });
 };
 
 export const expenseControllerRemoveMutation = (options?: Partial<Options<ExpenseControllerRemoveData>>): UseMutationOptions<unknown, DefaultError, Options<ExpenseControllerRemoveData>> => {

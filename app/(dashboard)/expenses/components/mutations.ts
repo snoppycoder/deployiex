@@ -21,7 +21,7 @@ export function useCreateExpenseMutation(onSuccess?: () => void) {
           amount: payload.amount,
           categoryId: payload.categoryId,
           // description: payload.description,
-          organizationId: payload.organizationId ?? null,
+          organizationId: payload.organizationId ?? "",
           date: payload.date,
           userTeamId: payload.userTeamId,
           userId: payload.userId,

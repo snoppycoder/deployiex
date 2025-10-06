@@ -10,29 +10,30 @@ const BASIC_AUTH_USERNAME = process.env.NEXT_PUBLIC_BASIC_AUTH_USERNAME;
 const BASIC_AUTH_PASSWORD = process.env.NEXT_PUBLIC_BASIC_AUTH_PASSWORD;
 
 const base64Credential = Buffer.from(
-	`${BASIC_AUTH_USERNAME}:${BASIC_AUTH_PASSWORD}`
+  `${BASIC_AUTH_USERNAME}:${BASIC_AUTH_PASSWORD}`
 ).toString("base64");
 
 // @ts-ignore
 const res = await fetch(`${API_URL}/swagger/json`, {
-	method: "GET",
-	headers: {
-		"Content-Type": "application/json",
-		Authorization: `Basic ${base64Credential}`,
-	},
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Basic ${base64Credential}`,
+  },
 });
+console.log(res);
 // @ts-ignore
 const schema = await res.json();
 
 export default defineConfig({
-	input: schema,
-	output: {
-		format: "prettier",
-		path: "./app/api/gen",
-	},
-	plugins: [
-		...defaultPlugins,
-		"@tanstack/react-query",
-		{ name: "@hey-api/client-fetch" },
-	],
+  input: schema,
+  output: {
+    format: "prettier",
+    path: "./app/api/gen",
+  },
+  plugins: [
+    ...defaultPlugins,
+    "@tanstack/react-query",
+    { name: "@hey-api/client-fetch" },
+  ],
 });
