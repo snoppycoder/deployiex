@@ -1,78 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DataTable from "./table";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, SquarePen, Trash } from "lucide-react";
 import ExpenseCard from "./expense-card";
+import {
+  useExpenseByUser,
+  useExpenseInfoByUser,
+} from "../(dashboard)/expenses/components/queries";
+
+import { getExpenseColumns } from "../(dashboard)/expenses/components/column";
+import { useRouter } from "next/navigation";
+import { useWhoAmI } from "@/hooks/useWhoAmI";
+import { expenseControllerRemove } from "../api/gen";
+
 export default function ExpenseTabSwitcher() {
+  const { data: user, isLoading, isError } = useWhoAmI();
+  const router = useRouter();
+  const userId = user?.id;
+
+  const { data: expenses, ...others } = useExpenseByUser(userId);
+  if (expenses) {
+    console.log(expenses, "expenses here");
+  }
+
+  const { data: expenseInfo, ...rest } = useExpenseInfoByUser(userId);
+
   const [activeTab, setActiveTab] = useState("live-view");
 
-  const columns: ColumnDef<(typeof data)[0]>[] = [
-    {
-      accessorKey: "Description",
-      header: "Description",
-    },
-    {
-      accessorKey: "Category",
-      header: "Category",
-    },
-    {
-      accessorKey: "Amount",
-      header: "Amount",
-      cell: ({ getValue }) => `$${getValue<number>()}`, // format as currency
-    },
-    {
-      accessorKey: "Date",
-      header: "Date",
-    },
-    {
-      accessorKey: "Status",
-      header: "Status",
-    },
-    {
-      id: "actions",
-      header: "Actions",
-      cell: ({ row }) => (
-        <div className="flex gap-2">
-          <button className="px-2 py-1 bg-white text-black rounded text-sm border border-gray-300 hover:bg-gray-200 cursor-pointer">
-            <Eye className="w-4 h-4"></Eye>
-          </button>
-          <button className="px-3 py-2  bg-white text-black  rounded text-sm border border-gray-300 hover:bg-gray-200 cursor-pointer">
-            <SquarePen className="w-4 h-4" />
-          </button>
-          <button className="px-2 py-1  bg-white text-black  rounded text-sm border border-gray-300 hover:bg-gray-200 cursor-pointer ">
-            <Trash className="w-4 h-4" />
-          </button>
-        </div>
-      ),
-    },
-  ];
+  function onEdit(id: string): void {
+    throw new Error("Function not implemented.");
+  }
 
-  const data = [
-    // this will be fetched from an api or a graphql
-    {
-      Description: "Lunch with team",
-      Category: "Food",
-      Amount: 45,
-      Date: "2025-09-10",
-      Status: "Approved",
-    },
-    {
-      Description: "Taxi fare",
-      Category: "Transport",
-      Amount: 20,
-      Date: "2025-09-09",
-      Status: "Pending",
-    },
-    {
-      Description: "Taxi fare",
-      Category: "Transport",
-      Amount: 20,
-      Date: "2025-09-09",
-      Status: "Pending",
-    },
-  ];
+  async function onDelete(id: string): Promise<void> {
+    await expenseControllerRemove({ path: { id } });
+    others.refetch();
+  }
 
   return (
     <div className="w-full p-4">
@@ -106,27 +70,38 @@ export default function ExpenseTabSwitcher() {
             <span className="text-gray-600 font-medium">
               All your submitted expenses and their current status
             </span>
-            <DataTable columns={columns} data={data} />
+            {expenses ? (
+              <DataTable
+                columns={getExpenseColumns({
+                  onEdit: onEdit,
+                  // pass boolean as expected
+                  onDelete: onDelete,
+                })}
+                data={expenses}
+              />
+            ) : (
+              <div>Loading...</div> //just a workaround
+            )}
           </div>
         )}
         {activeTab === "summary" && (
           <div className="w-full flex justify-between">
             <ExpenseCard
               title={"Total Submitted"}
-              amount={"550.49 Birr"}
-              detail={"4 expenses"}
+              amount={`${expenseInfo?.totalNumberOfExpenses}`}
+              detail={`${expenseInfo?.totalNumberOfExpenses} expenses`}
               type={"Total"}
             />
             <ExpenseCard
               title={"Approved Amount"}
-              amount={"205.5 Birr"}
-              detail={"2 expenses"}
+              amount={`${expenseInfo?.approvedAmount}`}
+              detail={`${expenseInfo?.totalNumberOfApprovedExpenses} expenses`}
               type={"Approved"}
             />
             <ExpenseCard
-              title={"Total Submitted"}
-              amount={"45.00 Birr"}
-              detail={"1 expense"}
+              title={"Pending Amount"}
+              amount={`${expenseInfo?.pendingAmount}`}
+              detail={`${expenseInfo?.totalNumberOfPendingExpenses} expenses`}
               type={"Pending"}
             />
           </div>

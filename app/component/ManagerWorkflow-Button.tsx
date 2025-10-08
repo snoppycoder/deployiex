@@ -1,9 +1,42 @@
 "use client";
 import { Plus, Settings, X } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import DropDown from "./dropdown";
+
+import { Card, CardContent } from "@/components/ui/card";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export default function WorkflowsButton() {
+  const workflows = [
+    {
+      title: "Standard Approval",
+      status: "Active",
+      description: "Single manager approval for expenses under $500",
+      limit: "$500",
+      steps: ["Manager Review", "Finance Approval"],
+    },
+    {
+      title: "High Value Approval",
+      status: "Active",
+      description: "Multi-level approval for expenses over $500",
+      limit: "$500",
+      steps: ["Manager Review", "Department Head", "Finance Director"],
+    },
+    {
+      title: "Travel Expense",
+      status: "Active",
+      description: "Specialized workflow for travel-related expenses",
+      limit: "$1000",
+      steps: ["Manager Review", "Travel Coordinator", "Finance Approval"],
+    },
+  ];
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -16,119 +49,68 @@ export default function WorkflowsButton() {
         <Settings size={16} /> Manage Workflows
       </button>
 
-      {isOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="relative bg-white p-6 rounded-lg  w-xl md:w-2xl">
-            <h2 className="text-lg font-semibold mb-4">Submit new Income</h2>
-            <span className="text-sm mb-4 text-gray-600">
-              Enter the details of your business expense for approval
-            </span>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="absolute right-0 top-0 p-3 rounded cursor-pointer"
-            >
-              <X size={16} />
-            </button>
-            <form action="">
-              <div className="w-full flex flex-col gap-2.5">
-                <div className="flex w-full gap-x-2.5 ">
-                  <div className="flex w-full flex-col gap-y-1.5">
-                    <label htmlFor="amount " className="font-semibold">
-                      Amount
-                    </label>
-                    <input
-                      id="amount"
-                      type="number"
-                      className="w-full px-2 py-2 bg-gray-100 rounded-md"
-                    />
-                  </div>
-                  <div className="flex w-full flex-col gap-y-1.5">
-                    <label htmlFor="catagory" className="font-semibold">
-                      Catagory
-                    </label>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="max-w-2xl h-[90vh] overflow-y-auto rounded-xl">
+          <DialogHeader>
+            <DialogTitle>Workflow Management</DialogTitle>
+            <p className="text-sm text-muted-foreground">
+              Create and customize approval workflows for different expense
+              types
+            </p>
+          </DialogHeader>
 
-                    <DropDown options={["IT", "Finance", "HR", "Accountant"]} />
+          <div className="space-y-4 mt-2">
+            {workflows.map((workflow, i) => (
+              <Card key={i} className="border p-3">
+                <CardContent className="p-3 space-y-2">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="font-semibold text-lg">
+                        {workflow.title}
+                      </h3>
+                      <Badge
+                        variant="secondary"
+                        className="bg-black text-white"
+                      >
+                        {workflow.status}
+                      </Badge>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm">
+                        Edit
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-red-500 border-red-300"
+                      >
+                        Disable
+                      </Button>
+                    </div>
                   </div>
-                </div>
-                <div className="w-full">
-                  <label htmlFor="description" className="font-semibold">
-                    Income Source
-                  </label>
-                  <input
-                    id="description"
-                    type="number"
-                    className="w-full px-2 py-2 bg-gray-100 rounded-md"
-                    placeholder="Brief description of the income source "
-                  />
-                </div>
-                <div className="flex w-full gap-x-2.5 ">
-                  <div className="flex w-full flex-col gap-y-1.5">
-                    <label htmlFor="client " className="font-semibold">
-                      Client/Source
-                    </label>
-                    <input
-                      id="client"
-                      type="number"
-                      className="w-full px-2 py-2 bg-gray-100 rounded-md"
-                    />
+                  <p className="text-sm text-muted-foreground">
+                    {workflow.description}
+                  </p>
+                  <p className="text-sm">
+                    <span className="font-medium">Limit:</span> {workflow.limit}{" "}
+                    • {workflow.steps.length} steps
+                  </p>
+                  <div className="flex flex-wrap gap-2 text-sm">
+                    {workflow.steps.map((step, j) => (
+                      <div key={j} className="flex items-center gap-1">
+                        <span>{step}</span>
+                        {j < workflow.steps.length - 1 && <span>→</span>}
+                      </div>
+                    ))}
                   </div>
-                  <div className="flex w-full flex-col gap-y-1.5">
-                    <label htmlFor="invoice-no" className="font-semibold">
-                      Invoice Number
-                    </label>
-                    <input
-                      type="number"
-                      id="invoice-no"
-                      className="w-full px-2 py-2 bg-gray-100 rounded-md" //will change this to drop down
-                    />
-                  </div>
-                </div>
-                <div className="flex w-full gap-x-2.5 ">
-                  <div className="flex w-full flex-col gap-y-1.5">
-                    <label htmlFor="date " className="font-semibold">
-                      Date Received
-                    </label>
-                    <input
-                      id="date"
-                      type="date"
-                      className="w-full px-2 py-2 bg-gray-100 rounded-md"
-                    />
-                  </div>
-                  <div className="flex w-full flex-col gap-y-1.5">
-                    <label htmlFor="status" className="font-semibold">
-                      Status
-                      {/* Status    will make this a dropdown */}
-                    </label>
-                    <input
-                      type="number"
-                      id="status"
-                      className="w-full px-2 py-2 bg-gray-100 rounded-md" //will change this to drop down
-                    />
-                  </div>
-                </div>
-                <div className="w-full">
-                  <label htmlFor="note" className="font-semibold">
-                    Additional Notes
-                  </label>
-                  <input
-                    id="note"
-                    type="number"
-                    className="w-full px-2 py-2 bg-gray-100 rounded-md"
-                    placeholder="Any additional detail or context "
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="p-2 bg-black rounded-md text-white font-semibold"
-                >
-                  Add Income
-                </button>
-              </div>
-            </form>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-        </div>
-      )}
+
+          <Button className="w-full mt-4">+ Create New Workflow</Button>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

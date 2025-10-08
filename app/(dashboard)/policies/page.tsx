@@ -2,7 +2,7 @@ import { Plus } from "lucide-react";
 
 import PolicyManagementCard from "../../component/PolicyManagement-Card";
 import PolicyTabSwitcher from "../../component/Policy-Toggle";
-import AddPolicyButton from "../../component/AddPolicy";
+import AddPolicyButton from "./component/modals/AddPolicy";
 
 export default function Polices() {
   return (

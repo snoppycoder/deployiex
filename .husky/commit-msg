@@ -1,0 +1,24 @@
+# #!/bin/sh
+
+# MSG_FILE="$1"
+# MSG="$(head -n1 "$MSG_FILE")"
+
+# # Allowed types (case-insensitive):
+# # feature, bug-fix, hotfix, release, chore, docs, refactor, test, perf, ci, build, revert, style, feat, fix
+# PATTERN='^(feature|bug-fix|hotfix|release|chore|docs|refactor|test|perf|ci|build|revert|style|feat|fix)(\([a-z0-9._\-\/]+\))?:\s.+'
+
+# echo "$MSG" | grep -Eiq "$PATTERN"
+# if [ $? -ne 0 ]; then
+#   echo "\033[31m✖ Invalid commit message\033[0m"
+#   echo "Commit message must start with one of:"
+#   echo "  feature|bug-fix|hotfix|release|chore|docs|refactor|test|perf|ci|build|revert|style|feat|fix"
+#   echo "Format: <type>[(optional-scope)]: <message>"
+#   echo "Examples:"
+#   echo "  feature(auth): add SSO login"
+#   echo "  bug-fix(users): fix invite modal crash"
+#   echo "  docs: update README"
+#   echo "  refactor(ui): simplify table columns"
+#   exit 1
+# fi
+
+# exit 0

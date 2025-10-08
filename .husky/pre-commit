@@ -1,0 +1,28 @@
+# #!/bin/sh
+
+# # Husky v10-compatible pre-commit script (no husky.sh sourcing)
+
+# # Current branch name
+# BRANCH="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
+
+# # Skip check for detached HEAD (e.g., during rebase) or empty
+# if [ "$BRANCH" = "HEAD" ] || [ -z "$BRANCH" ]; then
+#   exit 0
+# fi
+
+# # Allow: IEX* feature branches and common protected branches
+# echo "$BRANCH" | grep -Eq '^(main|master|develop|release\/|hotfix\/|IEX)'
+# if [ $? -ne 0 ]; then
+#   printf "\033[31m✖ Invalid branch name: '%s'\033[0m\n" "$BRANCH"
+#   echo "Branch name must start with 'IEX' or be one of: main, master, develop, release/*, hotfix/*"
+#   exit 1
+# fi
+
+# # Warn if committing on protected branches (push is blocked by pre-push)
+# echo "$BRANCH" | grep -Eq '^(main|master)$'
+# if [ $? -eq 0 ]; then
+#   printf "\033[33m⚠ You are committing on '%s'. Pushing directly to this branch is blocked.\033[0m\n" "$BRANCH"
+#   echo "Create a feature branch (e.g., IEX-123-description) and open a PR."
+# fi
+
+# exit 0

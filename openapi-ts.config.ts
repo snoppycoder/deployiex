@@ -1,0 +1,39 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { defaultPlugins, defineConfig } from "@hey-api/openapi-ts";
+import * as dotenv from "dotenv";
+
+dotenv.config();
+
+// Our Swagger Schema is protected behind a basic authentication. See backend .env for BASIC_AUTH_USERNAME and BASIC_AUTH_PASSWORD
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const BASIC_AUTH_USERNAME = process.env.NEXT_PUBLIC_BASIC_AUTH_USERNAME;
+const BASIC_AUTH_PASSWORD = process.env.NEXT_PUBLIC_BASIC_AUTH_PASSWORD;
+
+const base64Credential = Buffer.from(
+  `${BASIC_AUTH_USERNAME}:${BASIC_AUTH_PASSWORD}`
+).toString("base64");
+
+// @ts-ignore
+const res = await fetch(`${API_URL}/swagger/json`, {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Basic ${base64Credential}`,
+  },
+});
+console.log(res);
+// @ts-ignore
+const schema = await res.json();
+
+export default defineConfig({
+  input: schema,
+  output: {
+    format: "prettier",
+    path: "./app/api/gen",
+  },
+  plugins: [
+    ...defaultPlugins,
+    "@tanstack/react-query",
+    { name: "@hey-api/client-fetch" },
+  ],
+});

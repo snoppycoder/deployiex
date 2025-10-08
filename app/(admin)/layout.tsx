@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-import "../globals.css";
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -30,6 +29,8 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Suspense } from "react";
+import { UsernameDisplay } from "@/app/(admin)/components/UsernameDisplay";
+import { RequireAuth } from "@/utils/router/before-load";
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
@@ -50,9 +51,9 @@ export default function AdminLayout({
   const pathname = usePathname();
 
   return (
-    <html lang="en">
-      <body className="min-h-screen w-full flex flex-col md:flex-row">
-        <div className="min-h-screen bg-background">
+    <RequireAuth>
+      <div className="min-h-screen w-full flex flex-col md:flex-row">
+        <div className="min-h-screen bg-background w-full">
           {/* Mobile sidebar overlay */}
           {sidebarOpen && (
             <div
@@ -172,6 +173,8 @@ export default function AdminLayout({
                   </span>
                 </Button>
 
+                {/* Username display */}
+                <UsernameDisplay />
                 {/* Profile dropdown */}
                 <Suspense fallback={null}>
                   <DropdownMenu>
@@ -210,7 +213,7 @@ export default function AdminLayout({
             <main className="flex-1 p-4 lg:p-6">{children}</main>
           </div>
         </div>
-      </body>
-    </html>
+      </div>
+    </RequireAuth>
   );
 }
