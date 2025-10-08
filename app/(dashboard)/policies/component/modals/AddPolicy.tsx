@@ -1,6 +1,6 @@
 "use client";
 import { Plus, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import DropDown from "../../../../component/dropdown";
 import {
   DropdownMenu,
@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { CategoryType } from "../types";
 import { useWhoAmI } from "@/hooks/useWhoAmI";
 import { useCategoryByOrganization } from "../queries";
+import { useCreateExpensePolicyMutations } from "../mutations";
 
 export default function AddPolicyButton() {
   const { data: userData, ...rest } = useWhoAmI();
@@ -19,10 +20,15 @@ export default function AddPolicyButton() {
   const [isOpen, setIsOpen] = useState(false);
   const organizationId = userData?.userTeamRoles[0]?.team.organization.id;
   const { data: categories } = useCategoryByOrganization(organizationId);
+  const { mutate, isPending } = useCreateExpensePolicyMutations();
   const [selected, setSelected] = useState<string>();
   useEffect(() => {
     if (categories) setSelected(categories[0].name);
   }, [categories]);
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+    // mutate({});
+  }
 
   return (
     <>
@@ -47,7 +53,7 @@ export default function AddPolicyButton() {
             >
               <X size={16} />
             </button>
-            <form action="">
+            <form onSubmit={handleSubmit}>
               <div className="w-full flex flex-col gap-2.5">
                 <div className="flex w-full gap-x-2.5 ">
                   <div className="flex w-full flex-col gap-y-1.5">
